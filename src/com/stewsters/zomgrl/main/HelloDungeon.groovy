@@ -13,6 +13,7 @@ import com.stewsters.zomgrl.graphic.StatusBar
 import com.stewsters.zomgrl.input.CharacterInputListener
 import com.stewsters.zomgrl.item.Inventory
 import com.stewsters.zomgrl.map.LevelMap
+import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
 import com.stewsters.zomgrl.map.gen.SimpleMapGenerator
 import com.stewsters.zomgrl.map.gen.TestMapGenerator
@@ -58,7 +59,8 @@ public class HelloDungeon {
 
         //MapGenerator mapGen = new StaticMapGenerator();
 //        MapGenerator mapGen = new TestMapGenerator();
-        MapGenerator mapGen = new SimpleMapGenerator()
+//        MapGenerator mapGen = new SimpleMapGenerator()
+        MapGenerator mapGen = new CityMapGenerator()
 
         levelMap = mapGen.reGenerate()
 

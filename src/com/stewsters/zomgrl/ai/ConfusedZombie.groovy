@@ -4,11 +4,11 @@ import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.graphic.MessageLog
 import squidpony.squidcolor.SColor
 
-class ConfusedMonster extends BaseAi implements Ai {
+class ConfusedZombie extends BaseAi implements Ai {
     Ai oldAI = null
     int numTurns = 0
 
-    public ConfusedMonster(params) {
+    public ConfusedZombie(params) {
         oldAI = params.oldAi
         numTurns = params.numTurns
     }

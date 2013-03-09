@@ -2,7 +2,7 @@ package com.stewsters.zomgrl.ai
 
 import com.stewsters.zomgrl.entity.Entity
 
-class BasicMonster extends BaseAi implements Ai {
+class BasicZombie extends BaseAi implements Ai {
 
 
     private boolean active = false;

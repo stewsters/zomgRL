@@ -6,7 +6,7 @@ package com.stewsters.zomgrl.ai;
 public enum Faction {
 
     human,
-    goblin;
+    zombie;
 
     public boolean likes(Faction other) {
         return (this == other)

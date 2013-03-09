@@ -1,7 +1,5 @@
 package com.stewsters.zomgrl.item
 
-import com.stewsters.grl.Entity
-import com.stewsters.grl.graphic.MessageLog
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
 import squidpony.squidcolor.SColor

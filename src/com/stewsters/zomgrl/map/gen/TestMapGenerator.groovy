@@ -3,7 +3,7 @@ package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
 import com.stewsters.util.Rect
-import com.stewsters.zomgrl.ai.BasicMonster
+import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.Fighter
@@ -35,9 +35,9 @@ class TestMapGenerator implements MapGenerator {
 
         new Entity(map: map, x: playerStartX + 2, y: playerStartY + 2,
                 ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
-                priority: 120, faction: Faction.goblin,
-                fighter: new Fighter(15, 1, 3, DeathFunctions.monsterDeath),
-                ai: new BasicMonster()
+                priority: 120, faction: Faction.zombie,
+                fighter: new Fighter(15, 1, 3, DeathFunctions.zombieDeath),
+                ai: new BasicZombie()
         )
         return map
     }

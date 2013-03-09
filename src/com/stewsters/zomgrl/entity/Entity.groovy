@@ -9,7 +9,7 @@ import com.stewsters.zomgrl.map.LevelMap
 import squidpony.squidcolor.SColor
 
 /**
- * this is a generic object: the player, a monster, an item, the stairs...
+ * this is a generic object: the player, a zombie, an item, the stairs...
  * it's always represented by a character on screen.
  */
 public class Entity {

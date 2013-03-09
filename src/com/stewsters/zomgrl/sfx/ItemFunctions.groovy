@@ -1,9 +1,6 @@
 package com.stewsters.zomgrl.sfx
 
-import com.stewsters.grl.Entity
-import com.stewsters.grl.ai.ConfusedMonster
-import com.stewsters.grl.graphic.MessageLog
-import com.stewsters.zomgrl.ai.ConfusedMonster
+import com.stewsters.zomgrl.ai.ConfusedZombie
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
 import squidpony.squidcolor.SColor
@@ -64,7 +61,7 @@ class ItemFunctions {
             return false
         } else {
             def oldID = enemy.ai
-            enemy.ai = new ConfusedMonster(oldAI: oldID, numTurns: CONFUSE_NUM_TURNS)
+            enemy.ai = new ConfusedZombie(oldAI: oldID, numTurns: CONFUSE_NUM_TURNS)
             enemy.ai.owner = enemy
             MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 

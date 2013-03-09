@@ -3,7 +3,7 @@ package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
 import com.stewsters.util.Rect
-import com.stewsters.zomgrl.ai.BasicMonster
+import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.Fighter
@@ -150,25 +150,25 @@ class SimpleMapGenerator implements MapGenerator {
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
-                            fighter: new Fighter(4, 0, 1, DeathFunctions.monsterDeath),
-                            ai: new BasicMonster(),
-                            priority: 120, faction: Faction.goblin
+                            fighter: new Fighter(4, 0, 1, DeathFunctions.zombieDeath),
+                            ai: new BasicZombie(),
+                            priority: 120, faction: Faction.zombie
                     )
                 } else if (d100 < 90) {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'o', name: 'Orc', color: SColor.LAWN_GREEN, blocks: true,
-                            priority: 120, faction: Faction.goblin,
-                            fighter: new Fighter(10, 0, 2, DeathFunctions.monsterDeath),
-                            ai: new BasicMonster()
+                            priority: 120, faction: Faction.zombie,
+                            fighter: new Fighter(10, 0, 2, DeathFunctions.zombieDeath),
+                            ai: new BasicZombie()
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
-                            priority: 120, faction: Faction.goblin,
-                            fighter: new Fighter(15, 1, 3, DeathFunctions.monsterDeath),
-                            ai: new BasicMonster()
+                            priority: 120, faction: Faction.zombie,
+                            fighter: new Fighter(15, 1, 3, DeathFunctions.zombieDeath),
+                            ai: new BasicZombie()
                     )
                 }
             }
