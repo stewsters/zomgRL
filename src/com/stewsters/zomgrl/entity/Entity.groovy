@@ -123,6 +123,21 @@ public class Entity {
         moveOrAttack(dx, dy)
     }
 
+    void moveAway(int targetX, int targetY) {
+        int dx = targetX - x
+        int dy = targetY - y
+//        float distance = Math.sqrt(dx ** 2 + dy ** 2)
+
+        dx = Math.max(Math.min(dx , 1),-1)
+        dy = Math.max(Math.min(dy , 1),-1)
+
+        if (x == 199 || y == 199){
+            println "failure"
+        }
+
+        move(-dx, -dy)
+    }
+
 
     public int distanceTo(Entity other) {
         int dx = other.x - this.x
@@ -130,7 +145,6 @@ public class Entity {
         return (int) Math.round(Math.sqrt(dx * dx + dy * dy))
     }
 
-    //todo: add a height category, which shows which entities will render over others
     public void grab() {
         if (!inventory) {
             MessageLog.send("${name} can't hold items.")

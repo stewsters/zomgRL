@@ -13,27 +13,80 @@ abstract class BaseAi {
     float[][] light
     int sightRange = 20
 
+
+
+
+    public ArrayList<Entity> findAllVisibleEnemies(params) {
+        int maxDistance = params?.maxRange ?: sightRange
+
+        int lowX = owner.x - maxDistance
+        int highX = owner.x + maxDistance
+        int lowY = owner.x - maxDistance
+        int highY = owner.x + maxDistance
+
+        return owner.levelMap.objects.findAll { Entity it ->
+            it.x > lowX && it.x < highX &&
+                    it.y > lowY && it.y < highY &&
+                    it.fighter && owner.owner.faction.hates(it.faction) &&
+                    owner.owner.distanceTo(it) < maxDistance
+        }
+
+    }
+
+
     public Entity findClosestEnemy(int maxRange = Integer.MAX_VALUE) {
         int distance = maxRange
         Entity enemy = null
 
+        calculateSight() // todo:this could be moved to go once per
+
         for (Entity other : owner.levelMap.objects) {
-            if (other.fighter && other.fighter.hp > 0 && other.faction && owner.faction?.hates(other?.faction)) {
+            if (other.fighter && other.fighter.hp > 0 &&
+                    other.faction && owner.faction?.hates(other?.faction)) {
+
                 int thisDistance = owner.distanceTo(other)
                 if (distance > thisDistance) {
                     distance = thisDistance
                     enemy = other
                 }
+
             }
         }
         return enemy
     }
 
+    public Entity findClosestVisibleEnemy(params) {
+        int maxDistance = params?.maxRange ?: sightRange
+        calculateSight()
 
-    public Entity findAllVisibleEnemies(params) {
-        int distance = params.maxRange
+        int lowX = owner.x - maxDistance
+        int highX = owner.x + maxDistance
+        int lowY = owner.y - maxDistance
+        int highY = owner.y + maxDistance
+
+        Entity enemy = null
+        int distance = maxDistance
+
+        for (Entity it : owner.levelMap.objects) {
+
+            if (it.x > lowX && it.x < highX &&
+                    it.y > lowY && it.y < highY &&
+                    it.fighter && owner.faction.hates(it.faction)) {
+                int lightX = it.x - lowX
+                int lightY = it.y - lowY
+                if (light[lightX][lightY]>0) {
+
+                    int tempDist = owner.distanceTo(it)
+                    if (tempDist <= distance) {
+                        enemy = it
+                        distance = tempDist
+                    }
+                }
+            }
+        }
+        return enemy
+
     }
-
 
 
     public void calculateSight() {

@@ -1,6 +1,7 @@
 package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
+import com.stewsters.zomgrl.ai.BasicCivilian
 import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
@@ -61,7 +62,7 @@ class CityMapGenerator implements MapGenerator {
 
 
         LevelMap map = convert(material)
-
+        populate(map,100)
         infest(map,100)
         return map
     }
@@ -117,7 +118,7 @@ class CityMapGenerator implements MapGenerator {
 
 
                 Tile tile
-                if (iX == 0 || iY == 0 || iX == map.xSize || iY == map.ySize) {
+                if (iX == 0 || iY == 0 || iX == map.xSize-1 || iY == map.ySize-1) {
                     tile = new Tile(true, 0.7f, '₤' as char, SColor.FOREST_GREEN)
                 }else{
 
@@ -149,6 +150,43 @@ class CityMapGenerator implements MapGenerator {
     private void growTrees(){
         //Randomly place trees on grass squares
     }
+
+    private void populate(LevelMap map, int maximum){
+        maximum.times{
+            int x = MathUtils.getIntInRange(1,map.xSize-2)
+            int y = MathUtils.getIntInRange(1,map.ySize-2)
+
+            if(!map.isBlocked(x,y)){
+                int d100 = MathUtils.getIntInRange(0, 100)
+                if (d100 < 70) {
+                    new Entity(map: map, x: x, y: y,
+                            ch: 'h', name: 'Human', color: SColor.WHITE_TEA_DYE, blocks: true,
+                            fighter: new Fighter(4, 0, 1, DeathFunctions.zombieDeath),
+                            ai: new BasicCivilian(),
+                            priority: 120, faction: Faction.human
+                    )
+                } else if (d100 < 90) {
+
+                    new Entity(map: map, x: x, y: y,
+                            ch: 'H', name: 'Human', color: SColor.WHITE_MOUSE, blocks: true,
+                            priority: 120, faction: Faction.human,
+                            fighter: new Fighter(10, 0, 2, DeathFunctions.zombieDeath),
+                            ai: new BasicCivilian()
+                    )
+                } else {
+
+                    new Entity(map: map, x: x, y: y,
+                            ch: 'P', name: 'Police', color: SColor.WHITE, blocks: true,
+                            priority: 120, faction: Faction.human,
+                            fighter: new Fighter(4, 0, 3, DeathFunctions.zombieDeath),
+                            ai: new BasicCivilian()
+                    )
+                }
+            }
+        }
+
+    }
+
 
     private void infest(LevelMap map, int maximum){
         //fill in zombies

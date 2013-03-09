@@ -5,7 +5,7 @@ import com.stewsters.zomgrl.entity.Entity
 class BasicZombie extends BaseAi implements Ai {
 
 
-    private boolean active = false;
+    private boolean active = true;
 
     public void takeTurn() {
 
@@ -14,7 +14,7 @@ class BasicZombie extends BaseAi implements Ai {
                 active = true
         } else {
             //nearest opponent
-            Entity enemy = findClosestEnemy()
+            Entity enemy = findClosestVisibleEnemy()
 
             if (enemy) {
                 owner.moveTowardsAndAttack(enemy.x, enemy.y)

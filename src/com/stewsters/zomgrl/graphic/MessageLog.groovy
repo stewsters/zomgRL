@@ -12,7 +12,7 @@ class MessageLog {
     public static void send(String message, def color = SColor.WHITE) {
         WordUtils.wrap('>' + message, RenderConfig.messageWidth).eachLine {
             gameMessages.addLast([message: it, color: color])
-            //todo: add code to remove old ones
+
             if (gameMessages.size() > RenderConfig.messageHeight)
                 gameMessages.poll()
         }
