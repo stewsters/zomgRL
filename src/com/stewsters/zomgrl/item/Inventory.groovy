@@ -31,6 +31,8 @@ public class Inventory {
         for (Entity item : owner.inventory.items) {
             item.x = owner.x
             item.y = owner.y
+            if(item.equipment)
+                item.equipment.dequip()
             owner.levelMap.objects.add(item)
         }
         owner.inventory.items.clear()

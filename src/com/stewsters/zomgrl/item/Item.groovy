@@ -28,4 +28,13 @@ class Item {
         }
     }
 
+    public boolean useHeldItem(Entity user){
+        if (useFunction) {
+            return useFunction(user)
+        } else {
+            MessageLog.send("${owner.name} cannot be used.", SColor.RED)
+            return false
+        }
+    }
+
 }

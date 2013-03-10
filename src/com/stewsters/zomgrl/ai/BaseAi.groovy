@@ -24,11 +24,11 @@ abstract class BaseAi {
         int lowY = owner.x - maxDistance
         int highY = owner.x + maxDistance
 
-        return owner.levelMap.objects.findAll { Entity it ->
-            it.x > lowX && it.x < highX &&
-                    it.y > lowY && it.y < highY &&
-                    it.fighter && owner.owner.faction.hates(it.faction) &&
-                    owner.owner.distanceTo(it) < maxDistance
+        return owner.levelMap.objects.findAll { Entity entity ->
+            entity.x > lowX && entity.x < highX &&
+                    entity.y > lowY && entity.y < highY &&
+                    entity.fighter && owner.owner.faction.hates(entity.faction) &&
+                    owner.owner.distanceTo(entity) < maxDistance
         }
 
     }
@@ -71,18 +71,18 @@ abstract class BaseAi {
         Entity enemy = null
         int distance = maxDistance
 
-        for (Entity it : owner.levelMap.objects) {
+//        if (owner.faction==Faction.human)
+//            println "zomg"
 
-            if (it.x > lowX && it.x < highX &&
-                    it.y > lowY && it.y < highY &&
-                    it.fighter && owner.faction.hates(it.faction)) {
-                int lightX = it.x - lowX
-                int lightY = it.y - lowY
-                if (light[lightX][lightY] > 0) {
+        for (Entity entity : owner.levelMap.objects) {
+            if (entity.x > lowX && entity.x < highX && entity.y > lowY && entity.y < highY && entity.fighter && owner.faction.hates(entity.faction)) {
+                int lightX = entity.x - lowX
+                int lightY = entity.y - lowY
+                if (light[lightX][lightY] > 0f) {
 
-                    int tempDist = owner.distanceTo(it)
+                    int tempDist = owner.distanceTo(entity)
                     if (tempDist <= distance) {
-                        enemy = it
+                        enemy = entity
                         distance = tempDist
                     }
                 }
@@ -104,18 +104,18 @@ abstract class BaseAi {
         Entity item = null
         int distance = maxDistance
 
-        for (Entity it : owner.levelMap.objects) {
+        for (Entity entity : owner.levelMap.objects) {
 
-            if (it.x > lowX && it.x < highX &&
-                    it.y > lowY && it.y < highY &&
-                    it.itemComponent) {
-                int lightX = it.x - lowX
-                int lightY = it.y - lowY
-                if (light[lightX][lightY] > 0) {
+            if (entity.x > lowX && entity.x < highX &&
+                    entity.y > lowY && entity.y < highY &&
+                    entity.itemComponent) {
+                int lightX = entity.x - lowX
+                int lightY = entity.y - lowY
+                if (light[lightX][lightY] > 0f) {
 
-                    int tempDist = owner.distanceTo(it)
+                    int tempDist = owner.distanceTo(entity)
                     if (tempDist <= distance) {
-                        item = it
+                        item = entity
                         distance = tempDist
                     }
                 }
@@ -152,7 +152,7 @@ abstract class BaseAi {
 
         //manually set the radius to equal the force
         light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.windowRadiusX, RenderConfig.windowRadiusY, 1f, (1f / RenderConfig.lightForce) as float, RenderConfig.strat);
-
+        lightLastCalculated = Game.gameTurn
     }
 
 }

@@ -10,7 +10,9 @@ import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.graphic.RenderConfig
 import com.stewsters.zomgrl.graphic.StatusBar
 import com.stewsters.zomgrl.input.CharacterInputListener
+import com.stewsters.zomgrl.item.Equipment
 import com.stewsters.zomgrl.item.Inventory
+import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
@@ -180,9 +182,23 @@ public class HelloDungeon {
     public void fire() {
         if (Game.state == GameState.playing) {
             //select a target in view
+            if (player.inventory){
+                Equipment weapon =  player.inventory.getEquippedInSlot(Slot.rightHand)
+                if (weapon){
+                    weapon.owner.itemComponent.useHeldItem(player)
+                    stepSim()
+                }else{
+                    MessageLog("Find a weapon first.")
+                    render()
+                }
+            }
+            else {
+                MessageLog("You can't use weapons.")
+                render()
+            }
             // shoot at it
 
-            stepSim()
+
         }
 
 
