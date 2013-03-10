@@ -40,7 +40,7 @@ abstract class BaseAi {
         int distance = maxRange
         Entity enemy = null
 
-        calculateSight() // todo:this could be moved to go once per
+        calculateSight()
 
         for (Entity other : owner.levelMap.objects) {
             if (other.fighter && other.fighter.hp > 0 &&
@@ -76,7 +76,7 @@ abstract class BaseAi {
                     it.fighter && owner.faction.hates(it.faction)) {
                 int lightX = it.x - lowX
                 int lightY = it.y - lowY
-                if (light[lightX][lightY]>0) {
+                if (light[lightX][lightY] > 0) {
 
                     int tempDist = owner.distanceTo(it)
                     if (tempDist <= distance) {
@@ -90,7 +90,7 @@ abstract class BaseAi {
 
     }
 
-    public Entity findClosestVisibleItem(params){
+    public Entity findClosestVisibleItem(params) {
         int maxDistance = params?.maxRange ?: sightRange
         calculateSight()
 
@@ -109,7 +109,7 @@ abstract class BaseAi {
                     it.itemComponent) {
                 int lightX = it.x - lowX
                 int lightY = it.y - lowY
-                if (light[lightX][lightY]>0) {
+                if (light[lightX][lightY] > 0) {
 
                     int tempDist = owner.distanceTo(it)
                     if (tempDist <= distance) {

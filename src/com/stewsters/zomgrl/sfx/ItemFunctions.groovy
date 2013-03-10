@@ -73,14 +73,14 @@ class ItemFunctions {
 
 
 
-    public static Closure antiviral = {Entity user->
+    public static Closure antiviral = { Entity user ->
         //removes infection from the system.
         user.fighter.infection = 0
         MessageLog.send("${user.name} self medicates.")
     }
 
     public static final int BANDAGE_HEAL_AMOUNT = 2
-    public static Closure bandage = {Entity user->
+    public static Closure bandage = { Entity user ->
         if (user.fighter.hp == user.fighter.max_hp) {
             MessageLog.send("You aren't bleeding.", SColor.RED)
             return false
@@ -91,7 +91,7 @@ class ItemFunctions {
         }
     }
 
-    public static Closure heartExplosion = {Entity user ->
+    public static Closure heartExplosion = { Entity user ->
         //see further for a few rounds, increase armor+attack.
         MessageLog.send("${user.name} drinks an entire 24 pack of monster.", SColor.RED)
         // after a few rounds, your heart explodes
@@ -115,10 +115,7 @@ class ItemFunctions {
         MessageLog.send("${user.name} eats snacks.")
 
 
-
     }
-
-
 
     //GUNS
     private static final int BERRETA_GUN_BONUS = 4
@@ -132,14 +129,14 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your marksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0,user.fighter.marksman + BERRETA_GUN_BONUS) - MathUtils.getIntInRange(0,enemy.fighter.defense + range)
+            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + BERRETA_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message = "You fire a round at ${enemy.name}."
 
-            if (damage>0){
-                message+=" The damage is ${damage} hit points."
-            }else{
-                message+=" You missed."
+            if (damage > 0) {
+                message += " The damage is ${damage} hit points."
+            } else {
+                message += " You missed."
             }
 
             MessageLog.send(message, SColor.LIGHT_BLUE)
@@ -151,7 +148,7 @@ class ItemFunctions {
 
     private static final int AR15_GUN_BONUS = 6
     private static final int AR15_MAX_RANGE = 12
-    public static Closure gunAR15 = {Entity user->
+    public static Closure gunAR15 = { Entity user ->
         //find closest target
         Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.AR15_MAX_RANGE)
         if (!enemy) {
@@ -160,14 +157,14 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your marksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0,user.fighter.marksman + AR15_GUN_BONUS) - MathUtils.getIntInRange(0,enemy.fighter.defense + range)
+            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + AR15_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message = "You fire a round at ${enemy.name}."
 
-            if (damage>0){
-                message+=" The damage is ${damage} hit points."
-            }else{
-                message+=" You missed."
+            if (damage > 0) {
+                message += " The damage is ${damage} hit points."
+            } else {
+                message += " You missed."
             }
 
             MessageLog.send(message, SColor.LIGHT_BLUE)
@@ -182,7 +179,7 @@ class ItemFunctions {
 
     private static final int PUMP_GUN_BONUS = 10
     private static final int PUMP_MAX_RANGE = 4
-    public static Closure gunPumpShotGun = {Entity user->
+    public static Closure gunPumpShotGun = { Entity user ->
         //find closest target
         Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.PUMP_MAX_RANGE)
         if (!enemy) {
@@ -191,14 +188,14 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your marksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0,user.fighter.marksman + PUMP_GUN_BONUS) - MathUtils.getIntInRange(0,enemy.fighter.defense + range)
+            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + PUMP_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message = "You fire a round at ${enemy.name}."
 
-            if (damage>0){
-                message+=" The damage is ${damage} hit points."
-            }else{
-                message+=" You missed."
+            if (damage > 0) {
+                message += " The damage is ${damage} hit points."
+            } else {
+                message += " You missed."
             }
 
             MessageLog.send(message, SColor.LIGHT_BLUE)

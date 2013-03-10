@@ -128,8 +128,8 @@ public class Entity {
         int dx = targetX - x
         int dy = targetY - y
 
-        dx = Math.max(Math.min(dx , 1),-1)
-        dy = Math.max(Math.min(dy , 1),-1)
+        dx = Math.max(Math.min(dx, 1), -1)
+        dy = Math.max(Math.min(dy, 1), -1)
         move(-dx, -dy)
     }
 

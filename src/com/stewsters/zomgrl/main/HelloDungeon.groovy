@@ -123,7 +123,7 @@ public class HelloDungeon {
         //render inventory
         if (player.inventory)
             player.inventory.render(display)
-        else{
+        else {
             Inventory.clear(display)
         }
 

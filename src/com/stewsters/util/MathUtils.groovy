@@ -31,8 +31,8 @@ class MathUtils {
         Math.abs(x1 - x2) + Math.abs(y1 - y2)
     }
 
-    public static def rand(ArrayList source){
-        int id = getIntInRange(0,source.size()-1)
+    public static def rand(ArrayList source) {
+        int id = getIntInRange(0, source.size() - 1)
         return source[id]
     }
 }

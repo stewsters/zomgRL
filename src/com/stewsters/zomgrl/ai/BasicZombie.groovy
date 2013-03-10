@@ -9,7 +9,7 @@ class BasicZombie extends BaseAi implements Ai {
     private boolean active = true;
 
     public void takeTurn() {
-        if(!owner)
+        if (!owner)
             return //you died this turn, sorry bro
         if (!active) {
             if (owner.levelMap.ground[owner.x][owner.y].isExplored)
@@ -20,7 +20,7 @@ class BasicZombie extends BaseAi implements Ai {
 
             if (enemy) {
                 owner.moveTowardsAndAttack(enemy.x, enemy.y)
-            }else{
+            } else {
                 if (MathUtils.boolean)
                     owner.move(MathUtils.getIntInRange(-1, 1), MathUtils.getIntInRange(-1, 1))
             }

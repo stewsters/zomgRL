@@ -55,14 +55,13 @@ class Fighter {
         hp = Math.min(amount + hp, max_hp);
     }
 
-    public def raiseStamina(int amount)
-    {
-        stamina = Math.min(amount+stamina, max_stamina)
+    public def raiseStamina(int amount) {
+        stamina = Math.min(amount + stamina, max_stamina)
     }
 
-    public def infect(int amount){
+    public def infect(int amount) {
         infection = Math.min(amount + infection, max_infection)
-        if (infection == max_infection){
+        if (infection == max_infection) {
             DeathFunctions.zombify(owner)
         }
     }
@@ -72,7 +71,7 @@ class Fighter {
 
         if (damage > 0) {
             MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points."
-            if (owner.faction == Faction.zombie){
+            if (owner.faction == Faction.zombie) {
                 target.fighter.infect(5)
             }
             target.fighter.takeDamage(damage)

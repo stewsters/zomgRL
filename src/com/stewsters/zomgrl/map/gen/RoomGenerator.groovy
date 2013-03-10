@@ -16,11 +16,6 @@ class RoomGenerator {
 
     public static void generate(LevelMap map, Rect lot) {
 
-        //what sides should have doors? what should have windows?
-
-        // test room TODO:doors
-
-
         for (int x = lot.x1; x <= lot.x2; x++) {
             for (int y = lot.y1; y <= lot.y2; y++) {
                 if (x == lot.x1 || x == lot.x2 || y == lot.y1 || y == lot.y2) {
@@ -116,7 +111,7 @@ class RoomGenerator {
 
 
     private static void cutDoorInHorizontalWall(LevelMap map, int x1, int x2, int y) {
-        int x = MathUtils.getIntInRange(x1+1, x2-1)
+        int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
         map.ground[x][y].opacity = 0f
         map.ground[x][y].color = SColor.NEW_BRIDGE
         map.ground[x][y].isBlocked = false
@@ -124,7 +119,7 @@ class RoomGenerator {
     }
 
     private static void cutDoorInVerticalWall(LevelMap map, int x, int y1, int y2) {
-        int y = MathUtils.getIntInRange(y1+1, y2-1)
+        int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
         map.ground[x][y].opacity = 0f
         map.ground[x][y].color = SColor.NEW_BRIDGE
         map.ground[x][y].isBlocked = false

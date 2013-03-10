@@ -22,8 +22,8 @@ public class Inventory {
         }
     }
 
-    public boolean isFull(){
-        return capacity <= items.size()-1
+    public boolean isFull() {
+        return capacity <= items.size() - 1
     }
 
     public dump() {
@@ -36,13 +36,14 @@ public class Inventory {
         owner.inventory.items.clear()
     }
 
-    public static clear(SwingPane display){
+    public static clear(SwingPane display) {
         (0..RenderConfig.inventoryWidth).each { int x ->
             (0..RenderConfig.inventoryHeight).each { int y ->
                 display.clearCell(x + RenderConfig.inventoryX, y + RenderConfig.inventoryY)
             }
         }
     }
+
     public render(SwingPane display) {
         clear(display)
 
