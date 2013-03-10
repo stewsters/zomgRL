@@ -1,6 +1,8 @@
 package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
+import com.stewsters.util.Rect
+import com.stewsters.util.Simplex2d
 import com.stewsters.zomgrl.ai.BasicCivilian
 import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
@@ -17,6 +19,7 @@ class CityMapGenerator implements MapGenerator {
     int playerStartX = 0
     int playerStartY = 0
 
+    public static final int BLOCKSIZE = 20
 
     @Override
     public LevelMap reGenerate() {
@@ -44,12 +47,16 @@ class CityMapGenerator implements MapGenerator {
         playerStartY = 100
 
         maxAttempts.times {
-            int intersectionX = MathUtils.getIntInRange(0 + Intersection.INTERSECTION_WIDTH, width - Intersection.INTERSECTION_WIDTH)
-            int intersectionY = MathUtils.getIntInRange(0 + Intersection.INTERSECTION_WIDTH, height - Intersection.INTERSECTION_WIDTH)
+            int intersectionX = MathUtils.getIntInRange(0 + BLOCKSIZE, width - BLOCKSIZE)
+            int intersectionY = MathUtils.getIntInRange(0 + BLOCKSIZE, height - BLOCKSIZE)
+
+            //city blocks
+            intersectionX -= (intersectionX % BLOCKSIZE)
+            intersectionY -= (intersectionY % BLOCKSIZE)
 
             def collisions = intersections.find { Intersection e ->
-                Math.abs(e.centerX - intersectionX) < Intersection.INTERSECTION_WIDTH &&
-                        Math.abs(e.centerY - intersectionY) < Intersection.INTERSECTION_WIDTH
+                Math.abs(e.centerX - intersectionX) < BLOCKSIZE &&
+                        Math.abs(e.centerY - intersectionY) < BLOCKSIZE
             }
 
             if (!collisions) {
@@ -60,10 +67,12 @@ class CityMapGenerator implements MapGenerator {
             }
         }
 
-
         LevelMap map = convert(material)
-        populate(map,100)
-        infest(map,100)
+
+        constructBuildings(map, intersections)
+        growTrees(map)
+        populate(map, 100)
+        infest(map, 100)
         return map
     }
 
@@ -118,28 +127,29 @@ class CityMapGenerator implements MapGenerator {
 
 
                 Tile tile
-                if (iX == 0 || iY == 0 || iX == map.xSize-1 || iY == map.ySize-1) {
+                if (iX == 0 || iY == 0 || iX == map.xSize - 1 || iY == map.ySize - 1) {
                     tile = new Tile(true, 0.7f, '₤' as char, SColor.FOREST_GREEN)
-                }else{
+                } else {
 
-                switch (material[iX][iY]) {
-                    case 1: //asphalt road
-                        tile = new Tile(false, 0f, '.' as char, SColor.SLATE_GRAY)
-                        break;
-                    case 2: //parking lane
-                        tile = new Tile(false, 0f, '.' as char, SColor.SLATE_GRAY)
-                        break;
-                    case 3: //sidewalk
-                        tile = new Tile(false, 0f, ',' as char, SColor.GRAY)
-                        break;
-                    case 4: //wall
-                        tile = new Tile(true, 1f, '#' as char, SColor.LIGHT_GRAY)
-                        break;
-                    default:
-                        tile = new Tile(false, 0f, '.' as char, SColor.GREEN)
-                        break;
+                    switch (material[iX][iY]) {
+                        case 1: //asphalt road
+                            tile = new Tile(false, 0f, '.' as char, SColor.SLATE_GRAY)
+                            break;
+                        case 2: //parking lane
+                            tile = new Tile(false, 0f, '.' as char, SColor.SLATE_GRAY)
+                            break;
+                        case 3: //sidewalk
+                            tile = new Tile(false, 0f, ',' as char, SColor.GRAY)
+                            break;
+                        case 4: //wall
+                            tile = new Tile(true, 1f, '#' as char, SColor.LIGHT_GRAY)
+                            break;
+                        default:
+                            tile = new Tile(false, 0f, '.' as char, SColor.GREEN)
+                            break;
 
-                }}
+                    }
+                }
 
                 map.ground[iX][iY] = tile
             }
@@ -147,30 +157,52 @@ class CityMapGenerator implements MapGenerator {
         return map
     }
 
-    private void growTrees(){
+    private void growTrees(LevelMap map) {
         //Randomly place trees on grass squares
+
+        (0..map.xSize - 1).each { int x ->
+            (0..map.ySize - 1).each { int y ->
+
+                //if grass
+                if (map.ground[x][y].color == SColor.GREEN) {
+
+                    if (Simplex2d.noise((double) x / 10.0, (double) y / 10.0) > 0.5) {
+                        map.ground[x][y].color = SColor.FOREST_GREEN
+                        map.ground[x][y].isBlocked = true
+                        map.ground[x][y].opacity = 0.7f
+                        map.ground[x][y].representation = '₤' as char
+                    }
+
+                }
+
+
+            }
+
+        }
+
+
     }
 
-    private void populate(LevelMap map, int maximum){
-        maximum.times{
-            int x = MathUtils.getIntInRange(1,map.xSize-2)
-            int y = MathUtils.getIntInRange(1,map.ySize-2)
+    private void populate(LevelMap map, int maximum) {
+        maximum.times {
+            int x = MathUtils.getIntInRange(1, map.xSize - 2)
+            int y = MathUtils.getIntInRange(1, map.ySize - 2)
 
-            if(!map.isBlocked(x,y)){
+            if (!map.isBlocked(x, y)) {
                 int d100 = MathUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'h', name: 'Human', color: SColor.WHITE_TEA_DYE, blocks: true,
-                            fighter: new Fighter(4, 0, 1, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(2, 0, 1, DeathFunctions.zombieDeath),
                             ai: new BasicCivilian(),
                             priority: 120, faction: Faction.human
                     )
-                } else if (d100 < 90) {
+                } else if (d100 < 95) {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'H', name: 'Human', color: SColor.WHITE_MOUSE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            fighter: new Fighter(10, 0, 2, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(4, 0, 2, DeathFunctions.zombieDeath),
                             ai: new BasicCivilian()
                     )
                 } else {
@@ -178,7 +210,7 @@ class CityMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'P', name: 'Police', color: SColor.WHITE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            fighter: new Fighter(4, 0, 3, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(4, 0, 2, DeathFunctions.zombieDeath),
                             ai: new BasicCivilian()
                     )
                 }
@@ -188,13 +220,13 @@ class CityMapGenerator implements MapGenerator {
     }
 
 
-    private void infest(LevelMap map, int maximum){
+    private void infest(LevelMap map, int maximum) {
         //fill in zombies
-        maximum.times{
-            int x = MathUtils.getIntInRange(1,map.xSize-2)
-            int y = MathUtils.getIntInRange(1,map.ySize-2)
+        maximum.times {
+            int x = MathUtils.getIntInRange(1, map.xSize - 2)
+            int y = MathUtils.getIntInRange(1, map.ySize - 2)
 
-            if(!map.isBlocked(x,y)){
+            if (!map.isBlocked(x, y)) {
                 int d100 = MathUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
@@ -222,14 +254,48 @@ class CityMapGenerator implements MapGenerator {
                 }
             }
         }
+    }
 
+    public static final int MIN_BUILDING_SIZE = 4
+
+    private def constructBuildings(LevelMap map, List<Intersection> intersections) {
+
+        def lots = []
+        for (Intersection inter : intersections) {
+
+            int offsetX = inter.centerX + residential.offsetX - 1
+            int offsetY = inter.centerX + residential.offsetY - 1
+
+            int size = MIN_BUILDING_SIZE-1; //
+            boolean clear = map.ground[offsetX][offsetY].color == SColor.GREEN
+            while (clear) { //TODO: this could be more efficient
+
+                for(int x =offsetX; x < offsetX+size; x++){
+                    for(int y =offsetY; y < offsetY + size; y++){
+                        clear &= map.ground[x][y].color == SColor.GREEN
+                    }
+                }
+
+                if (clear)
+                    size++
+            }
+            if (size >= MIN_BUILDING_SIZE) {
+                lots.add new Rect(offsetX, offsetY, size, size)
+            }
+
+            //see if offset if blocked.  if it isnt, start drawing a box until it is
+            //this is a lot
+        }
+
+        //on each lot, construct a house
+        lots.each { Rect lot ->
+            RoomGenerator.generate(map,lot)
+        }
 
     }
 
 
     private class Intersection {
-
-        public static final INTERSECTION_WIDTH = 20
 
         int centerX
         int centerY

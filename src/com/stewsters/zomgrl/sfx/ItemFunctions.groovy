@@ -70,7 +70,41 @@ class ItemFunctions {
 
     }
 
-    public static Closure castFireball = {}
 
 
+    public static Closure antiviral = {
+        //removes infection from the system.
+
+    }
+
+    public static Closure bandage = {
+        //stops bleeding.
+
+    }
+
+    public static Closure heartExplosion = { Entity imbiber ->
+        //see further for a few rounds, increase armor+attack.
+
+        // after a few rounds, your heart explodes
+
+    }
+
+    public static Closure eat = { Entity user ->
+        //restores some stamina
+    }
+
+
+    //GUNS
+    public static Closure gunBerreta = { Entity user ->
+        //find closest target
+        //if found, shoot closest target
+    }
+
+    public static Closure gunAR15 = {
+
+    }
+
+    public static Closure gunPumpShotGun={
+
+    }
 }
