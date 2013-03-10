@@ -14,6 +14,7 @@ import com.stewsters.zomgrl.item.Inventory
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
+import com.stewsters.zomgrl.map.gen.TestMapGenerator
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
@@ -55,9 +56,9 @@ public class HelloDungeon {
         // Generate map
 
         //MapGenerator mapGen = new StaticMapGenerator();
-//        MapGenerator mapGen = new TestMapGenerator();
+        MapGenerator mapGen = new TestMapGenerator();
 //        MapGenerator mapGen = new SimpleMapGenerator()
-        MapGenerator mapGen = new CityMapGenerator()
+//        MapGenerator mapGen = new CityMapGenerator()
 
         levelMap = mapGen.reGenerate()
 
@@ -68,7 +69,7 @@ public class HelloDungeon {
                 inventory: new Inventory(),
                 fighter: new Fighter(hp: 10, defense: 1,
                         marksman: 2, power: 2,
-                        max_infection: 4,
+                        max_infection: 10,
                         max_stamina: 10,
                         deathFunction: DeathFunctions.playerDeath)
 
@@ -118,6 +119,8 @@ public class HelloDungeon {
 
         //render stats
         StatusBar.render(display, 0, (2 * RenderConfig.windowRadiusY) + 2, 10, 'hp', player?.fighter?.hp ?: 0, player?.fighter?.max_hp ?: 0, SColor.RED)
+        StatusBar.render(display, 12, (2 * RenderConfig.windowRadiusY) + 2, 10, 'sta', player?.fighter?.stamina ?: 0, player?.fighter?.max_stamina ?: 0, SColor.YELLOW)
+        StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.max_infection ?: 0, SColor.GREEN)
         MessageLog.render(display)
 
         //render inventory
@@ -211,6 +214,8 @@ public class HelloDungeon {
         if (Game.state == GameState.playing) {
             if (player.inventory.useById(id - 1)) {
                 stepSim()
+            }else{
+                render()
             }
         }
     }

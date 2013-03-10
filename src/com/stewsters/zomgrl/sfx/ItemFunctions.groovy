@@ -27,7 +27,7 @@ class ItemFunctions {
 
     public static Closure castLightning = { Entity castor ->
 
-        Entity enemy = castor.ai.findClosestVisibleEnemy(ItemFunctions.LIGHTNING_RANGE)
+        Entity enemy = castor.ai.findClosestVisibleEnemy(maxRange:ItemFunctions.LIGHTNING_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to strike.', SColor.RED)
             return false
@@ -40,7 +40,7 @@ class ItemFunctions {
 
     public static final int DOMINATION_RANGE = 3
     public static Closure castDomination = { Entity castor ->
-        Entity enemy = castor.ai.findClosestVisibleEnemy(ItemFunctions.DOMINATION_RANGE)
+        Entity enemy = castor.ai.findClosestVisibleEnemy(maxRange:ItemFunctions.DOMINATION_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to dominate.', SColor.RED)
             return false
@@ -56,7 +56,7 @@ class ItemFunctions {
     public static final int CONFUSE_NUM_TURNS = 10
 
     public static Closure castConfuse = { Entity castor ->
-        Entity enemy = castor.ai.findClosestVisibleEnemy(ItemFunctions.CONFUSE_RANGE)
+        Entity enemy = castor.ai.findClosestVisibleEnemy(maxRange:ItemFunctions.CONFUSE_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to confused.', SColor.RED)
             return false
@@ -79,7 +79,7 @@ class ItemFunctions {
         MessageLog.send("${user.name} self medicates.")
     }
 
-    public static final int BANDAGE_HEAL_AMOUNT = 2
+    public static final int BANDAGE_HEAL_AMOUNT = 6
     public static Closure bandage = { Entity user ->
         if (user.fighter.hp == user.fighter.max_hp) {
             MessageLog.send("You aren't bleeding.", SColor.RED)
@@ -109,17 +109,11 @@ class ItemFunctions {
             user.fighter.raiseStamina(ItemFunctions.BANDAGE_HEAL_AMOUNT)
             return true
         }
-
-        //restores some stamina
-        user.fighter.stamina += 2
-        MessageLog.send("${user.name} eats snacks.")
-
-
     }
 
     //GUNS
     private static final int BERRETA_GUN_BONUS = 4
-    private static final int BERRETA_MAX_RANGE = 8
+    private static final int BERRETA_MAX_RANGE = 10
     public static Closure gunBerreta = { Entity user ->
         //find closest target
         Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.BERRETA_MAX_RANGE)
@@ -147,7 +141,7 @@ class ItemFunctions {
     }
 
     private static final int AR15_GUN_BONUS = 6
-    private static final int AR15_MAX_RANGE = 12
+    private static final int AR15_MAX_RANGE = 15
     public static Closure gunAR15 = { Entity user ->
         //find closest target
         Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.AR15_MAX_RANGE)

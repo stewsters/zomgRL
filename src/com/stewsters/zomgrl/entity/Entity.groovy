@@ -4,6 +4,7 @@ import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.ai.Ai
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
+import com.stewsters.zomgrl.item.Equipment
 import com.stewsters.zomgrl.item.Inventory
 import com.stewsters.zomgrl.item.Item
 import com.stewsters.zomgrl.map.LevelMap
@@ -30,6 +31,7 @@ public class Entity {
     public Ai ai
     public Faction faction
     public Item itemComponent
+    public Equipment equipment
     public Inventory inventory
 
     /**
@@ -67,14 +69,25 @@ public class Entity {
             ai.owner = this
         }
 
+
+
+        if (params.inventory) {
+            inventory = params.inventory
+            inventory.owner = this
+        }
+
         if (params.itemComponent) {
             itemComponent = params.itemComponent
             itemComponent.owner = this
         }
 
-        if (params.inventory) {
-            inventory = params.inventory
-            inventory.owner = this
+        if (params.equipment){
+            equipment = params.equipment
+            equipment.owner = this
+            if (!itemComponent){
+                itemComponent = new Item()
+                itemComponent.owner = this
+            }
         }
     }
 

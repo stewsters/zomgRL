@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.entity
 
+import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.sfx.DeathFunctions
@@ -30,11 +31,11 @@ class Fighter {
         hp = params.hp ?: max_hp
         max_infection = params.max_infection ?: 1
         infection = params.infection ?: 0
-        defense = params.defense ?: 0
+        defense = params.defense ?: 1
         power = params.power ?: 1
         marksman = params.marksman ?: 1
 
-        max_stamina = params.stamina ?: 1
+        max_stamina = params.max_stamina ?: 1
         stamina = max_stamina
 
         deathFunction = params.deathFunction ?: null
@@ -67,7 +68,7 @@ class Fighter {
     }
 
     public attack(Entity target) {
-        int damage = power - target.fighter.defense //TODO: this should be more of a dodge thing
+        int damage = MathUtils.getIntInRange(0, power) - MathUtils.getIntInRange(0, target.fighter.defense)
 
         if (damage > 0) {
             MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points."
@@ -76,6 +77,9 @@ class Fighter {
             }
             target.fighter.takeDamage(damage)
 
+        } else if (damage < 0) {
+            owner.fighter.takeDamage(Math.abs(damage))
+            MessageLog.send "${owner.name} attacks ${target.name}, but is countered, receiving ${Math.abs(damage)} damage."
         } else {
             MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!"
         }

@@ -7,6 +7,7 @@ import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.Fighter
+import com.stewsters.zomgrl.item.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import com.stewsters.zomgrl.sfx.DeathFunctions
@@ -19,8 +20,8 @@ class TestMapGenerator implements MapGenerator {
 
     @Override
     public LevelMap reGenerate() {
-        int width = 20
-        int height = 20
+        int width = 40
+        int height = 40
         LevelMap map = new LevelMap(width, height);
 
         map.xSize.times { iX ->
@@ -33,12 +34,26 @@ class TestMapGenerator implements MapGenerator {
         playerStartX = map.xSize / 2 - 1
         playerStartY = map.ySize / 2 - 1
 
-        new Entity(map: map, x: playerStartX + 2, y: playerStartY + 2,
-                ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
+        new Entity(map: map, x:playerStartX + 10, y: playerStartY + 10,
+                ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
                 priority: 120, faction: Faction.zombie,
-                fighter: new Fighter(15, 1, 3, DeathFunctions.zombieDeath),
-                ai: new BasicZombie()
+                ai: new BasicZombie(),
+                fighter: new Fighter(hp: 10, defense: 0,
+                        marksman: 0, power: 3,
+                        max_infection: 3,
+                        infection: 3,
+                        deathFunction: DeathFunctions.zombieDeath)
+
         )
+
+        /**
+         * Items
+         */
+
+        RandomItemGen.spawnChance.keySet().eachWithIndex{String name, int i ->
+            RandomItemGen.createFromName(map,2,2+i,name)
+        }
+
         return map
     }
 

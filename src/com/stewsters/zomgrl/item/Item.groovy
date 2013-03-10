@@ -16,9 +16,12 @@ class Item {
      *
      * @return true if the item should be used up
      */
-    public boolean useItem(Entity target) {
-        if (useFunction) {
-            return useFunction(target)
+    public boolean useItem(Entity user) {
+
+        if (owner.equipment) {
+            owner.equipment.toggleEquip(user)
+        } else if (useFunction) {
+            return useFunction(user)
         } else {
             MessageLog.send("${owner.name} cannot be used.", SColor.RED)
             return false

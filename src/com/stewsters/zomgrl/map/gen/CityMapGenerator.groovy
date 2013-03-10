@@ -68,7 +68,7 @@ class CityMapGenerator implements MapGenerator {
             }
         }
 
-        println intersections
+//        println intersections
 
         LevelMap map = convert(material)
 
@@ -261,8 +261,6 @@ class CityMapGenerator implements MapGenerator {
                                     max_infection: 3,
                                     infection: 3,
                                     deathFunction: DeathFunctions.zombieDeath)
-
-
                     )
                 } else if (d100 < 90) {
 

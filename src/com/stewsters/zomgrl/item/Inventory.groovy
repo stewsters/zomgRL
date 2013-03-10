@@ -49,7 +49,7 @@ public class Inventory {
 
         items.eachWithIndex { Entity item, int i ->
             display.placeHorizontalString(RenderConfig.inventoryX, i + RenderConfig.inventoryY,
-                    "${i + 1}:${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
+                    "${i + 1}:${item.equipment?.isEquiped ? "e" : ' '} ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
         }
     }
 
@@ -66,4 +66,12 @@ public class Inventory {
         return false
     }
 
+    public Equipment getEquippedInSlot(Slot slot) {
+        for (Entity item : items) {
+            if (item.equipment && item.equipment.slot == slot && item.equipment.isEquiped) {
+                return item.equipment
+            }
+        }
+        return null
+    }
 }
