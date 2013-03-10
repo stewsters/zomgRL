@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.sfx
 
+import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.ai.ConfusedZombie
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
@@ -72,20 +73,21 @@ class ItemFunctions {
 
 
 
-    public static Closure antiviral = {
+    public static Closure antiviral = {Entity user->
         //removes infection from the system.
 
     }
 
-    public static Closure bandage = {
+    public static Closure bandage = {Entity user->
         //stops bleeding.
 
     }
 
-    public static Closure heartExplosion = { Entity imbiber ->
+    public static Closure heartExplosion = {Entity user ->
         //see further for a few rounds, increase armor+attack.
-
+        MessageLog.send("${user.name} drinks an entire 24 pack of monster.", SColor.RED)
         // after a few rounds, your heart explodes
+        return true
 
     }
 
@@ -94,17 +96,92 @@ class ItemFunctions {
     }
 
 
+
     //GUNS
+    private static final int BERRETA_GUN_BONUS = 4
+    private static final int BERRETA_MAX_RANGE = 8
     public static Closure gunBerreta = { Entity user ->
         //find closest target
-        //if found, shoot closest target
+        Entity enemy = user.ai.findClosestEnemy(ItemFunctions.BERRETA_MAX_RANGE)
+        if (!enemy) {
+            MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
+            return false
+        } else {
+            //enemy defense and range vs your marksman and gun bonus
+            int range = user.distanceTo(enemy)
+            int damage = MathUtils.getIntInRange(0,user.fighter.marksman + BERRETA_GUN_BONUS) - MathUtils.getIntInRange(0,enemy.fighter.defense + range)
+
+            String message = "You fire a round at ${enemy.name}."
+
+            if (damage>0){
+                message+=" The damage is ${damage} hit points."
+            }else{
+                message+=" You missed."
+            }
+
+            MessageLog.send(message, SColor.LIGHT_BLUE)
+
+            enemy.fighter.takeDamage(damage)
+            return true
+        }
     }
 
-    public static Closure gunAR15 = {
+    private static final int AR15_GUN_BONUS = 6
+    private static final int AR15_MAX_RANGE = 12
+    public static Closure gunAR15 = {Entity user->
+        //find closest target
+        Entity enemy = user.ai.findClosestEnemy(ItemFunctions.AR15_MAX_RANGE)
+        if (!enemy) {
+            MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
+            return false
+        } else {
+            //enemy defense and range vs your marksman and gun bonus
+            int range = user.distanceTo(enemy)
+            int damage = MathUtils.getIntInRange(0,user.fighter.marksman + AR15_GUN_BONUS) - MathUtils.getIntInRange(0,enemy.fighter.defense + range)
 
+            String message = "You fire a round at ${enemy.name}."
+
+            if (damage>0){
+                message+=" The damage is ${damage} hit points."
+            }else{
+                message+=" You missed."
+            }
+
+            MessageLog.send(message, SColor.LIGHT_BLUE)
+
+            enemy.fighter.takeDamage(damage)
+            return true
+        }
     }
 
-    public static Closure gunPumpShotGun={
 
+
+
+    private static final int PUMP_GUN_BONUS = 10
+    private static final int PUMP_MAX_RANGE = 4
+    public static Closure gunPumpShotGun = {Entity user->
+        //find closest target
+        Entity enemy = user.ai.findClosestEnemy(ItemFunctions.PUMP_MAX_RANGE)
+        if (!enemy) {
+            MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
+            return false
+        } else {
+            //enemy defense and range vs your marksman and gun bonus
+            int range = user.distanceTo(enemy)
+            int damage = MathUtils.getIntInRange(0,user.fighter.marksman + PUMP_GUN_BONUS) - MathUtils.getIntInRange(0,enemy.fighter.defense + range)
+
+            String message = "You fire a round at ${enemy.name}."
+
+            if (damage>0){
+                message+=" The damage is ${damage} hit points."
+            }else{
+                message+=" You missed."
+            }
+
+            MessageLog.send(message, SColor.LIGHT_BLUE)
+
+            enemy.fighter.takeDamage(damage)
+            return true
+        }
     }
 }

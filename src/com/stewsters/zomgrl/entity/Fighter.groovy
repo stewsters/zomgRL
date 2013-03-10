@@ -7,18 +7,35 @@ class Fighter {
     public Entity owner
 
     int max_hp
-    int hp
-    int defense
-    int power
+    int hp      //can take more hits
+
+    int max_infection //maximum infection you can withstand
+    int infection
+
+    int max_stamina
+    int stamina // used to make attacks and sprint
+
+    int defense //make it harder to hit
+    int power   //strength with melee weapons
+    int marksman // how good with ranged weapons
+
+
     def deathFunction
 
-    public Fighter(int hp, int defense, int power, def deathFunction = null) {
+    public Fighter(params) {
 
-        this.max_hp = hp
-        this.hp = hp
-        this.defense = defense
-        this.power = power
-        this.deathFunction = deathFunction
+        max_hp = params.hp ?: 1
+        hp = params.hp ?: max_hp
+        max_infection = params.max_infection ?: 1
+        infection = params.infection ?: 0
+        defense = params.defense ?: 0
+        power = params.power ?: 1
+        marksman = params.marksman ?: 1
+
+        max_stamina = params.stamina ?: 1
+        stamina = max_stamina
+
+        deathFunction = params.deathFunction ?: null
     }
 
     public takeDamage(damage) {

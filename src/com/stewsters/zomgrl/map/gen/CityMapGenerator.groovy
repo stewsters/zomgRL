@@ -193,25 +193,41 @@ class CityMapGenerator implements MapGenerator {
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'h', name: 'Human', color: SColor.WHITE_TEA_DYE, blocks: true,
-                            fighter: new Fighter(2, 0, 1, DeathFunctions.zombieDeath),
+                            priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
-                            priority: 120, faction: Faction.human
+                            fighter: new Fighter(hp: 4, defense: 0,
+                                    marksman: 1, power: 1,
+                                    max_infection: 2,
+                                    max_stamina: 4,
+                                    deathFunction: DeathFunctions.zombieDeath)
+
+
                     )
                 } else if (d100 < 95) {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'H', name: 'Human', color: SColor.WHITE_MOUSE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            fighter: new Fighter(4, 0, 2, DeathFunctions.zombieDeath),
-                            ai: new BasicCivilian()
+                            ai: new BasicCivilian(),
+                            fighter: new Fighter(hp: 6, defense: 0,
+                                    marksman: 1, power: 2,
+                                    max_infection: 2,
+                                    max_stamina: 6,
+                                    deathFunction: DeathFunctions.zombieDeath)
+
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'P', name: 'Police', color: SColor.WHITE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            fighter: new Fighter(4, 0, 2, DeathFunctions.zombieDeath),
-                            ai: new BasicCivilian()
+                            ai: new BasicCivilian(),
+                            fighter: new Fighter(hp: 6, defense: 1,
+                                    marksman: 3, power: 2,
+                                    max_infection: 3,
+                                    max_stamina: 6,
+                                    deathFunction: DeathFunctions.zombieDeath)
+
                     )
                 }
             }
@@ -231,25 +247,41 @@ class CityMapGenerator implements MapGenerator {
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
-                            fighter: new Fighter(4, 0, 1, DeathFunctions.zombieDeath),
+                            priority: 120, faction: Faction.zombie,
                             ai: new BasicZombie(),
-                            priority: 120, faction: Faction.zombie
+                            fighter: new Fighter(hp: 6, defense: 0,
+                                    marksman: 0, power: 2,
+                                    max_infection: 3,
+                                    infection: 3,
+                                    deathFunction: DeathFunctions.zombieDeath)
+
+
                     )
                 } else if (d100 < 90) {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(10, 0, 2, DeathFunctions.zombieDeath),
-                            ai: new BasicZombie()
+                            ai: new BasicZombie(),
+                            fighter: new Fighter(hp: 10, defense: 0,
+                                    marksman: 0, power: 3,
+                                    max_infection: 3,
+                                    infection: 3,
+                                    deathFunction: DeathFunctions.zombieDeath)
+
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
                             ch: 'f', name: 'Fast Zombie', color: SColor.DARK_PASTEL_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(4, 1, 3, DeathFunctions.zombieDeath),
-                            ai: new BasicZombie()
+                            ai: new BasicZombie(),
+                            fighter: new Fighter(hp: 8, defense: 1,
+                                    marksman: 0, power: 3,
+                                    max_infection: 3,
+                                    infection: 3,
+                                    deathFunction: DeathFunctions.zombieDeath),
+
                     )
                 }
             }
@@ -266,12 +298,12 @@ class CityMapGenerator implements MapGenerator {
             int offsetX = inter.centerX + residential.offsetX - 1
             int offsetY = inter.centerX + residential.offsetY - 1
 
-            int size = MIN_BUILDING_SIZE-1; //
+            int size = MIN_BUILDING_SIZE - 1; //
             boolean clear = map.ground[offsetX][offsetY].color == SColor.GREEN
             while (clear) { //TODO: this could be more efficient
 
-                for(int x =offsetX; x < offsetX+size; x++){
-                    for(int y =offsetY; y < offsetY + size; y++){
+                for (int x = offsetX; x < offsetX + size; x++) {
+                    for (int y = offsetY; y < offsetY + size; y++) {
                         clear &= map.ground[x][y].color == SColor.GREEN
                     }
                 }
@@ -289,7 +321,7 @@ class CityMapGenerator implements MapGenerator {
 
         //on each lot, construct a house
         lots.each { Rect lot ->
-            RoomGenerator.generate(map,lot)
+            RoomGenerator.generate(map, lot)
         }
 
     }

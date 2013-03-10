@@ -1,6 +1,5 @@
 package com.stewsters.zomgrl.main
 
-
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.ai.LocalPlayer
 import com.stewsters.zomgrl.entity.Entity
@@ -15,8 +14,6 @@ import com.stewsters.zomgrl.item.Inventory
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
-import com.stewsters.zomgrl.map.gen.SimpleMapGenerator
-import com.stewsters.zomgrl.map.gen.TestMapGenerator
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
@@ -67,14 +64,19 @@ public class HelloDungeon {
         player = new Entity(map: levelMap, x: mapGen.playerStartX, y: mapGen.playerStartY,
                 ch: '@', name: 'Sir Jack', color: SColor.WHITE, blocks: true,
                 priority: 130, faction: Faction.human,
-                fighter: new Fighter(30, 2, 3, DeathFunctions.playerDeath),
                 ai: new LocalPlayer(),
-                inventory: new Inventory()
+                inventory: new Inventory(),
+                fighter: new Fighter(hp: 10, defense: 1,
+                        marksman: 2, power: 2,
+                        max_infection: 4,
+                        max_stamina:10,
+                        deathFunction: DeathFunctions.playerDeath)
+
         )
         player.ai.owner = player
 
         // set up display
-        frame = new JFrame("Groovy Rogue Like")
+        frame = new JFrame("ZOMG Rogue Like")
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
         frame.setLayout(new BorderLayout())
 
