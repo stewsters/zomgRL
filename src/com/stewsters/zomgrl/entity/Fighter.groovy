@@ -1,6 +1,8 @@
 package com.stewsters.zomgrl.entity
 
+import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
+import com.stewsters.zomgrl.sfx.DeathFunctions
 
 
 class Fighter {
@@ -53,11 +55,28 @@ class Fighter {
         hp = Math.min(amount + hp, max_hp);
     }
 
+    public def raiseStamina(int amount)
+    {
+        stamina = Math.min(amount+stamina, max_stamina)
+    }
+
+    public def infect(int amount){
+        infection = Math.min(amount + infection, max_infection)
+        if (infection == max_infection){
+            DeathFunctions.zombify(owner)
+        }
+    }
+
     public attack(Entity target) {
-        int damage = power - target.fighter.defense
+        int damage = power - target.fighter.defense //TODO: this should be more of a dodge thing
+
         if (damage > 0) {
             MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points."
+            if (owner.faction == Faction.zombie){
+                target.fighter.infect(5)
+            }
             target.fighter.takeDamage(damage)
+
         } else {
             MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!"
         }

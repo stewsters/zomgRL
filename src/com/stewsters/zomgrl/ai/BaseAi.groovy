@@ -1,6 +1,7 @@
 package com.stewsters.zomgrl.ai
 
 import com.stewsters.zomgrl.entity.Entity
+import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.graphic.RenderConfig
 
 
@@ -11,6 +12,7 @@ abstract class BaseAi {
 
     Entity owner
     float[][] light
+    int lightLastCalculated = 0
     int sightRange = 20
 
 
@@ -88,8 +90,43 @@ abstract class BaseAi {
 
     }
 
+    public Entity findClosestVisibleItem(params){
+        int maxDistance = params?.maxRange ?: sightRange
+        calculateSight()
+
+        int lowX = owner.x - maxDistance
+        int highX = owner.x + maxDistance
+        int lowY = owner.y - maxDistance
+        int highY = owner.y + maxDistance
+
+        Entity item = null
+        int distance = maxDistance
+
+        for (Entity it : owner.levelMap.objects) {
+
+            if (it.x > lowX && it.x < highX &&
+                    it.y > lowY && it.y < highY &&
+                    it.itemComponent) {
+                int lightX = it.x - lowX
+                int lightY = it.y - lowY
+                if (light[lightX][lightY]>0) {
+
+                    int tempDist = owner.distanceTo(it)
+                    if (tempDist <= distance) {
+                        item = it
+                        distance = tempDist
+                    }
+                }
+            }
+        }
+        return item
+
+    }
 
     public void calculateSight() {
+        if (lightLastCalculated == Game.gameTurn)
+            return
+
         int worldLowX = owner.x - sightRange //low is upper left corner
         int worldLowY = owner.y - sightRange
 

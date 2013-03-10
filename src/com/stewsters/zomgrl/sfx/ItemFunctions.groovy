@@ -27,7 +27,7 @@ class ItemFunctions {
 
     public static Closure castLightning = { Entity castor ->
 
-        Entity enemy = castor.ai.findClosestEnemy(ItemFunctions.LIGHTNING_RANGE)
+        Entity enemy = castor.ai.findClosestVisibleEnemy(ItemFunctions.LIGHTNING_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to strike.', SColor.RED)
             return false
@@ -40,7 +40,7 @@ class ItemFunctions {
 
     public static final int DOMINATION_RANGE = 3
     public static Closure castDomination = { Entity castor ->
-        Entity enemy = castor.ai.findClosestEnemy(ItemFunctions.DOMINATION_RANGE)
+        Entity enemy = castor.ai.findClosestVisibleEnemy(ItemFunctions.DOMINATION_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to dominate.', SColor.RED)
             return false
@@ -56,7 +56,7 @@ class ItemFunctions {
     public static final int CONFUSE_NUM_TURNS = 10
 
     public static Closure castConfuse = { Entity castor ->
-        Entity enemy = castor.ai.findClosestEnemy(ItemFunctions.CONFUSE_RANGE)
+        Entity enemy = castor.ai.findClosestVisibleEnemy(ItemFunctions.CONFUSE_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to confused.', SColor.RED)
             return false
@@ -75,12 +75,20 @@ class ItemFunctions {
 
     public static Closure antiviral = {Entity user->
         //removes infection from the system.
-
+        user.fighter.infection = 0
+        MessageLog.send("${user.name} self medicates.")
     }
 
+    public static final int BANDAGE_HEAL_AMOUNT = 2
     public static Closure bandage = {Entity user->
-        //stops bleeding.
-
+        if (user.fighter.hp == user.fighter.max_hp) {
+            MessageLog.send("You aren't bleeding.", SColor.RED)
+            return false
+        } else {
+            MessageLog.send("Your wounds are sealed up.", SColor.LIGHT_VIOLET)
+            user.fighter.heal(ItemFunctions.BANDAGE_HEAL_AMOUNT)
+            return true
+        }
     }
 
     public static Closure heartExplosion = {Entity user ->
@@ -91,8 +99,23 @@ class ItemFunctions {
 
     }
 
+    public static final int EAT_STAMINA_BOOST = 4
     public static Closure eat = { Entity user ->
+        if (user.fighter.stamina == user.fighter.max_stamina) {
+            MessageLog.send("${user.name} isn't hungry.", SColor.RED)
+            return false
+        } else {
+            MessageLog.send("${user.name} feasts on beef jerkey.", SColor.LIGHT_VIOLET)
+            user.fighter.raiseStamina(ItemFunctions.BANDAGE_HEAL_AMOUNT)
+            return true
+        }
+
         //restores some stamina
+        user.fighter.stamina += 2
+        MessageLog.send("${user.name} eats snacks.")
+
+
+
     }
 
 
@@ -102,7 +125,7 @@ class ItemFunctions {
     private static final int BERRETA_MAX_RANGE = 8
     public static Closure gunBerreta = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestEnemy(ItemFunctions.BERRETA_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.BERRETA_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
@@ -130,7 +153,7 @@ class ItemFunctions {
     private static final int AR15_MAX_RANGE = 12
     public static Closure gunAR15 = {Entity user->
         //find closest target
-        Entity enemy = user.ai.findClosestEnemy(ItemFunctions.AR15_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.AR15_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
@@ -161,7 +184,7 @@ class ItemFunctions {
     private static final int PUMP_MAX_RANGE = 4
     public static Closure gunPumpShotGun = {Entity user->
         //find closest target
-        Entity enemy = user.ai.findClosestEnemy(ItemFunctions.PUMP_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.PUMP_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false

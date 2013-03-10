@@ -15,6 +15,10 @@ public interface Ai {
 
     public Entity findClosestEnemy(int maxRange)
 
+    public Entity findClosestVisibleEnemy(params)
+
+    public Entity findClosestVisibleItem(params)
+
     public void calculateSight()
 
 }

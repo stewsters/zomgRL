@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.entity
 
+import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.ai.Ai
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
@@ -126,15 +127,9 @@ public class Entity {
     void moveAway(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
-//        float distance = Math.sqrt(dx ** 2 + dy ** 2)
 
         dx = Math.max(Math.min(dx , 1),-1)
         dy = Math.max(Math.min(dy , 1),-1)
-
-        if (x == 199 || y == 199){
-            println "failure"
-        }
-
         move(-dx, -dy)
     }
 
@@ -171,5 +166,9 @@ public class Entity {
             MessageLog.send("You have nothing to drop but your pants.")
         }
 
+    }
+
+    public void randomMovement() {
+        move(MathUtils.getIntInRange(-1, 1), MathUtils.getIntInRange(-1, 1))
     }
 }

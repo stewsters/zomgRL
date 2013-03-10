@@ -1,5 +1,7 @@
 package com.stewsters.zomgrl.sfx
 
+import com.stewsters.zomgrl.ai.BasicZombie
+import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.game.GameState
@@ -36,4 +38,21 @@ class DeathFunctions {
             owner.inventory.dump()
     }
 
+
+    public static Closure zombify = { Entity owner ->
+        MessageLog.send("${owner.name} is dead!")
+        owner.faction = Faction.zombie
+        owner.ch = 'z'
+        owner.color = SColor.GREEN_BAMBOO
+        owner.fighter.marksman = 0;
+        owner.ai = new BasicZombie()
+        owner.ai.owner = owner
+        owner.name = "Zombie of ${owner.name}"
+        owner.priority = 120
+
+        if (owner.inventory) {
+            owner.inventory.dump()
+            owner.inventory = null
+        }
+    }
 }

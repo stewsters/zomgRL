@@ -69,7 +69,7 @@ public class HelloDungeon {
                 fighter: new Fighter(hp: 10, defense: 1,
                         marksman: 2, power: 2,
                         max_infection: 4,
-                        max_stamina:10,
+                        max_stamina: 10,
                         deathFunction: DeathFunctions.playerDeath)
 
         )
@@ -121,7 +121,11 @@ public class HelloDungeon {
         MessageLog.render(display)
 
         //render inventory
-        player.inventory.render(display)
+        if (player.inventory)
+            player.inventory.render(display)
+        else{
+            Inventory.clear(display)
+        }
 
         //done rendering this frame
         display.refresh();
@@ -148,6 +152,7 @@ public class HelloDungeon {
 
         levelMap.objects.sort({ it.priority })
         render()
+        Game.gameTurn++
     }
 
 

@@ -8,6 +8,7 @@ import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.Fighter
+import com.stewsters.zomgrl.item.Inventory
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import com.stewsters.zomgrl.sfx.DeathFunctions
@@ -195,6 +196,7 @@ class CityMapGenerator implements MapGenerator {
                             ch: 'h', name: 'Human', color: SColor.WHITE_TEA_DYE, blocks: true,
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
+                            inventory: new Inventory(),
                             fighter: new Fighter(hp: 4, defense: 0,
                                     marksman: 1, power: 1,
                                     max_infection: 2,
@@ -209,6 +211,7 @@ class CityMapGenerator implements MapGenerator {
                             ch: 'H', name: 'Human', color: SColor.WHITE_MOUSE, blocks: true,
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
+                            inventory: new Inventory(),
                             fighter: new Fighter(hp: 6, defense: 0,
                                     marksman: 1, power: 2,
                                     max_infection: 2,
@@ -222,11 +225,13 @@ class CityMapGenerator implements MapGenerator {
                             ch: 'P', name: 'Police', color: SColor.WHITE, blocks: true,
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
+                            inventory: new Inventory(),
                             fighter: new Fighter(hp: 6, defense: 1,
                                     marksman: 3, power: 2,
                                     max_infection: 3,
                                     max_stamina: 6,
                                     deathFunction: DeathFunctions.zombieDeath)
+
 
                     )
                 }
