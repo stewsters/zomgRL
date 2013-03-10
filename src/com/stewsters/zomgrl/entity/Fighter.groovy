@@ -72,7 +72,7 @@ class Fighter {
         if (damage > 0) {
             MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points."
             if (owner.faction == Faction.zombie) {
-                target.fighter.infect(5)
+                target.fighter.infect(1)
             }
             target.fighter.takeDamage(damage)
 

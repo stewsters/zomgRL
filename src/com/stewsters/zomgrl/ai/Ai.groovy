@@ -13,11 +13,11 @@ public interface Ai {
 
     public float[][] getLight()
 
-    public Entity findClosestEnemy(int maxRange)
+    public Entity findClosestEnemy(Map maxRange)
 
-    public Entity findClosestVisibleEnemy(params)
+    public Entity findClosestVisibleEnemy(Map params)
 
-    public Entity findClosestVisibleItem(params)
+    public Entity findClosestVisibleItem(Map params)
 
     public void calculateSight()
 

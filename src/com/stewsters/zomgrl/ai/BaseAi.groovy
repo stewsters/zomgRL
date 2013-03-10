@@ -16,9 +16,7 @@ abstract class BaseAi {
     int sightRange = 20
 
 
-
-
-    public ArrayList<Entity> findAllVisibleEnemies(params) {
+    public ArrayList<Entity> findAllVisibleEnemies(Map params) {
         int maxDistance = params?.maxRange ?: sightRange
 
         int lowX = owner.x - maxDistance
@@ -35,9 +33,13 @@ abstract class BaseAi {
 
     }
 
-
-    public Entity findClosestEnemy(int maxRange = Integer.MAX_VALUE) {
-        int distance = maxRange
+    /**
+    * Irrespective of distance
+    * @param params
+    * @return
+    */
+    public Entity findClosestEnemy(Map params) {
+        int distance = params?.maxRange ?: Integer.MAX_VALUE
         Entity enemy = null
 
         calculateSight()
@@ -57,7 +59,7 @@ abstract class BaseAi {
         return enemy
     }
 
-    public Entity findClosestVisibleEnemy(params) {
+    public Entity findClosestVisibleEnemy(Map params) {
         int maxDistance = params?.maxRange ?: sightRange
         calculateSight()
 
@@ -90,7 +92,7 @@ abstract class BaseAi {
 
     }
 
-    public Entity findClosestVisibleItem(params) {
+    public Entity findClosestVisibleItem(Map params) {
         int maxDistance = params?.maxRange ?: sightRange
         calculateSight()
 

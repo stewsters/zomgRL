@@ -122,7 +122,7 @@ class ItemFunctions {
     private static final int BERRETA_MAX_RANGE = 8
     public static Closure gunBerreta = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.BERRETA_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.BERRETA_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
@@ -150,7 +150,7 @@ class ItemFunctions {
     private static final int AR15_MAX_RANGE = 12
     public static Closure gunAR15 = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.AR15_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.AR15_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
@@ -181,7 +181,7 @@ class ItemFunctions {
     private static final int PUMP_MAX_RANGE = 4
     public static Closure gunPumpShotGun = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestVisibleEnemy(ItemFunctions.PUMP_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.PUMP_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false

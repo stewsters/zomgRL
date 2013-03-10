@@ -20,7 +20,7 @@ class CityMapGenerator implements MapGenerator {
     int playerStartX = 0
     int playerStartY = 0
 
-    public static final int BLOCKSIZE = 20
+    public static final int BLOCKSIZE = 25
 
     @Override
     public LevelMap reGenerate() {
@@ -67,6 +67,8 @@ class CityMapGenerator implements MapGenerator {
                 intersections.add(intersection)
             }
         }
+
+        println intersections
 
         LevelMap map = convert(material)
 
@@ -325,6 +327,11 @@ class CityMapGenerator implements MapGenerator {
         }
 
         //on each lot, construct a house
+        lots = lots.unique({ Rect a, Rect b ->
+            if (a.intersect(b))
+                return 0
+            else return 1
+        })
         lots.each { Rect lot ->
             RoomGenerator.generate(map, lot)
         }
