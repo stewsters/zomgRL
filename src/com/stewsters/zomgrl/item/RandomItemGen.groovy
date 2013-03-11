@@ -15,7 +15,8 @@ class RandomItemGen {
             "Pump Shotgun": 10,
             "AR-15": 10,
             "Beretta 9mm": 10,
-            'Baseball Bat': 10
+            'Baseball Bat': 20,
+            "Machete":10
     ]
 
     private static String getChoice(Map choicesMap) {
@@ -87,7 +88,13 @@ class RandomItemGen {
             case ("Baseball Bat"):
                 new Entity(map: map, x: x, y: y,
                         ch: '/', name: 'Baseball Bat', color: SColor.GOLD,
-                        equipment: new Equipment(slot: Slot.rightHand)
+                        equipment: new Equipment(slot: Slot.rightHand, powerBonus:2)
+                )
+                break
+            case ("Machete"):
+                new Entity(map: map, x: x, y: y,
+                        ch: '/', name: 'Machete', color: SColor.SILVER,
+                        equipment: new Equipment(slot: Slot.rightHand, powerBonus:3)
                 )
                 break
             default:

@@ -13,15 +13,15 @@ class DeathFunctions {
 
     public static Closure playerDeath = { Entity owner ->
 
-        MessageLog.send("You are dead.")
+        MessageLog.send("${owner.name} is dead.")
         Game.state = GameState.dead
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.priority = 80
-        owner.faction=null
-        if (owner.inventory)
+        owner.faction = null
+        if (owner.inventory) {
             owner.inventory.dump()
-
+        }
     }
 
 
@@ -34,14 +34,14 @@ class DeathFunctions {
         owner.ai = null
         owner.name = "Remains of ${owner.name}"
         owner.priority = 80
-        owner.faction=null
+        owner.faction = null
         if (owner.inventory)
             owner.inventory.dump()
     }
 
 
     public static Closure zombify = { Entity owner ->
-        MessageLog.send("${owner.name} is dead!")
+        MessageLog.send("${owner.name} is changing!")
         owner.faction = Faction.zombie
         owner.ch = 'z'
         owner.color = SColor.GREEN_BAMBOO

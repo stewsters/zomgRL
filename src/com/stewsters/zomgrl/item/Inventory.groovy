@@ -19,7 +19,13 @@ public class Inventory {
         } else {
             items.add item
             item.levelMap.objects.remove(item)
-            MessageLog.send("You picked up ${item.name}", SColor.GREEN)
+            MessageLog.send("${owner.name} picked up ${item.name}", SColor.GREEN)
+
+            if (item.equipment) {
+                Equipment oldEquipment = owner.inventory.getEquippedInSlot(item.equipment.slot)
+                if (!oldEquipment)
+                    item.equipment.equip(owner)
+            }
         }
     }
 
@@ -40,7 +46,7 @@ public class Inventory {
                 item.x = owner.x
                 item.y = owner.y
             }
-            if (item.equipment)
+            if (item.equipment?.isEquiped)
                 item.equipment.dequip()
             owner.levelMap.objects.add(item)
         }
@@ -84,5 +90,9 @@ public class Inventory {
             }
         }
         return null
+    }
+
+    public List<Equipment> getAllEquiped(){
+        return items.findAll{item-> item.equipment && item.equipment.isEquiped}
     }
 }

@@ -7,10 +7,13 @@ class Equipment {
     Entity owner
 
     Slot slot
+    int powerBonus
+
     boolean isEquiped = false
 
     public Equipment(Map params){
         slot = params?.slot
+        powerBonus = params?.powerBonus ?: 0
     }
 
     public void toggleEquip(Entity holder){

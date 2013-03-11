@@ -92,4 +92,13 @@ class Fighter {
         }
     }
 
+
+    public int getPower(){
+        int bonus =  0
+        if (owner.inventory){
+            bonus +=  owner.inventory.getAllEquiped().powerBonus.sum()
+        }
+        return power + bonus
+    }
+
 }

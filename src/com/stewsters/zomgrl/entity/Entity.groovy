@@ -174,11 +174,11 @@ public class Entity {
             Entity item = inventory.items.pop()
             item.x = x
             item.y = y
-            if(item.equipment)
+            if (item.equipment?.isEquiped)
                 item.equipment.dequip()
             levelMap.objects.add(item)
         } else {
-            MessageLog.send("You have nothing to drop but your pants.")
+            MessageLog.send("${name} has nothing to drop.")
         }
 
     }
