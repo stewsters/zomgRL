@@ -26,7 +26,7 @@ class LevelMap {
 
     public boolean isBlocked(int x, int y) {
 
-        if (x < 0 || x >= xSize || y < 0 && y >= ySize) {
+        if (x < 0 || x >= xSize || y < 0 || y >= ySize) {
             return true
         }
 

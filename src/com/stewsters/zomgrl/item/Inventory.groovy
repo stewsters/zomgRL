@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.item
 
+import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.graphic.RenderConfig
@@ -29,9 +30,17 @@ public class Inventory {
     public dump() {
 
         for (Entity item : owner.inventory.items) {
-            item.x = owner.x
-            item.y = owner.y
-            if(item.equipment)
+
+            int xPos = MathUtils.getIntInRange(-1, 1) + owner.x
+            int yPos = MathUtils.getIntInRange(-1, 1) + owner.y
+            if (!owner.levelMap.isBlocked(xPos, yPos)) {
+                item.x = xPos
+                item.y = yPos
+            } else {
+                item.x = owner.x
+                item.y = owner.y
+            }
+            if (item.equipment)
                 item.equipment.dequip()
             owner.levelMap.objects.add(item)
         }

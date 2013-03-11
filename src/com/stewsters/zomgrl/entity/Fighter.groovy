@@ -50,8 +50,9 @@ class Fighter {
                     deathFunction(owner)
             }
             for (int i = 0; i < damage; i++) {
-                int xPos = MathUtils.getIntInRange(-damage, damage) + owner.x
-                int yPos = MathUtils.getIntInRange(-damage, damage) + owner.y
+                int range = damage/2
+                int xPos = MathUtils.getIntInRange(-range, range) + owner.x
+                int yPos = MathUtils.getIntInRange(-range, range) + owner.y
                 owner.levelMap.ground[MathUtils.limit(xPos,0,owner.levelMap.xSize-1)][MathUtils.limit(yPos,0,owner.levelMap.ySize-1)].gore = true
             }
 

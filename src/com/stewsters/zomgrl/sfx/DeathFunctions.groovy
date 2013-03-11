@@ -18,6 +18,7 @@ class DeathFunctions {
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.priority = 80
+        owner.faction=null
         if (owner.inventory)
             owner.inventory.dump()
 
@@ -33,7 +34,7 @@ class DeathFunctions {
         owner.ai = null
         owner.name = "Remains of ${owner.name}"
         owner.priority = 80
-
+        owner.faction=null
         if (owner.inventory)
             owner.inventory.dump()
     }

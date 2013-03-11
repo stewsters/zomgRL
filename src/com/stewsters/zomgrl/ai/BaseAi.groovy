@@ -34,10 +34,10 @@ abstract class BaseAi {
     }
 
     /**
-    * Irrespective of distance
-    * @param params
-    * @return
-    */
+     * Irrespective of distance
+     * @param params
+     * @return
+     */
     public Entity findClosestEnemy(Map params) {
         int distance = params?.maxRange ?: Integer.MAX_VALUE
         Entity enemy = null
@@ -60,6 +60,7 @@ abstract class BaseAi {
     }
 
     public Entity findClosestVisibleEnemy(Map params) {
+        if (!owner.faction) return null
 //        int maxDistance = params?.maxRange ?: sightRange
         calculateSight()
 
@@ -69,13 +70,13 @@ abstract class BaseAi {
         int highY = owner.y + sightRange
 
         Entity enemy = null
-        int distance = params?.maxRange ?:sightRange
+        int distance = params?.maxRange ?: sightRange
 
 //        if (owner.faction==Faction.human)
 //            println "zomg"
 
         for (Entity entity : owner.levelMap.objects) {
-            if (entity.x > lowX && entity.x < highX && entity.y > lowY && entity.y < highY && entity.fighter && owner.faction.hates(entity.faction)) {
+            if (entity.x > lowX && entity.x < highX && entity.y > lowY && entity.y < highY && entity.fighter && entity.faction && owner.faction.hates(entity.faction)) {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
                 if (light[lightX][lightY] > 0f) {
