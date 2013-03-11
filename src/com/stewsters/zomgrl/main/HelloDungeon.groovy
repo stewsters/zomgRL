@@ -58,9 +58,9 @@ public class HelloDungeon {
         // Generate map
 
         //MapGenerator mapGen = new StaticMapGenerator();
-        MapGenerator mapGen = new TestMapGenerator();
+//        MapGenerator mapGen = new TestMapGenerator();
 //        MapGenerator mapGen = new SimpleMapGenerator()
-//        MapGenerator mapGen = new CityMapGenerator()
+        MapGenerator mapGen = new CityMapGenerator()
 
         levelMap = mapGen.reGenerate()
 

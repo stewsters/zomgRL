@@ -182,7 +182,7 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your marksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + PUMP_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.PUMP_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message = "You fire a round at ${enemy.name}."
 

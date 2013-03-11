@@ -60,16 +60,16 @@ abstract class BaseAi {
     }
 
     public Entity findClosestVisibleEnemy(Map params) {
-        int maxDistance = params?.maxRange ?: sightRange
+//        int maxDistance = params?.maxRange ?: sightRange
         calculateSight()
 
-        int lowX = owner.x - maxDistance
-        int highX = owner.x + maxDistance
-        int lowY = owner.y - maxDistance
-        int highY = owner.y + maxDistance
+        int lowX = owner.x - sightRange
+        int highX = owner.x + sightRange
+        int lowY = owner.y - sightRange
+        int highY = owner.y + sightRange
 
         Entity enemy = null
-        int distance = maxDistance
+        int distance = params?.maxRange ?:sightRange
 
 //        if (owner.faction==Faction.human)
 //            println "zomg"
