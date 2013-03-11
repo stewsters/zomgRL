@@ -8,7 +8,8 @@ public class Tile {
 
     public char representation
     public SColor color
-    public float opacity;
+    public float opacity
+    boolean gore = false
 
     public Tile(Boolean blocked, float opacity, char representation, SColor color) {
         this.isBlocked = blocked

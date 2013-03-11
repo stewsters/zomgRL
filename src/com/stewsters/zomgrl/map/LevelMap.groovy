@@ -87,7 +87,11 @@ class LevelMap {
                     double radius = Math.sqrt((originalX - player.x) * (originalX - player.x) + (originalY - player.y) * (originalY - player.y));
                     float bright = 1 - player.ai.light[lightX][lightY];
                     SColor cellLight = SColorFactory.fromPallet("light", bright);
-                    SColor objectLight = SColorFactory.blend(ground[originalX][originalY].color, cellLight, getTint(radius));
+
+                    SColor objectLight = SColorFactory.blend(
+                            ground[originalX][originalY].gore ? SColor.RED :
+                                ground[originalX][originalY].color,
+                            cellLight, getTint(radius));
                     display.placeCharacter(x, y, ground[originalX][originalY].representation, objectLight);
                     ground[originalX][originalY].isExplored = true
 

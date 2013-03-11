@@ -35,4 +35,8 @@ class MathUtils {
         int id = getIntInRange(0, source.size() - 1)
         return source[id]
     }
+
+    public static int limit(int number, int low, int high) {
+        return Math.max(low, Math.min(high, number))
+    }
 }
