@@ -1,7 +1,10 @@
-package com.stewsters.zomgrl.item
+package com.stewsters.zomgrl.item.spawner
 
 import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.entity.Entity
+import com.stewsters.zomgrl.item.Equipment
+import com.stewsters.zomgrl.item.Item
+import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.sfx.ItemFunctions
 import squidpony.squidcolor.SColor
@@ -10,7 +13,7 @@ class RandomItemGen {
 
     public static def spawnChance = ['AntiViral': 10,
             'Bandages': 20,
-            'Beef Jerkey': 20,
+            'Beef Jerkey': 10,
             "24pk Monster": 10,
             "Pump Shotgun": 10,
             "AR-15": 10,
@@ -18,25 +21,13 @@ class RandomItemGen {
             'Baseball Bat': 20,
             "Machete":10,
             "Winter Coat":10,
-            'Hockey Mask':10
+            'Leather Jacket':10,
+            'Hockey Mask':10,
+            'Tennis Shoes':10
     ]
 
-    private static String getChoice(Map choicesMap) {
-        int totalChances = spawnChance.values().sum() //check that shit out, groovy ftw
-        int dice = MathUtils.getIntInRange(0, totalChances)
-        int runningTotal = 0
-        for (def keyValue : choicesMap) {
-            runningTotal += keyValue.value
-            if (dice <= runningTotal)
-                return keyValue.key
-        }
-        return null
-    }
-
-
-
     public static Entity getRandomItem(LevelMap map, int x, int y) {
-        createFromName(map, x, y, getChoice(spawnChance))
+        createFromName(map, x, y, MathUtils.getChoice(spawnChance))
     }
 
     public static void createFromName(LevelMap map, int x, int y, String name) {
@@ -105,12 +96,26 @@ class RandomItemGen {
                         equipment: new Equipment(slot: Slot.chest, bonusDefense: 1)
                 )
                 break
+            case('Leather Jacket'):
+                new Entity(map: map, x: x, y: y,
+                        ch: 'c', name: 'Leather Jacket', color: SColor.PALE_BROWN,
+                        equipment: new Equipment(slot: Slot.chest, bonusMaxInfection: 2)
+                )
+                break
             case('Hockey Mask'):
                 new Entity(map: map, x: x, y: y,
                         ch: 'm', name: 'Hockey Mask', color: SColor.WHITE,
                         equipment: new Equipment(slot: Slot.head, bonusDefense: 1)
                 )
                 break
+            case('Tennis Shoes'):
+                new Entity(map: map, x: x, y: y,
+                        ch: 's', name: 'Tennis Shoes', color: SColor.WHITE,
+                        equipment: new Equipment(slot: Slot.head, bonusMaxStamina: 2)
+                )
+                break
+
+            //ski goggles
             default:
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: 'rock', color: SColor.GRAY,

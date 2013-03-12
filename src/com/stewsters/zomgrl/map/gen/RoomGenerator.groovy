@@ -2,7 +2,7 @@ package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
 import com.stewsters.util.Rect
-import com.stewsters.zomgrl.item.RandomItemGen
+import com.stewsters.zomgrl.item.spawner.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
 import squidpony.squidcolor.SColor
 

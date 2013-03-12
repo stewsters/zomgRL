@@ -45,4 +45,17 @@ class MathUtils {
         if (!random) init()
         random.nextGaussian() * stdDeviation
     }
+
+
+    public static String getChoice(Map choicesMap) {
+        int totalChances = choicesMap.values().sum() //check that shit out, groovy ftw
+        int dice = MathUtils.getIntInRange(0, totalChances)
+        int runningTotal = 0
+        for (def keyValue : choicesMap) {
+            runningTotal += keyValue.value
+            if (dice <= runningTotal)
+                return keyValue.key
+        }
+        return null
+    }
 }

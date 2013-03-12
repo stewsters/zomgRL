@@ -7,7 +7,7 @@ import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.Fighter
-import com.stewsters.zomgrl.item.RandomItemGen
+import com.stewsters.zomgrl.item.spawner.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import com.stewsters.zomgrl.sfx.DeathFunctions
