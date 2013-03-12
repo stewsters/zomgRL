@@ -2,20 +2,18 @@ package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
 import com.stewsters.util.Rect
-import com.stewsters.zomgrl.entity.Entity
-import com.stewsters.zomgrl.item.Equipment
-import com.stewsters.zomgrl.item.Item
 import com.stewsters.zomgrl.item.RandomItemGen
-import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
-import com.stewsters.zomgrl.sfx.ItemFunctions
 import squidpony.squidcolor.SColor
-
 
 class RoomGenerator {
 
-    private static final int MAX_ROOM_DOORS
-    private static final int MIN_ROOM_DOORS
+    private static final int MAX_ROOM_WINDOWS = 3
+    private static final int MIN_ROOM_WINDOWS = 1
+
+    private static final int MAX_ROOM_DOORS = 3
+    private static final int MIN_ROOM_DOORS = 1
+
 
     public static void generate(LevelMap map, Rect lot) {
 
@@ -35,19 +33,39 @@ class RoomGenerator {
             }
         }
 
-        switch (MathUtils.getIntInRange(0, 3)) {
-            case (0): //top
-                cutDoorInHorizontalWall(map, lot.x1, lot.x2, lot.y1)
-                break;
-            case (1)://right
-                cutDoorInVerticalWall(map, lot.x2, lot.y1, lot.y2)
-                break;
-            case (2)://bottom
-                cutDoorInVerticalWall(map, lot.x1, lot.y1, lot.y2)
-                break;
-            default://left
-                cutDoorInHorizontalWall(map, lot.x1, lot.x2, lot.y2)
-                break;
+        MathUtils.getIntInRange(MIN_ROOM_WINDOWS, MAX_ROOM_WINDOWS).times {
+            switch (MathUtils.getIntInRange(0, 3)) {
+                case (0): //top
+                    cutWindowInHorizontalWall(map, lot.x1, lot.x2, lot.y1)
+                    break;
+                case (1)://right
+                    cutWindowInVerticalWall(map, lot.x2, lot.y1, lot.y2)
+                    break;
+                case (2)://bottom
+                    cutWindowInVerticalWall(map, lot.x1, lot.y1, lot.y2)
+                    break;
+                default://left
+                    cutWindowInHorizontalWall(map, lot.x1, lot.x2, lot.y2)
+                    break;
+            }
+        }
+
+
+        MathUtils.getIntInRange(MIN_ROOM_DOORS, MAX_ROOM_DOORS).times {
+            switch (MathUtils.getIntInRange(0, 3)) {
+                case (0): //top
+                    cutDoorInHorizontalWall(map, lot.x1, lot.x2, lot.y1)
+                    break;
+                case (1)://right
+                    cutDoorInVerticalWall(map, lot.x2, lot.y1, lot.y2)
+                    break;
+                case (2)://bottom
+                    cutDoorInVerticalWall(map, lot.x1, lot.y1, lot.y2)
+                    break;
+                default://left
+                    cutDoorInHorizontalWall(map, lot.x1, lot.x2, lot.y2)
+                    break;
+            }
         }
 
         addItems(map, lot)
@@ -65,11 +83,28 @@ class RoomGenerator {
             int x = MathUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
             int y = MathUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
             if (!map.isBlocked(x, y)) {
-                RandomItemGen.getRandomItem(map,x,y)
+                RandomItemGen.getRandomItem(map, x, y)
 
             }
         }
 
+    }
+
+
+    private static void cutWindowInHorizontalWall(LevelMap map, int x1, int x2, int y) {
+        int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
+        map.ground[x][y].opacity = 0.25f
+        map.ground[x][y].color = SColor.BLUE
+        map.ground[x][y].isBlocked = true
+        map.ground[x][y].representation = '#'
+    }
+
+    private static void cutWindowInVerticalWall(LevelMap map, int x, int y1, int y2) {
+        int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
+        map.ground[x][y].opacity = 0.25f
+        map.ground[x][y].color = SColor.BLUE
+        map.ground[x][y].isBlocked = true
+        map.ground[x][y].representation = '#'
     }
 
 

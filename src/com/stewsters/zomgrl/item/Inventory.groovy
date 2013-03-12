@@ -13,7 +13,7 @@ public class Inventory {
     def capacity = 8
     Entity owner
 
-    Map<String,Integer> pouch = [:]
+    Map<AmmoType,Integer> pouch = [:]
 
     public pickUp(Entity item) {
         if (items.size() >= capacity) {
