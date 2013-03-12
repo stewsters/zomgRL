@@ -1,0 +1,30 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+mainClassName='com.stewsters.zomgrl.main.HelloDungeon'
+version = 1.0
+
+sourceCompatibility=1.7
+targetCompatibility=1.7
+
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+    compile 'org.codehaus.groovy:groovy-all:2.1.1'
+    testCompile 'junit:junit:4.11'
+    compile files('lib/SquidLib.jar','lib/commons-lang3-3.1.jar')
+}
+
+jar{
+    from files(sourceSets.main.output.classesDir)
+    from (configurations.runtime.asFileTree.files.collect{zipTree(it)}){
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA" 
+    }
+
+    manifest{
+        attributes 'Main-Class':'com.stewsters.zomgrl.main.HelloDungeon'
+    }
+}
