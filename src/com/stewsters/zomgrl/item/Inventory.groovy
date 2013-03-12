@@ -13,15 +13,16 @@ public class Inventory {
     def capacity = 8
     Entity owner
 
-    Map<AmmoType,Integer> pouch = [:]
+    //this if for counter items.
+    Map<AmmoType, Integer> pouch = [:]
 
     public pickUp(Entity item) {
         if (items.size() >= capacity) {
-            MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED)
+            MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
         } else {
             items.add item
             item.levelMap.objects.remove(item)
-            MessageLog.send("${owner.name} picked up ${item.name}", SColor.GREEN)
+            MessageLog.send("${owner.name} picked up ${item.name}", SColor.GREEN, [owner])
 
             if (item.equipment) {
                 Equipment oldEquipment = owner.inventory.getEquippedInSlot(item.equipment.slot)
@@ -49,7 +50,7 @@ public class Inventory {
                 item.y = owner.y
             }
             if (item.equipment?.isEquiped)
-                item.equipment.dequip()
+                item.equipment.dequip(owner)
             owner.levelMap.objects.add(item)
         }
         owner.inventory.items.clear()
@@ -94,7 +95,7 @@ public class Inventory {
         return null
     }
 
-    public List<Equipment> getAllEquiped(){
-        return items.findAll{item-> item.equipment && item.equipment.isEquiped}.equipment
+    public List<Equipment> getAllEquiped() {
+        return items.findAll { item -> item.equipment && item.equipment.isEquiped }.equipment
     }
 }

@@ -127,7 +127,7 @@ public class HelloDungeon {
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans', levelMap.objects.count({ it.faction == Faction.human }) ?: 0, numPeople ?: 0)
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', levelMap.objects.count({ it.faction == Faction.zombie }) ?: 0, numPeople ?: 0)
 
-        MessageLog.render(display)
+        MessageLog.render(display,player)
 
         //render inventory
         if (player.inventory)

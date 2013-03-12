@@ -4,6 +4,7 @@ import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.sfx.DeathFunctions
+import squidpony.squidcolor.SColor
 
 
 class Fighter {
@@ -80,7 +81,7 @@ class Fighter {
         int damage = MathUtils.getIntInRange(0, power) - MathUtils.getIntInRange(0, target.fighter.defense)
 
         if (damage > 0) {
-            MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points."
+            MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE,[owner,target]
             if (owner.faction == Faction.zombie) {
                 target.fighter.infect(1)
             }
@@ -88,9 +89,9 @@ class Fighter {
 
         } else if (damage < 0) {
             owner.fighter.takeDamage(Math.abs(damage))
-            MessageLog.send "${owner.name} attacks ${target.name}, but is countered, receiving ${Math.abs(damage)} damage."
+            MessageLog.send "${owner.name} attacks ${target.name}, but is countered, receiving ${Math.abs(damage)} damage.", SColor.WHITE,[owner,target]
         } else {
-            MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!"
+            MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE,[owner,target]
         }
     }
 

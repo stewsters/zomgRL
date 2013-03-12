@@ -23,16 +23,16 @@ class Item {
         } else if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLog.send("${owner.name} cannot be used.", SColor.RED)
+            MessageLog.send("${owner.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }
 
-    public boolean useHeldItem(Entity user){
+    public boolean useHeldItem(Entity user) {
         if (useFunction) {
             return useFunction(user)
         } else {
-            MessageLog.send("${owner.name} cannot be used.", SColor.RED)
+            MessageLog.send("${owner.name} cannot be used.", SColor.RED, [user])
             return false
         }
     }

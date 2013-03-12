@@ -155,7 +155,7 @@ public class Entity {
 
     public void grab() {
         if (!inventory) {
-            MessageLog.send("${name} can't hold items.")
+            MessageLog.send("${name} can't hold items.",SColor.WHITE,[this])
             return
         }
 
@@ -175,10 +175,10 @@ public class Entity {
             item.x = x
             item.y = y
             if (item.equipment?.isEquiped)
-                item.equipment.dequip()
+                item.equipment.dequip(this)
             levelMap.objects.add(item)
         } else {
-            MessageLog.send("${name} has nothing to drop.")
+            MessageLog.send("${name} has nothing to drop.",SColor.WHITE,[this])
         }
 
     }

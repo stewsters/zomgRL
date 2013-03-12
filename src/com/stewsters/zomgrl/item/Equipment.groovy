@@ -2,6 +2,7 @@ package com.stewsters.zomgrl.item
 
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
+import squidpony.squidcolor.SColor
 
 class Equipment {
     Entity owner
@@ -30,7 +31,7 @@ class Equipment {
 
     public void toggleEquip(Entity holder) {
         if (isEquiped)
-            dequip()
+            dequip(holder)
         else
             equip(holder)
     }
@@ -40,18 +41,18 @@ class Equipment {
 
         Equipment oldEquipment = holder.inventory.getEquippedInSlot(slot)
         if (oldEquipment)
-            oldEquipment.dequip()
+            oldEquipment.dequip(holder)
 
         isEquiped = true
-        MessageLog.send("Equiped ${owner.name}")
+        MessageLog.send("Equiped ${owner.name}", SColor.WHITE, [holder])
     }
 
-    void dequip() {
+    void dequip(Entity holder) {
         if (!isEquiped) {
             return
         } else {
             isEquiped = false
-            MessageLog.send("Dequipped ${owner.name} from ${slot.name}")
+            MessageLog.send("Dequipped ${owner.name} from ${slot.name}",SColor.WHITE, [holder])
         }
 
     }
