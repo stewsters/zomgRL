@@ -62,7 +62,7 @@ class ItemFunctions {
             return false
         } else {
             def oldID = enemy.ai
-            enemy.ai = new ConfusedZombie(oldAI: oldID, numTurns: CONFUSE_NUM_TURNS)
+            enemy.ai = new ConfusedZombie(oldAI: oldID, castor:user, numTurns: CONFUSE_NUM_TURNS)
             enemy.ai.owner = enemy
             MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
 
