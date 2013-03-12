@@ -13,6 +13,8 @@ public class Inventory {
     def capacity = 8
     Entity owner
 
+    Map<String,Integer> pouch = [:]
+
     public pickUp(Entity item) {
         if (items.size() >= capacity) {
             MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED)
@@ -30,7 +32,7 @@ public class Inventory {
     }
 
     public boolean isFull() {
-        return capacity <= items.size() - 1
+        return capacity >= items.size() - 1
     }
 
     public dump() {

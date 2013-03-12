@@ -16,7 +16,6 @@ import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
-import com.stewsters.zomgrl.map.gen.TestMapGenerator
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
@@ -53,14 +52,14 @@ public class HelloDungeon {
         RenderConfig.fov = new TranslucenceWrapperFOV()
         RenderConfig.los = new EliasLOS()
         RenderConfig.strat = BasicRadiusStrategy.CIRCLE
-        SColorFactory.addPallet("light", SColorFactory.asGradient(RenderConfig.litNear, RenderConfig.litFar));
-
+        SColorFactory.addPallet("light", SColorFactory.asGradient(RenderConfig.litNear, RenderConfig.litFarDay));
+        SColorFactory.addPallet("dark", SColorFactory.asGradient(RenderConfig.litNear, RenderConfig.litFarNight));
         // Generate map
 
         //MapGenerator mapGen = new StaticMapGenerator();
-        MapGenerator mapGen = new TestMapGenerator();
+//        MapGenerator mapGen = new TestMapGenerator();
 //        MapGenerator mapGen = new SimpleMapGenerator()
-//        MapGenerator mapGen = new CityMapGenerator()
+        MapGenerator mapGen = new CityMapGenerator()
 
         levelMap = mapGen.reGenerate()
 
@@ -120,9 +119,14 @@ public class HelloDungeon {
         }
 
         //render stats
-        StatusBar.render(display, 0, (2 * RenderConfig.windowRadiusY) + 2, 10, 'hp', player?.fighter?.hp ?: 0, player?.fighter?.maxHP ?: 0, SColor.RED)
-        StatusBar.render(display, 12, (2 * RenderConfig.windowRadiusY) + 2, 10, 'sta', player?.fighter?.stamina ?: 0, player?.fighter?.maxStamina ?: 0, SColor.YELLOW)
-        StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.maxInfection ?: 0, SColor.GREEN)
+        StatusBar.render(display, 0, (2 * RenderConfig.windowRadiusY) + 2, 10, 'hp', player?.fighter?.hp ?: 0, player?.fighter?.maxHP ?: 1, SColor.RED)
+        StatusBar.render(display, 12, (2 * RenderConfig.windowRadiusY) + 2, 10, 'sta', player?.fighter?.stamina ?: 0, player?.fighter?.maxStamina ?: 1, SColor.YELLOW)
+        StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.maxInfection ?: 1, SColor.GREEN)
+
+        int numPeople = levelMap.objects.count { it.fighter && it.faction }
+        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans', levelMap.objects.count({ it.faction == Faction.human }) ?: 0, numPeople ?: 0)
+        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', levelMap.objects.count({ it.faction == Faction.zombie }) ?: 0, numPeople ?: 0)
+
         MessageLog.render(display)
 
         //render inventory
@@ -157,7 +161,7 @@ public class HelloDungeon {
 
         levelMap.objects.sort({ it.priority })
         render()
-        Game.gameTurn++
+        Game.passTime()
     }
 
 
@@ -182,17 +186,16 @@ public class HelloDungeon {
     public void fire() {
         if (Game.state == GameState.playing) {
             //select a target in view
-            if (player.inventory){
-                Equipment weapon =  player.inventory.getEquippedInSlot(Slot.rightHand)
-                if (weapon){
+            if (player.inventory) {
+                Equipment weapon = player.inventory.getEquippedInSlot(Slot.rightHand)
+                if (weapon) {
                     weapon.owner.itemComponent.useHeldItem(player)
                     stepSim()
-                }else{
+                } else {
                     MessageLog("Find a weapon first.")
                     render()
                 }
-            }
-            else {
+            } else {
                 MessageLog("You can't use weapons.")
                 render()
             }
@@ -226,7 +229,7 @@ public class HelloDungeon {
         if (Game.state == GameState.playing) {
             if (player.inventory.useById(id - 1)) {
                 stepSim()
-            }else{
+            } else {
                 render()
             }
         }

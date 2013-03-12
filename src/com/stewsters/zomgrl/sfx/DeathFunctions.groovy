@@ -45,7 +45,8 @@ class DeathFunctions {
         owner.faction = Faction.zombie
         owner.ch = 'z'
         owner.color = SColor.GREEN_BAMBOO
-        owner.fighter.marksman = 0;
+        owner.fighter.deathFunction = zombieDeath
+        owner.fighter.baseMarksman = 0;
         owner.ai = new BasicZombie()
         owner.ai.owner = owner
         owner.name = "Zombie of ${owner.name}"

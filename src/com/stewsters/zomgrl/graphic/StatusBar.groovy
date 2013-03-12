@@ -41,4 +41,8 @@ class StatusBar {
         display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")
     }
 
+    public static void renderTextOnly(SwingPane display, int x, int y,String name, int value, int maximum){
+        display.placeHorizontalString(x, y, "${name}: ${value}/${maximum}")
+    }
+
 }

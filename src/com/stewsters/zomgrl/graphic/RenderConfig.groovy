@@ -13,10 +13,11 @@ import squidpony.squidgrid.fov.TranslucenceWrapperFOV
 class RenderConfig {
 
     public static SColor litNear = SColorFactory.asSColor(SColor.WHITE);
-    public static SColor litFar = SColorFactory.asSColor(SColor.DARK_RED);
+    public static SColor litFarDay = SColorFactory.asSColor(SColor.LIGHT_YELLOW_DYE);
+    public static SColor litFarNight = SColorFactory.asSColor(SColor.DARK_BLUE);
 
     public static float lightForce = 20f; //controls how far the light will spread
-    public static float lightTintPercentage = 0.05f; //0 to 1
+    public static float lightTintPercentage = 0.03f; //0 to 1
 
     public static LOSSolver los;
     public static TranslucenceWrapperFOV fov;

@@ -1,6 +1,7 @@
 package com.stewsters.zomgrl.map
 
 import com.stewsters.zomgrl.entity.Entity
+import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.graphic.RenderConfig
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
@@ -86,7 +87,9 @@ class LevelMap {
 
                     double radius = Math.sqrt((originalX - player.x) * (originalX - player.x) + (originalY - player.y) * (originalY - player.y));
                     float bright = 1 - player.ai.light[lightX][lightY];
-                    SColor cellLight = SColorFactory.fromPallet("light", bright);
+
+                    SColor cellLight = Game.isDay()?SColorFactory.fromPallet("light", bright): SColorFactory.fromPallet("dark", bright);
+
 
                     SColor objectLight = SColorFactory.blend(
                             ground[originalX][originalY].gore ? SColor.RED :
