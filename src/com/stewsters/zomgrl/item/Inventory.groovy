@@ -93,6 +93,6 @@ public class Inventory {
     }
 
     public List<Equipment> getAllEquiped(){
-        return items.findAll{item-> item.equipment && item.equipment.isEquiped}
+        return items.findAll{item-> item.equipment && item.equipment.isEquiped}.equipment
     }
 }

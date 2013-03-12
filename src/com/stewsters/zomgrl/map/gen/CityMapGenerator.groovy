@@ -199,10 +199,10 @@ class CityMapGenerator implements MapGenerator {
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
                             inventory: new Inventory(),
-                            fighter: new Fighter(hp: 4, defense: 0,
+                            fighter: new Fighter(hp: 4, defense: 1,
                                     marksman: 1, power: 1,
-                                    max_infection: 2,
-                                    max_stamina: 4,
+                                    maxInfection: 2,
+                                    stamina: 4,
                                     deathFunction: DeathFunctions.zombieDeath)
 
 
@@ -214,10 +214,10 @@ class CityMapGenerator implements MapGenerator {
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
                             inventory: new Inventory(),
-                            fighter: new Fighter(hp: 6, defense: 0,
-                                    marksman: 1, power: 2,
-                                    max_infection: 2,
-                                    max_stamina: 6,
+                            fighter: new Fighter(hp: 6, defense: 1,
+                                    marksman: 1,power: 2,
+                                    maxInfection: 2,
+                                    stamina: 6,
                                     deathFunction: DeathFunctions.zombieDeath)
 
                     )
@@ -230,8 +230,8 @@ class CityMapGenerator implements MapGenerator {
                             inventory: new Inventory(),
                             fighter: new Fighter(hp: 6, defense: 1,
                                     marksman: 3, power: 2,
-                                    max_infection: 3,
-                                    max_stamina: 6,
+                                    maxInfection: 3,
+                                    stamina: 6,
                                     deathFunction: DeathFunctions.zombieDeath)
 
 
@@ -256,9 +256,9 @@ class CityMapGenerator implements MapGenerator {
                             ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
                             ai: new BasicZombie(),
-                            fighter: new Fighter(hp: 6, defense: 0,
-                                    marksman: 0, power: 2,
-                                    max_infection: 3,
+                            fighter: new Fighter(hp: 6, defense: 1,
+                                   marksman: 0, power: 2,
+                                    maxInfection: 3,
                                     infection: 3,
                                     deathFunction: DeathFunctions.zombieDeath)
                     )
@@ -268,9 +268,9 @@ class CityMapGenerator implements MapGenerator {
                             ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
                             ai: new BasicZombie(),
-                            fighter: new Fighter(hp: 10, defense: 0,
+                            fighter: new Fighter(hp: 10, defense: 1,
                                     marksman: 0, power: 3,
-                                    max_infection: 3,
+                                    maxInfection: 3,
                                     infection: 3,
                                     deathFunction: DeathFunctions.zombieDeath)
 
@@ -281,9 +281,9 @@ class CityMapGenerator implements MapGenerator {
                             ch: 'f', name: 'Fast Zombie', color: SColor.DARK_PASTEL_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
                             ai: new BasicZombie(),
-                            fighter: new Fighter(hp: 8, defense: 1,
+                            fighter: new Fighter(hp: 8, defense: 2,
                                     marksman: 0, power: 3,
-                                    max_infection: 3,
+                                    maxInfection: 3,
                                     infection: 3,
                                     deathFunction: DeathFunctions.zombieDeath),
 

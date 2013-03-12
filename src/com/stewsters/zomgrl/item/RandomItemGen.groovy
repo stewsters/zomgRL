@@ -88,13 +88,13 @@ class RandomItemGen {
             case ("Baseball Bat"):
                 new Entity(map: map, x: x, y: y,
                         ch: '/', name: 'Baseball Bat', color: SColor.GOLD,
-                        equipment: new Equipment(slot: Slot.rightHand, powerBonus:2)
+                        equipment: new Equipment(slot: Slot.rightHand, bonusPower: 10)
                 )
                 break
             case ("Machete"):
                 new Entity(map: map, x: x, y: y,
                         ch: '/', name: 'Machete', color: SColor.SILVER,
-                        equipment: new Equipment(slot: Slot.rightHand, powerBonus:3)
+                        equipment: new Equipment(slot: Slot.rightHand, bonusPower:100)
                 )
                 break
             default:

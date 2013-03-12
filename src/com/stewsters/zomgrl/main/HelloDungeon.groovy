@@ -58,9 +58,9 @@ public class HelloDungeon {
         // Generate map
 
         //MapGenerator mapGen = new StaticMapGenerator();
-//        MapGenerator mapGen = new TestMapGenerator();
+        MapGenerator mapGen = new TestMapGenerator();
 //        MapGenerator mapGen = new SimpleMapGenerator()
-        MapGenerator mapGen = new CityMapGenerator()
+//        MapGenerator mapGen = new CityMapGenerator()
 
         levelMap = mapGen.reGenerate()
 
@@ -71,8 +71,8 @@ public class HelloDungeon {
                 inventory: new Inventory(),
                 fighter: new Fighter(hp: 10, defense: 1,
                         marksman: 2, power: 2,
-                        max_infection: 10,
-                        max_stamina: 10,
+                        maxInfection: 10,
+                        stamina: 10,
                         deathFunction: DeathFunctions.playerDeath)
 
         )
@@ -120,9 +120,9 @@ public class HelloDungeon {
         }
 
         //render stats
-        StatusBar.render(display, 0, (2 * RenderConfig.windowRadiusY) + 2, 10, 'hp', player?.fighter?.hp ?: 0, player?.fighter?.max_hp ?: 0, SColor.RED)
-        StatusBar.render(display, 12, (2 * RenderConfig.windowRadiusY) + 2, 10, 'sta', player?.fighter?.stamina ?: 0, player?.fighter?.max_stamina ?: 0, SColor.YELLOW)
-        StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.max_infection ?: 0, SColor.GREEN)
+        StatusBar.render(display, 0, (2 * RenderConfig.windowRadiusY) + 2, 10, 'hp', player?.fighter?.hp ?: 0, player?.fighter?.maxHP ?: 0, SColor.RED)
+        StatusBar.render(display, 12, (2 * RenderConfig.windowRadiusY) + 2, 10, 'sta', player?.fighter?.stamina ?: 0, player?.fighter?.maxStamina ?: 0, SColor.YELLOW)
+        StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.maxInfection ?: 0, SColor.GREEN)
         MessageLog.render(display)
 
         //render inventory
@@ -197,11 +197,7 @@ public class HelloDungeon {
                 render()
             }
             // shoot at it
-
-
         }
-
-
     }
 
     public void grab() {

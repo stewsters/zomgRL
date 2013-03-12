@@ -12,7 +12,7 @@ class ItemFunctions {
 
     public static Closure castHeal = { Entity target ->
 
-        if (target.fighter.hp == target.fighter.max_hp) {
+        if (target.fighter.hp == target.fighter.maxHP) {
             MessageLog.send("You are already at full health.", SColor.RED)
             return false
         } else {
@@ -81,7 +81,7 @@ class ItemFunctions {
 
     public static final int BANDAGE_HEAL_AMOUNT = 6
     public static Closure bandage = { Entity user ->
-        if (user.fighter.hp == user.fighter.max_hp) {
+        if (user.fighter.hp == user.fighter.maxHP) {
             MessageLog.send("You aren't bleeding.", SColor.RED)
             return false
         } else {
@@ -101,7 +101,7 @@ class ItemFunctions {
 
     public static final int EAT_STAMINA_BOOST = 4
     public static Closure eat = { Entity user ->
-        if (user.fighter.stamina == user.fighter.max_stamina) {
+        if (user.fighter.stamina == user.fighter.maxStamina) {
             MessageLog.send("${user.name} isn't hungry.", SColor.RED)
             return false
         } else {
@@ -121,9 +121,9 @@ class ItemFunctions {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
         } else {
-            //enemy defense and range vs your marksman and gun bonus
+            //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + BERRETA_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.BERRETA_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message = "You fire a round at ${enemy.name}."
 
@@ -149,7 +149,7 @@ class ItemFunctions {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
         } else {
-            //enemy defense and range vs your marksman and gun bonus
+            //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
             int damage = MathUtils.getIntInRange(0, user.fighter.marksman + AR15_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 
@@ -180,7 +180,7 @@ class ItemFunctions {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED)
             return false
         } else {
-            //enemy defense and range vs your marksman and gun bonus
+            //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
             int damage = MathUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.PUMP_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
 

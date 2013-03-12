@@ -39,4 +39,10 @@ class MathUtils {
     public static int limit(int number, int low, int high) {
         return Math.max(low, Math.min(high, number))
     }
+
+
+    public static double getGauss( double  stdDeviation=1){
+        if (!random) init()
+        random.nextGaussian() * stdDeviation
+    }
 }

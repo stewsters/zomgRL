@@ -38,12 +38,11 @@ class TestMapGenerator implements MapGenerator {
                 ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
                 priority: 120, faction: Faction.zombie,
                 ai: new BasicZombie(),
-                fighter: new Fighter(hp: 10, defense: 0,
+                fighter: new Fighter(hp: 10, defense: 1,
                         marksman: 0, power: 3,
-                        max_infection: 3,
+                        maxInfection: 3,
                         infection: 3,
                         deathFunction: DeathFunctions.zombieDeath)
-
         )
 
         /**

@@ -7,16 +7,28 @@ class Equipment {
     Entity owner
 
     Slot slot
-    int powerBonus
-
     boolean isEquiped = false
 
-    public Equipment(Map params){
+    int bonusMaxHp
+    int bonusMaxInfection
+    int bonusMaxStamina
+    int bonusPower
+    int bonusDefense
+    int bonusMarksman
+
+
+    public Equipment(Map params) {
         slot = params?.slot
-        powerBonus = params?.powerBonus ?: 0
+
+        bonusMaxHp = params?.bonusMaxHp ?: 0
+        bonusMaxInfection = params?.bonusMaxInfection ?: 0
+        bonusMaxStamina = params?.bonusMaxStamina ?: 0
+        bonusPower = params?.bonusPower ?: 0
+        bonusDefense = params?.bonusDefense ?: 0
+        bonusMarksman = params?.bonusMarksman ?: 0
     }
 
-    public void toggleEquip(Entity holder){
+    public void toggleEquip(Entity holder) {
         if (isEquiped)
             dequip()
         else
@@ -24,21 +36,21 @@ class Equipment {
     }
 
 
-    void equip(Entity holder){
+    void equip(Entity holder) {
 
         Equipment oldEquipment = holder.inventory.getEquippedInSlot(slot)
         if (oldEquipment)
             oldEquipment.dequip()
 
-        isEquiped=true
+        isEquiped = true
         MessageLog.send("Equiped ${owner.name}")
     }
 
     void dequip() {
-        if (!isEquiped){
+        if (!isEquiped) {
             return
-        }else{
-            isEquiped=false
+        } else {
+            isEquiped = false
             MessageLog.send("Dequipped ${owner.name} from ${slot.name}")
         }
 
