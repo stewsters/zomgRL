@@ -10,6 +10,7 @@ import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.graphic.RenderConfig
 import com.stewsters.zomgrl.graphic.StatusBar
 import com.stewsters.zomgrl.input.CharacterInputListener
+import com.stewsters.zomgrl.item.AmmoType
 import com.stewsters.zomgrl.item.Equipment
 import com.stewsters.zomgrl.item.Inventory
 import com.stewsters.zomgrl.item.Slot
@@ -127,6 +128,13 @@ public class HelloDungeon {
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans', levelMap.objects.count({ it.faction == Faction.human }) ?: 0, numPeople ?: 0)
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', levelMap.objects.count({ it.faction == Faction.zombie }) ?: 0, numPeople ?: 0)
 
+
+        int maxAmmo =player?.inventory?.maxAmmo
+        [AmmoType.pistol,AmmoType.rifle,AmmoType.shotgun].eachWithIndex{ AmmoType ammoType, int i ->
+            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4+i, ammoType.technicalName ,player?.inventory?.getAmmoCount(ammoType),maxAmmo)
+        }
+
+
         MessageLog.render(display,player)
 
         //render inventory
@@ -192,11 +200,11 @@ public class HelloDungeon {
                     weapon.owner.itemComponent.useHeldItem(player)
                     stepSim()
                 } else {
-                    MessageLog("Find a weapon first.")
+                    MessageLog.send("Find a weapon first.",SColor.RED,[player])
                     render()
                 }
             } else {
-                MessageLog("You can't use weapons.")
+                MessageLog.send("You can't use weapons.",SColor.RED,[player])
                 render()
             }
             // shoot at it

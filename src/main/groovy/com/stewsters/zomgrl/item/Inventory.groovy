@@ -100,12 +100,20 @@ public class Inventory {
         return items.findAll { item -> item.equipment && item.equipment.isEquiped }.equipment
     }
 
-    public int getAmmoCount(AmmoType ammoType){
-        return pouch[ammoType]?:0
+    public int getAmmoCount(AmmoType ammoType) {
+        return pouch[ammoType] ?: 0
     }
 
-    public addAmmo(AmmoType ammoType,int quantity){
-        pouch[AmmoType.rifle] =  MathUtils.limit((pouch[AmmoType.rifle] ?: 0) + quantity, 0, maxAmmo )
+    public addAmmo(AmmoType ammoType, int quantity) {
+        pouch[ammoType] = MathUtils.limit((pouch[ammoType] ?: 0) + quantity, 0, maxAmmo)
+    }
+
+    public boolean useAmmo(AmmoType) {
+        if (pouch[AmmoType.rifle]) {
+            pouch[AmmoType.rifle]--;
+            return true
+        } else return false;
+
     }
 
 }
