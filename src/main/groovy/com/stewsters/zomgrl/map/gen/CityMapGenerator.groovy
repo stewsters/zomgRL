@@ -331,7 +331,7 @@ class CityMapGenerator implements MapGenerator {
             else return 1
         })
         lots.each { Rect lot ->
-            RoomGenerator.generate(map, lot)
+            CityLotGenerator.generate(map, lot)
         }
 
     }

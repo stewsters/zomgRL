@@ -6,7 +6,7 @@ import com.stewsters.zomgrl.item.spawner.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
 import squidpony.squidcolor.SColor
 
-class RoomGenerator {
+class CityLotGenerator {
 
     private static final int MAX_ROOM_WINDOWS = 3
     private static final int MIN_ROOM_WINDOWS = 1
@@ -123,5 +123,6 @@ class RoomGenerator {
         map.ground[x][y].isBlocked = false
         map.ground[x][y].representation = '+'
     }
+
 
 }
