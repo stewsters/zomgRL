@@ -12,8 +12,9 @@ repositories{
 
 dependencies{
     compile 'org.codehaus.groovy:groovy-all:2.1.1'
+    compile 'org.apache.commons:commons-lang3:3.1'
     testCompile 'junit:junit:4.11'
-    compile files('lib/SquidLib.jar','lib/commons-lang3-3.1.jar')
+    compile files('lib/SquidLib.jar')
 }
 
 jar{

@@ -4,6 +4,7 @@ import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.ai.ConfusedZombie
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
+import com.stewsters.zomgrl.item.AmmoType
 import squidpony.squidcolor.SColor
 
 class ItemFunctions {
@@ -195,6 +196,34 @@ class ItemFunctions {
 
             enemy.fighter.takeDamage(damage)
             return true
+        }
+    }
+
+    public static Closure rifleAmmoBox = { Entity user->
+        int quantity = MathUtils.getIntInRange(6,10)
+        if (user.inventory){
+            user.inventory.addAmmo(AmmoType.rifle,quantity)
+            MessageLog.send("${user.name} picked up ${quantity} rounds.")
+        }else{
+            MessageLog.send("${user.name} has no use for bullets.", SColor.RED,[user])
+        }
+    }
+    public static Closure pistolAmmoBox = { Entity user->
+        int quantity = MathUtils.getIntInRange(8,12)
+        if (user.inventory){
+            user.inventory.addAmmo(AmmoType.pistol,quantity)
+            MessageLog.send("${user.name} picked up ${quantity} rounds.")
+        }else{
+            MessageLog.send("${user.name} has no use for bullets.", SColor.RED,[user])
+        }
+    }
+    public static Closure shotgunAmmoBox = { Entity user->
+        int quantity = MathUtils.getIntInRange(8,12)
+        if (user.inventory){
+            user.inventory.addAmmo(AmmoType.shotgun,quantity)
+            MessageLog.send("${user.name} picked up ${quantity} shells.")
+        }else{
+            MessageLog.send("${user.name} has no use for shells.", SColor.RED,[user])
         }
     }
 }

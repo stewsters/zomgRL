@@ -23,7 +23,13 @@ class RandomItemGen {
             "Winter Coat":10,
             'Leather Jacket':10,
             'Hockey Mask':10,
-            'Tennis Shoes':10
+            'Tennis Shoes':10,
+            "5.56x45 mm Box":20,
+            "9mm hp Box":20,
+            "12 Gauge Box":20,
+            "Ski Goggles":5
+
+
     ]
 
     public static Entity getRandomItem(LevelMap map, int x, int y) {
@@ -114,8 +120,30 @@ class RandomItemGen {
                         equipment: new Equipment(slot: Slot.head, bonusMaxStamina: 2)
                 )
                 break
-
-            //ski goggles
+            case("5.56x45 mm Box"):
+                new Entity(map: map, x: x, y: y,
+                        ch: 'r', name: "5.56x45 mm Box", color: SColor.SILVER,
+                        itemComponent: new Item(useFunction: ItemFunctions.rifleAmmoBox)
+                )
+                break
+            case("9mm hp Box"):
+                new Entity(map: map, x: x, y: y,
+                        ch: 'r', name: "9mm hp Box", color: SColor.GRAY,
+                        itemComponent: new Item(useFunction: ItemFunctions.pistolAmmoBox)
+                )
+                break
+            case("12 Gauge Box"):
+                new Entity(map: map, x: x, y: y,
+                        ch: 'r', name: "12 Gauge Box", color: SColor.YELLOW,
+                        itemComponent: new Item(useFunction: ItemFunctions.shotgunAmmoBox)
+                )
+                break
+            case("Ski Goggles"):
+                new Entity(map: map, x: x, y: y,
+                        ch: 'g', name: "Ski Goggles", color: SColor.WHITE,
+                        equipment: new Equipment(slot: Slot.head, bonusMaxInfection: 1)
+                )
+                break
             default:
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: 'rock', color: SColor.GRAY,

@@ -14,6 +14,7 @@ public class Inventory {
     Entity owner
 
     //this if for counter items.
+    public int maxAmmo = 20
     Map<AmmoType, Integer> pouch = [:]
 
     public pickUp(Entity item) {
@@ -98,4 +99,13 @@ public class Inventory {
     public List<Equipment> getAllEquiped() {
         return items.findAll { item -> item.equipment && item.equipment.isEquiped }.equipment
     }
+
+    public int getAmmoCount(AmmoType ammoType){
+        return pouch[ammoType]?:0
+    }
+
+    public addAmmo(AmmoType ammoType,int quantity){
+        pouch[AmmoType.rifle] =  MathUtils.limit((pouch[AmmoType.rifle] ?: 0) + quantity, 0, maxAmmo )
+    }
+
 }
