@@ -36,9 +36,6 @@ class CityMapGenerator implements MapGenerator {
             }
         }
 
-//        int roadGridSize
-//        int[][] roadgrid = new int[width % roadGridSize][height % roadGridSize]
-
         int maxAttempts = 100
         def intersections = []
 
@@ -215,7 +212,7 @@ class CityMapGenerator implements MapGenerator {
                             ai: new BasicCivilian(),
                             inventory: new Inventory(),
                             fighter: new Fighter(hp: 6, defense: 1,
-                                    marksman: 1,power: 2,
+                                    marksman: 1, power: 2,
                                     maxInfection: 2,
                                     stamina: 6,
                                     deathFunction: DeathFunctions.zombieDeath)
@@ -257,7 +254,7 @@ class CityMapGenerator implements MapGenerator {
                             priority: 120, faction: Faction.zombie,
                             ai: new BasicZombie(),
                             fighter: new Fighter(hp: 6, defense: 1,
-                                   marksman: 0, power: 2,
+                                    marksman: 0, power: 2,
                                     maxInfection: 3,
                                     infection: 3,
                                     deathFunction: DeathFunctions.zombieDeath)
@@ -300,28 +297,43 @@ class CityMapGenerator implements MapGenerator {
         def lots = []
         for (Intersection inter : intersections) {
 
-            int offsetX = inter.centerX + residential.offsetX - 1
-            int offsetY = inter.centerX + residential.offsetY - 1
+            def xMods = [-1, 1]
+            def yMods = [-1, 1]
 
-            int size = MIN_BUILDING_SIZE - 1; //
-            boolean clear = map.ground[offsetX][offsetY].color == SColor.GREEN
-            while (clear) { //TODO: this could be more efficient
+            xMods.each { int xMod ->
+                yMods.each { int yMod ->
 
-                for (int x = offsetX; x < offsetX + size; x++) {
-                    for (int y = offsetY; y < offsetY + size; y++) {
-                        clear &= map.ground[x][y].color == SColor.GREEN
+                    int offsetX = inter.centerX + xMod * (residential.offsetX - 1)
+                    int offsetY = inter.centerX + yMod * (residential.offsetY - 1)
+                    int size = MIN_BUILDING_SIZE - 1;
+                    boolean clear = map.ground[offsetX][offsetY].color == SColor.GREEN
+                    while (clear) {
+
+                        int lowX = Math.min(offsetX, offsetX + (size * xMod))
+                        int highX = Math.max(offsetX, offsetX + (size * xMod))
+                        int lowY = Math.min(offsetY, offsetY + (size * yMod))
+                        int highY = Math.max(offsetY, offsetY + (size * yMod))
+
+                        for (int x = lowX; x < highX; x++) {
+                            for (int y = lowY; y < highY; y++) {
+                                if (x < 0 || x >= map.ground.length || y < 0 || y >= map.ground[0].length)
+                                    clear = false
+                                else
+                                    clear &= map.ground[x][y].color == SColor.GREEN
+                            }
+                        }
+
+                        if (clear)
+                            size++
+                    }
+                    if (size >= MIN_BUILDING_SIZE) {
+                        Rect rect = new Rect(offsetX, offsetY, size - 1, size - 1)
+                        lots.add rect
+
+                        println rect.toString()
                     }
                 }
-
-                if (clear)
-                    size++
             }
-            if (size >= MIN_BUILDING_SIZE) {
-                lots.add new Rect(offsetX, offsetY, size-1, size-1)
-            }
-
-            //see if offset if blocked.  if it isnt, start drawing a box until it is
-            //this is a lot
         }
 
         //on each lot, construct a house
