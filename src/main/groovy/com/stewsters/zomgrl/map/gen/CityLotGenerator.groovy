@@ -2,6 +2,7 @@ package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
 import com.stewsters.util.Rect
+import com.stewsters.util.RectSubdivider
 import com.stewsters.zomgrl.item.spawner.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
 import squidpony.squidcolor.SColor
@@ -17,6 +18,20 @@ class CityLotGenerator {
 
     public static void generate(LevelMap map, Rect lot) {
 
+        if (MathUtils.boolean) {
+            CityStaticAssets.populate(map, lot)
+        } else {
+            def lots = RectSubdivider.divide(lot, [min: 4])
+
+            lots.each { Rect thisLot ->
+                proceduralGen(map, thisLot)
+            }
+        }
+        addItems(map, lot)
+    }
+
+
+    private static void proceduralGen(LevelMap map, Rect lot) {
         for (int x = lot.x1; x <= lot.x2; x++) {
             for (int y = lot.y1; y <= lot.y2; y++) {
                 if (x == lot.x1 || x == lot.x2 || y == lot.y1 || y == lot.y2) {
@@ -67,11 +82,7 @@ class CityLotGenerator {
                     break;
             }
         }
-
-        addItems(map, lot)
-
     }
-
 
 
     private static int MAX_ROOM_ITEMS = 10 //this can depend on room type
@@ -92,37 +103,46 @@ class CityLotGenerator {
 
 
     private static void cutWindowInHorizontalWall(LevelMap map, int x1, int x2, int y) {
-        int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
-        map.ground[x][y].opacity = 0.25f
-        map.ground[x][y].color = SColor.BLUE
-        map.ground[x][y].isBlocked = true
-        map.ground[x][y].representation = '#'
+
+        if (x2 - 1 >= x1 + 1) {
+            int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
+            map.ground[x][y].opacity = 0.25f
+            map.ground[x][y].color = SColor.BLUE
+            map.ground[x][y].isBlocked = true
+            map.ground[x][y].representation = '#'
+        }
     }
 
     private static void cutWindowInVerticalWall(LevelMap map, int x, int y1, int y2) {
-        int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
-        map.ground[x][y].opacity = 0.25f
-        map.ground[x][y].color = SColor.BLUE
-        map.ground[x][y].isBlocked = true
-        map.ground[x][y].representation = '#'
+        if (y2 - 1 >= y1 + 1) {
+            int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
+            map.ground[x][y].opacity = 0.25f
+            map.ground[x][y].color = SColor.BLUE
+            map.ground[x][y].isBlocked = true
+            map.ground[x][y].representation = '#'
+        }
     }
 
 
     private static void cutDoorInHorizontalWall(LevelMap map, int x1, int x2, int y) {
-        int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
-        map.ground[x][y].opacity = 0f
-        map.ground[x][y].color = SColor.NEW_BRIDGE
-        map.ground[x][y].isBlocked = false
-        map.ground[x][y].representation = '+'
+        if (x2 - 1 >= x1 + 1) {
+            int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
+            map.ground[x][y].opacity = 0f
+            map.ground[x][y].color = SColor.NEW_BRIDGE
+            map.ground[x][y].isBlocked = false
+            map.ground[x][y].representation = '+'
+        }
     }
 
     private static void cutDoorInVerticalWall(LevelMap map, int x, int y1, int y2) {
-        int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
-        map.ground[x][y].opacity = 0f
-        map.ground[x][y].color = SColor.NEW_BRIDGE
-        map.ground[x][y].isBlocked = false
-        map.ground[x][y].representation = '+'
-    }
+        if (y2 - 1 >= y1 + 1) {
 
+            int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
+            map.ground[x][y].opacity = 0f
+            map.ground[x][y].color = SColor.NEW_BRIDGE
+            map.ground[x][y].isBlocked = false
+            map.ground[x][y].representation = '+'
+        }
+    }
 
 }

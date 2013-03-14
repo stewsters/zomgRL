@@ -317,7 +317,7 @@ class CityMapGenerator implements MapGenerator {
                     size++
             }
             if (size >= MIN_BUILDING_SIZE) {
-                lots.add new Rect(offsetX, offsetY, size, size)
+                lots.add new Rect(offsetX, offsetY, size-1, size-1)
             }
 
             //see if offset if blocked.  if it isnt, start drawing a box until it is

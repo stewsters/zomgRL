@@ -66,6 +66,7 @@ public class CharacterInputListener implements MouseInputListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //http://forums.codeguru.com/showthread.php?495419-KeyListener-doesn-t-work-on-Windows-OS
         int code = e.getExtendedKeyCode();
         handleKey(code);
     }

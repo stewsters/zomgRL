@@ -215,8 +215,10 @@ class ItemFunctions {
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.rifle, quantity)
             MessageLog.send("${user.name} picked up ${quantity} rounds.")
+            return true
         } else {
             MessageLog.send("${user.name} has no use for bullets.", SColor.RED, [user])
+            return false
         }
     }
     public static Closure pistolAmmoBox = { Entity user ->
@@ -224,8 +226,10 @@ class ItemFunctions {
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.pistol, quantity)
             MessageLog.send("${user.name} picked up ${quantity} rounds.")
+            return true
         } else {
             MessageLog.send("${user.name} has no use for bullets.", SColor.RED, [user])
+            return false
         }
     }
     public static Closure shotgunAmmoBox = { Entity user ->
@@ -233,8 +237,10 @@ class ItemFunctions {
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.shotgun, quantity)
             MessageLog.send("${user.name} picked up ${quantity} shells.")
+            return true
         } else {
             MessageLog.send("${user.name} has no use for shells.", SColor.RED, [user])
+            return false
         }
     }
 }
