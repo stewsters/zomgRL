@@ -20,6 +20,14 @@ My tools:
 + Intellij
 
 
+If you want to test the non-complete version, download it here:
+https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-0.9.jar?raw=true
+
+and run
+
+java -jar zomgRL-0.9.jar?raw=true
+
+
 To compile from source you will need Java 7 and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
 Once you are set up, it will be something like:
 
