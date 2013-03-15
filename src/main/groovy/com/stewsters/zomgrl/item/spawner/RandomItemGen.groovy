@@ -117,7 +117,7 @@ class RandomItemGen {
             case('Tennis Shoes'):
                 new Entity(map: map, x: x, y: y,
                         ch: 's', name: 'Tennis Shoes', color: SColor.WHITE,
-                        equipment: new Equipment(slot: Slot.head, bonusMaxStamina: 2)
+                        equipment: new Equipment(slot: Slot.legs, bonusMaxStamina: 2)
                 )
                 break
             case("5.56x45 mm Box"):

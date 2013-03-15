@@ -108,9 +108,9 @@ public class Inventory {
         pouch[ammoType] = MathUtils.limit((pouch[ammoType] ?: 0) + quantity, 0, maxAmmo)
     }
 
-    public boolean useAmmo(AmmoType) {
-        if (pouch[AmmoType.rifle]) {
-            pouch[AmmoType.rifle]--;
+    public boolean useAmmo(AmmoType ammoType) {
+        if (pouch[ammoType]) {
+            pouch[ammoType]--;
             return true
         } else return false;
 
