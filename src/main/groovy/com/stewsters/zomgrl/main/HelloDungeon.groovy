@@ -1,11 +1,13 @@
 package com.stewsters.zomgrl.main
 
+import com.stewsters.util.Rect
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.ai.LocalPlayer
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.Fighter
 import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.game.GameState
+import com.stewsters.zomgrl.graphic.MessageBox
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.graphic.RenderConfig
 import com.stewsters.zomgrl.graphic.StatusBar
@@ -17,6 +19,7 @@ import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
+import com.stewsters.zomgrl.map.gen.TestMapGenerator
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
@@ -105,6 +108,7 @@ public class HelloDungeon {
         frame.addKeyListener(dil)
 
         render()
+
         Game.state = GameState.playing
 
     }
@@ -125,12 +129,14 @@ public class HelloDungeon {
         StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.maxInfection ?: 1, SColor.GREEN)
 
         int numPeople = levelMap.objects.count { it.fighter && it.faction }
-        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans', levelMap.objects.count({ it.faction == Faction.human }) ?: 0, numPeople ?: 0)
-        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', levelMap.objects.count({ it.faction == Faction.zombie }) ?: 0, numPeople ?: 0)
+        int humans =  levelMap.objects.count({ it.faction == Faction.human }) ?: 0
+        int zombies = levelMap.objects.count({ it.faction == Faction.zombie }) ?: 0
+        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans',humans, numPeople ?: 0)
+        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', zombies, numPeople ?: 0)
 
 
         int maxAmmo =player?.inventory?.maxAmmo
-        [AmmoType.pistol,AmmoType.rifle,AmmoType.shotgun].eachWithIndex{ AmmoType ammoType, int i ->
+        [AmmoType.pistol, AmmoType.rifle, AmmoType.shotgun].eachWithIndex{ AmmoType ammoType, int i ->
             StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4+i, ammoType.technicalName ,player?.inventory?.getAmmoCount(ammoType),maxAmmo)
         }
 
@@ -142,6 +148,12 @@ public class HelloDungeon {
             player.inventory.render(display)
         else {
             Inventory.clear(display)
+        }
+
+        if (zombies==0){
+
+            Game.state = GameState.win
+            MessageBox.render(display, "All the zombies are dead. You Win!",new Rect(15,15,20,3))
         }
 
         //done rendering this frame
@@ -173,8 +185,20 @@ public class HelloDungeon {
     }
 
 
-    public void move(Direction dir) {
+    public void move(Direction dir, boolean shift = false) {
         if (Game.state == GameState.playing) {
+
+            if (shift && player.fighter.stamina)
+            {
+                player.fighter.stamina--
+                int x = player.x + dir.deltaX
+                int y = player.y + dir.deltaY
+
+                //check for legality of move based solely on map boundary
+                if (x >= 0 && x < levelMap.xSize && y >= 0 && y < levelMap.ySize) {
+                    player.moveOrAttack(dir.deltaX, dir.deltaY)
+                }
+            }
 
             int x = player.x + dir.deltaX
             int y = player.y + dir.deltaY
@@ -184,6 +208,7 @@ public class HelloDungeon {
                 player.moveOrAttack(dir.deltaX, dir.deltaY)
                 stepSim()
             }
+
         } else if (Game.state == GameState.selecting) {
             selectX += dir.deltaX
             selectY += dir.deltaY

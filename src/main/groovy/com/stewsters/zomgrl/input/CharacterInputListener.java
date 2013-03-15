@@ -67,47 +67,48 @@ public class CharacterInputListener implements MouseInputListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         //http://forums.codeguru.com/showthread.php?495419-KeyListener-doesn-t-work-on-Windows-OS
-        int code = e.getExtendedKeyCode();
-        handleKey(code);
+        handleKey(e);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
     }
 
-    private void handleKey(int code) {
+    private void handleKey(KeyEvent e) {
+        int code = e.getExtendedKeyCode();
+        boolean shift = e.isShiftDown();
         switch (code) {
             //movement
             case VK_LEFT:
             case VK_NUMPAD4:
-                context.move(LEFT);
+                context.move(LEFT,shift);
                 break;
             case VK_RIGHT:
             case VK_NUMPAD6:
-                context.move(RIGHT);
+                context.move(RIGHT,shift);
                 break;
             case VK_UP:
             case VK_NUMPAD8:
-                context.move(UP);
+                context.move(UP,shift);
                 break;
             case VK_DOWN:
             case VK_NUMPAD2:
-                context.move(DOWN);
+                context.move(DOWN,shift);
                 break;
             case VK_NUMPAD1:
-                context.move(DOWN_LEFT);
+                context.move(DOWN_LEFT,shift);
                 break;
             case VK_NUMPAD3:
-                context.move(DOWN_RIGHT);
+                context.move(DOWN_RIGHT,shift);
                 break;
             case VK_NUMPAD5:
                 context.standStill(); // waste time
                 break;
             case VK_NUMPAD7:
-                context.move(UP_LEFT);
+                context.move(UP_LEFT,shift);
                 break;
             case VK_NUMPAD9:
-                context.move(UP_RIGHT);
+                context.move(UP_RIGHT,shift);
                 break;
             case VK_G:
                 context.grab(); //pick up item
@@ -118,12 +119,12 @@ public class CharacterInputListener implements MouseInputListener, KeyListener {
             case VK_F:
                 context.fire(); //use a bow or spell
                 break;
-            case VK_E:
-                context.inspect(); //use a bow or spell
-                break;
-            case VK_R:
-                context.reload();
-                break;
+//            case VK_E:
+//                context.inspect(); //use a bow or spell
+//                break;
+//            case VK_R:
+//                context.reload();
+//                break;
             case VK_1:
                 context.useItem(1);
                 break;
