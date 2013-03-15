@@ -14,7 +14,7 @@ class RandomItemGen {
     public static def spawnChance = ['AntiViral': 10,
             'Bandages': 20,
             'Beef Jerkey': 10,
-            "24pk Monster": 10,
+//            "24pk Monster": 10,
             "Pump Shotgun": 10,
             "AR-15": 10,
             "Beretta 9mm": 10,
@@ -57,12 +57,12 @@ class RandomItemGen {
                         itemComponent: new Item(useFunction: ItemFunctions.eat)
                 )
                 break
-            case ("24pk Monster"):
-                new Entity(map: map, x: x, y: y,
-                        ch: '?', name: "24pk Monster", color: SColor.GREEN,
-                        itemComponent: new Item(useFunction: ItemFunctions.heartExplosion)
-                )
-                break
+//            case ("24pk Monster"):
+//                new Entity(map: map, x: x, y: y,
+//                        ch: '?', name: "24pk Monster", color: SColor.GREEN,
+//                        itemComponent: new Item(useFunction: ItemFunctions.heartExplosion)
+//                )
+//                break
             case ("Pump Shotgun"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'w', name: "Pump Shotgun", color: SColor.ORANGE,
