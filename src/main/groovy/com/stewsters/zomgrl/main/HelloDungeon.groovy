@@ -150,6 +150,22 @@ public class HelloDungeon {
             Inventory.clear(display)
         }
 
+
+        (0..RenderConfig.surroundingWidth).each { x ->
+            (0..RenderConfig.surroundingHeight).each { y ->
+                display.clearCell(x + RenderConfig.surroundingX, y + RenderConfig.surroundingY)
+            }
+        }
+        def names = (levelMap.getEntitiesAtLocation(player.x,player.y)-player).sort{Entity entity->entity.priority}.name
+
+        names.eachWithIndex{String name, int i ->
+            if(i<RenderConfig.surroundingHeight){
+                display.placeHorizontalString(RenderConfig.surroundingX,RenderConfig.surroundingY + i,name)
+            }
+        }
+
+
+
         if (zombies==0){
 
             Game.state = GameState.win

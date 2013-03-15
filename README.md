@@ -25,8 +25,9 @@ https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-0.9.jar?raw=tr
 
 and run
 
-java -jar zomgRL-0.9.jar?raw=true
+java -jar zomgRL-0.9.jar
 
+(or double click on it in Windows)
 
 To compile from source you will need Java 7 and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
 Once you are set up, it will be something like:

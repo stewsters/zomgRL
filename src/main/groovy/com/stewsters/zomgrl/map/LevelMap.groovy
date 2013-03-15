@@ -43,13 +43,16 @@ class LevelMap {
         return false
     }
 
+    public List<Entity> getEntitiesAtLocation(int x, int y){
+       return objects.findAll{it.x == x && it.y == y}
+    }
+
     /**
      * Performs the Field of View process
      *
      * @param startx
      * @param starty
      */
-
     public void render(params) {
 
         SwingPane display = params.display
@@ -133,8 +136,6 @@ class LevelMap {
             }
         }
 
-//        MessageLog.send(startx + ' : '+starty )
-
     }
 
     /**
@@ -148,36 +149,6 @@ class LevelMap {
         return (float) (0f + RenderConfig.lightTintPercentage * radius);//adjust tint based on distance
     }
 
-    /**
-     * Performs the Line of Sight calculation and paints target square with a
-     * green background if it can be reached or a red if not.
-     *
-     * @param startx
-     * @param starty
-     * @param endx
-     * @param endy
-     */
-//    public void doLOS(SwingPane display, int startx, int starty, int endx, int endy) {
-//
-//        //run the LOS calculation
-//        boolean visible = RenderConfig.los.isReachable(resistances, startx, starty, endx, endy);
-//        Queue<Point> path = RenderConfig.los.getLastPath();
-//
-//        //draw out background for path followed
-//        for (Point p : path) {
-//            display.setCellBackground(p.x, p.y, SColor.BLUE_GREEN_DYE);
-//        }
-//
-//        //mark the start location
-//        display.setCellBackground(startx, starty, SColor.AMBER_DYE);
-//
-//        //mark end point
-//        if (visible) {
-//            display.setCellBackground(endx, endy, SColor.BRIGHT_GREEN);
-//        } else {
-//            display.setCellBackground(endx, endy, SColor.RED_PIGMENT);
-//        }
-//        display.refresh();
-//    }
+
 
 }

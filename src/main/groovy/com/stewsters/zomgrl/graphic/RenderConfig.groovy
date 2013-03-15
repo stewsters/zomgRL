@@ -37,6 +37,10 @@ class RenderConfig {
     public static final int messageHeight = 30
     public static final int messageWidth = 35
 
+    public static final int surroundingX = 42
+    public static final int surroundingY = 42
+    public static final int surroundingHeight = 5
+    public static final int surroundingWidth = 35
     //
     public static final int inventoryX = 42
     public static final int inventoryY = 0

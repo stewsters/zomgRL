@@ -384,7 +384,7 @@ class CityMapGenerator implements MapGenerator {
                                     clear = false
                                 } else if (map.ground[x][y].color != SColor.GREEN) {
                                     clear = false
-                                    map.ground[x][y].representation = '^'
+//                                    map.ground[x][y].representation = '^'
                                 }
                                 if (!clear)
                                     break
