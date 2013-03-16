@@ -36,8 +36,10 @@ java -jar zomgRL-1.0.jar
 
 Controls
 ========
+```
+Movement: numpad, vi keys, or arrow keys(if you don't like diagonal movement)
 
-movement: numpad, vi keys, or arrow keys(if you don't like diagonal movement)
+Melee: Bump into enemies
 
 g: Pick up
 
@@ -45,10 +47,10 @@ f: fire gun (you will need to find one first)
 
 d: drop the last item you picked up
 
-1-8 : use/equip item
+1-8: use/equip item in that slot
 
-Hold shift and move to sprint or get an additional attack.  It uses stamina.
-
+shift: move to sprint or get an additional attack.  It consumes stamina.
+```
 
 Compile
 =======
