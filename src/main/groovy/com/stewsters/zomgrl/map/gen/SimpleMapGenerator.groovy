@@ -150,7 +150,7 @@ class SimpleMapGenerator implements MapGenerator {
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
-                            fighter: new Fighter(hp:  4, defense:  0, power:  1, stamina: 4, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(hp: 4, defense: 0, power: 1, stamina: 4, DeathFunctions.zombieDeath),
                             ai: new BasicZombie(),
                             priority: 120, faction: Faction.zombie
                     )
@@ -159,7 +159,7 @@ class SimpleMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'o', name: 'Orc', color: SColor.LAWN_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(hp:  10, defense:  0, power:  2, stamina: 4, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(hp: 10, defense: 0, power: 2, stamina: 4, DeathFunctions.zombieDeath),
                             ai: new BasicZombie()
                     )
                 } else {
@@ -167,7 +167,7 @@ class SimpleMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(hp:  16, defense:  1, power:  3, stamina: 4, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(hp: 16, defense: 1, power: 3, stamina: 4, DeathFunctions.zombieDeath),
                             ai: new BasicZombie()
                     )
                 }

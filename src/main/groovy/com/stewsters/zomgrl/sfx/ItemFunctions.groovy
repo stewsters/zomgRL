@@ -128,6 +128,8 @@ class ItemFunctions {
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.pistol)) {
                 message = "${user.name} fires a round at ${enemy.name}."
+                user.levelMap.noiseMap.makeNoise(user.x, user.y, 1000)
+
                 if (damage > 0) {
                     message += " and the damage is ${damage} hit points."
                     enemy.fighter.takeDamage(damage)
@@ -159,6 +161,8 @@ class ItemFunctions {
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.rifle)) {
                 message = "${user.name} fires a round at ${enemy.name}"
+                user.levelMap.noiseMap.makeNoise(user.x, user.y, 1000)
+
                 if (damage > 0) {
                     message += " and the damage is ${damage} hit points."
                     enemy.fighter.takeDamage(damage)
@@ -194,6 +198,7 @@ class ItemFunctions {
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.shotgun)) {
                 message = "${user.name} fires a round at ${enemy.name}"
+                user.levelMap.noiseMap.makeNoise(user.x, user.y, 1000)
 
                 if (damage > 0) {
                     message += " and the damage is ${damage} hit points."
@@ -211,7 +216,7 @@ class ItemFunctions {
     }
 
     public static Closure rifleAmmoBox = { Entity user ->
-        int quantity = MathUtils.getIntInRange(6, 10)
+        int quantity = MathUtils.getIntInRange(12, 20)
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.rifle, quantity)
             MessageLog.send("${user.name} picked up ${quantity} rounds.")
@@ -222,7 +227,7 @@ class ItemFunctions {
         }
     }
     public static Closure pistolAmmoBox = { Entity user ->
-        int quantity = MathUtils.getIntInRange(8, 12)
+        int quantity = MathUtils.getIntInRange(12, 20)
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.pistol, quantity)
             MessageLog.send("${user.name} picked up ${quantity} rounds.")
@@ -233,7 +238,7 @@ class ItemFunctions {
         }
     }
     public static Closure shotgunAmmoBox = { Entity user ->
-        int quantity = MathUtils.getIntInRange(8, 12)
+        int quantity = MathUtils.getIntInRange(8, 18)
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.shotgun, quantity)
             MessageLog.send("${user.name} picked up ${quantity} shells.")

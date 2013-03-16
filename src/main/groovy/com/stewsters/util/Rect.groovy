@@ -30,7 +30,7 @@ class Rect {
                 y2 >= other.y1)
     }
 
-    public String toString(){
+    public String toString() {
         return "$x1 $y1 $x2 $y2"
     }
 

@@ -53,10 +53,10 @@ class Fighter {
                     deathFunction(owner)
             }
             for (int i = 0; i < damage; i++) {
-                int range = Math.min((int)(damage / 2),5)
+                int range = Math.min((int) (damage / 2), 5)
                 int xPos = MathUtils.getIntInRange(-range, range) + owner.x
                 int yPos = MathUtils.getIntInRange(-range, range) + owner.y
-                owner.levelMap.ground[MathUtils.limit(xPos,0,owner.levelMap.xSize-1)][MathUtils.limit(yPos,0,owner.levelMap.ySize-1)].gore = true
+                owner.levelMap.ground[MathUtils.limit(xPos, 0, owner.levelMap.xSize - 1)][MathUtils.limit(yPos, 0, owner.levelMap.ySize - 1)].gore = true
             }
 
         }
@@ -81,7 +81,7 @@ class Fighter {
         int damage = MathUtils.getIntInRange(0, power) - MathUtils.getIntInRange(0, target.fighter.defense)
 
         if (damage > 0) {
-            MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE,[owner,target]
+            MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE, [owner, target]
             if (owner.faction == Faction.zombie) {
                 target.fighter.infect(1)
             }
@@ -89,59 +89,59 @@ class Fighter {
 
         } else if (damage < 0) {
             owner.fighter.takeDamage(Math.abs(damage))
-            MessageLog.send "${owner.name} attacks ${target.name}, but is countered, receiving ${Math.abs(damage)} damage.", SColor.WHITE,[owner,target]
+            MessageLog.send "${owner.name} attacks ${target.name}, but is countered, receiving ${Math.abs(damage)} damage.", SColor.WHITE, [owner, target]
         } else {
-            MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE,[owner,target]
+            MessageLog.send "${owner.name} attacks ${target.name} but it has no effect!", SColor.WHITE, [owner, target]
         }
     }
 
     /* Equipment functions */
 
-    public int getMaxHP(){
-        int bonus =  0
-        if (owner.inventory){
-            bonus +=  owner.inventory.getAllEquiped()?.bonusMaxHp.sum()?:0
+    public int getMaxHP() {
+        int bonus = 0
+        if (owner.inventory) {
+            bonus += owner.inventory.getAllEquiped()?.bonusMaxHp.sum() ?: 0
         }
         return baseMaxHp + bonus
     }
 
-    public int getMaxInfection(){
-        int bonus =  0
-        if (owner.inventory){
-            bonus +=  owner.inventory.getAllEquiped().bonusMaxInfection.sum()?:0
+    public int getMaxInfection() {
+        int bonus = 0
+        if (owner.inventory) {
+            bonus += owner.inventory.getAllEquiped().bonusMaxInfection.sum() ?: 0
         }
         return baseMaxInfection + bonus
     }
 
-    public int getMaxStamina(){
-        int bonus =  0
-        if (owner.inventory){
-            bonus +=  owner.inventory.getAllEquiped().bonusMaxStamina.sum()?:0
+    public int getMaxStamina() {
+        int bonus = 0
+        if (owner.inventory) {
+            bonus += owner.inventory.getAllEquiped().bonusMaxStamina.sum() ?: 0
         }
         return baseMaxStamina + bonus
     }
 
 
-    public int getPower(){
-        int bonus =  0
-        if (owner.inventory){
-            bonus +=  owner.inventory.getAllEquiped().bonusPower.sum()?:0
+    public int getPower() {
+        int bonus = 0
+        if (owner.inventory) {
+            bonus += owner.inventory.getAllEquiped().bonusPower.sum() ?: 0
         }
         return basePower + bonus
     }
 
-    public int getDefense(){
-        int bonus =  0
-        if (owner.inventory){
-            bonus +=  owner.inventory.getAllEquiped().bonusDefense.sum()?:0
+    public int getDefense() {
+        int bonus = 0
+        if (owner.inventory) {
+            bonus += owner.inventory.getAllEquiped().bonusDefense.sum() ?: 0
         }
         return baseDefense + bonus
     }
 
-    public int getMarksman(){
-        int bonus =  0
-        if (owner.inventory){
-            bonus +=  owner.inventory.getAllEquiped().bonusMarksman.sum()?:0
+    public int getMarksman() {
+        int bonus = 0
+        if (owner.inventory) {
+            bonus += owner.inventory.getAllEquiped().bonusMarksman.sum() ?: 0
         }
         return baseMarksman + bonus
     }

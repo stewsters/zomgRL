@@ -14,7 +14,7 @@ public class Inventory {
     Entity owner
 
     //this if for counter items.
-    public int maxAmmo = 20
+    public int maxAmmo = 100
     Map<AmmoType, Integer> pouch = [:]
 
     public pickUp(Entity item) {

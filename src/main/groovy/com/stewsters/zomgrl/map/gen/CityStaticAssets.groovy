@@ -7,7 +7,7 @@ import squidpony.squidcolor.SColor
 
 public class CityStaticAssets {
 
-    public static boolean populate( LevelMap map, Rect rect) {
+    public static boolean populate(LevelMap map, Rect rect) {
 
         int rectWidth = rect.getX2() - rect.getX1();
         int rectHeight = rect.getY2() - rect.getY1();

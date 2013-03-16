@@ -79,36 +79,45 @@ public class CharacterInputListener implements MouseInputListener, KeyListener {
         boolean shift = e.isShiftDown();
         switch (code) {
             //movement
+            case VK_H:
             case VK_LEFT:
             case VK_NUMPAD4:
-                context.move(LEFT,shift);
+                context.move(LEFT, shift);
                 break;
+            case VK_L:
             case VK_RIGHT:
             case VK_NUMPAD6:
-                context.move(RIGHT,shift);
+                context.move(RIGHT, shift);
                 break;
+            case VK_K:
             case VK_UP:
             case VK_NUMPAD8:
-                context.move(UP,shift);
+                context.move(UP, shift);
                 break;
+            case VK_J:
             case VK_DOWN:
             case VK_NUMPAD2:
-                context.move(DOWN,shift);
+                context.move(DOWN, shift);
                 break;
+            case VK_B:
             case VK_NUMPAD1:
-                context.move(DOWN_LEFT,shift);
+                context.move(DOWN_LEFT, shift);
                 break;
+            case VK_N:
             case VK_NUMPAD3:
-                context.move(DOWN_RIGHT,shift);
+                context.move(DOWN_RIGHT, shift);
                 break;
+            case VK_PERIOD:
             case VK_NUMPAD5:
                 context.standStill(); // waste time
                 break;
+            case VK_Y:
             case VK_NUMPAD7:
-                context.move(UP_LEFT,shift);
+                context.move(UP_LEFT, shift);
                 break;
+            case VK_U:
             case VK_NUMPAD9:
-                context.move(UP_RIGHT,shift);
+                context.move(UP_RIGHT, shift);
                 break;
             case VK_G:
                 context.grab(); //pick up item

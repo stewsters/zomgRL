@@ -13,7 +13,7 @@ class DeathFunctions {
 
     public static Closure playerDeath = { Entity owner ->
 
-        MessageLog.send("${owner.name} is dead.",SColor.RED,[owner])
+        MessageLog.send("${owner.name} is dead.", SColor.RED, [owner])
         Game.state = GameState.dead
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
@@ -26,7 +26,7 @@ class DeathFunctions {
 
 
     public static Closure zombieDeath = { Entity owner ->
-        MessageLog.send("${owner.name} is dead!",SColor.RED,[owner])
+        MessageLog.send("${owner.name} is dead!", SColor.RED, [owner])
         owner.ch = '%'
         owner.color = SColor.BLOOD_RED
         owner.blocks = false
@@ -41,7 +41,7 @@ class DeathFunctions {
 
 
     public static Closure zombify = { Entity owner ->
-        MessageLog.send("${owner.name} is changing!",SColor.RED,[owner])
+        MessageLog.send("${owner.name} is changing!", SColor.RED, [owner])
         owner.faction = Faction.zombie
         owner.ch = 'z'
         owner.color = SColor.GREEN_BAMBOO

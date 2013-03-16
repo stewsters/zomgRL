@@ -8,7 +8,7 @@ public enum AmmoType {
 
     String technicalName
 
-    public AmmoType(String technicalName){
+    public AmmoType(String technicalName) {
         this.technicalName = technicalName
     }
 }

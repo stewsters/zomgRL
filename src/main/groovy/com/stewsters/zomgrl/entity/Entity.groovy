@@ -155,13 +155,13 @@ public class Entity {
 
     public void grab() {
         if (!inventory) {
-            MessageLog.send("${name} can't hold items.",SColor.WHITE,[this])
+            MessageLog.send("${name} can't hold items.", SColor.WHITE, [this])
             return
         }
         //if holding item, message you cant
-        Entity topItem = levelMap.getEntitiesAtLocation(x,y).sort{it.priority}.find{it.itemComponent}
+        Entity topItem = levelMap.getEntitiesAtLocation(x, y).sort { it.priority }.find { it.itemComponent }
 
-        if (topItem){
+        if (topItem) {
             inventory.pickUp(topItem)
         }
     }
@@ -177,7 +177,7 @@ public class Entity {
                 item.equipment.dequip(this)
             levelMap.objects.add(item)
         } else {
-            MessageLog.send("${name} has nothing to drop.",SColor.WHITE,[this])
+            MessageLog.send("${name} has nothing to drop.", SColor.WHITE, [this])
         }
 
     }

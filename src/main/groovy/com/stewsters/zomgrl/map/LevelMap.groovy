@@ -14,7 +14,7 @@ class LevelMap {
 
     public Tile[][] ground
     public ArrayList<Entity> objects
-
+    public NoiseMap noiseMap
 
 
     public LevelMap(int x, int y) {
@@ -22,6 +22,7 @@ class LevelMap {
         ySize = y
 
         ground = new Tile[x][y]
+        noiseMap = new NoiseMap(xSize, ySize)
         objects = new ArrayList<Entity>()
     }
 
@@ -43,8 +44,8 @@ class LevelMap {
         return false
     }
 
-    public List<Entity> getEntitiesAtLocation(int x, int y){
-       return objects.findAll{it.x == x && it.y == y}
+    public List<Entity> getEntitiesAtLocation(int x, int y) {
+        return objects.findAll { it.x == x && it.y == y }
     }
 
     /**
@@ -91,7 +92,7 @@ class LevelMap {
                     double radius = Math.sqrt((originalX - player.x) * (originalX - player.x) + (originalY - player.y) * (originalY - player.y));
                     float bright = 1 - player.ai.light[lightX][lightY];
 
-                    SColor cellLight = Game.isDay()?SColorFactory.fromPallet("light", bright): SColorFactory.fromPallet("dark", bright);
+                    SColor cellLight = Game.isDay() ? SColorFactory.fromPallet("light", bright) : SColorFactory.fromPallet("dark", bright);
 
 
                     SColor objectLight = SColorFactory.blend(
@@ -148,7 +149,6 @@ class LevelMap {
     private float getTint(double radius) {
         return (float) (0f + RenderConfig.lightTintPercentage * radius);//adjust tint based on distance
     }
-
 
 
 }

@@ -10,16 +10,16 @@ class MessageLog {
 
     private def static gameMessages = [] as LinkedList
 
-    public static void send(String message, def color = SColor.WHITE, List<Entity> concerning=[]) {
+    public static void send(String message, def color = SColor.WHITE, List<Entity> concerning = []) {
         WordUtils.wrap('>' + message, RenderConfig.messageWidth).eachLine {
-            gameMessages.addLast([message: it, color: color, concerning:concerning])
+            gameMessages.addLast([message: it, color: color, concerning: concerning])
 
             if (gameMessages.size() > RenderConfig.messageHeight)
                 gameMessages.poll()
         }
     }
 
-    public static void render(SwingPane display, Entity player=null) {
+    public static void render(SwingPane display, Entity player = null) {
 
         (0..RenderConfig.messageWidth).each { x ->
             (0..RenderConfig.messageHeight).each { y ->
@@ -28,11 +28,11 @@ class MessageLog {
         }
 
         def displayedMessages
-        if (player){
-            displayedMessages = gameMessages.findAll{
+        if (player) {
+            displayedMessages = gameMessages.findAll {
                 it.concerning && it.concerning.contains(player)
             }
-        }else{
+        } else {
             displayedMessages = gameMessages
         }
 

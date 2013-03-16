@@ -19,15 +19,15 @@ class RandomItemGen {
             "AR-15": 10,
             "Beretta 9mm": 10,
             'Baseball Bat': 20,
-            "Machete":10,
-            "Winter Coat":10,
-            'Leather Jacket':10,
-            'Hockey Mask':10,
-            'Tennis Shoes':10,
-            "5.56x45 mm Box":20,
-            "9mm hp Box":20,
-            "12 Gauge Box":20,
-            "Ski Goggles":5
+            "Machete": 10,
+            "Winter Coat": 10,
+            'Leather Jacket': 10,
+            'Hockey Mask': 10,
+            'Tennis Shoes': 10,
+            "5.56x45 mm Box": 20,
+            "9mm hp Box": 20,
+            "12 Gauge Box": 20,
+            "Ski Goggles": 5
 
 
     ]
@@ -93,52 +93,52 @@ class RandomItemGen {
             case ("Machete"):
                 new Entity(map: map, x: x, y: y,
                         ch: '/', name: 'Machete', color: SColor.SILVER,
-                        equipment: new Equipment(slot: Slot.rightHand, bonusPower:6)
+                        equipment: new Equipment(slot: Slot.rightHand, bonusPower: 6)
                 )
                 break
-            case('Winter Coat'):
+            case ('Winter Coat'):
                 new Entity(map: map, x: x, y: y,
                         ch: 'c', name: 'Winter Coat', color: SColor.WHITE,
                         equipment: new Equipment(slot: Slot.chest, bonusDefense: 1)
                 )
                 break
-            case('Leather Jacket'):
+            case ('Leather Jacket'):
                 new Entity(map: map, x: x, y: y,
                         ch: 'c', name: 'Leather Jacket', color: SColor.PALE_BROWN,
                         equipment: new Equipment(slot: Slot.chest, bonusMaxInfection: 2)
                 )
                 break
-            case('Hockey Mask'):
+            case ('Hockey Mask'):
                 new Entity(map: map, x: x, y: y,
                         ch: 'm', name: 'Hockey Mask', color: SColor.WHITE,
                         equipment: new Equipment(slot: Slot.head, bonusDefense: 1)
                 )
                 break
-            case('Tennis Shoes'):
+            case ('Tennis Shoes'):
                 new Entity(map: map, x: x, y: y,
                         ch: 's', name: 'Tennis Shoes', color: SColor.WHITE,
                         equipment: new Equipment(slot: Slot.legs, bonusMaxStamina: 2)
                 )
                 break
-            case("5.56x45 mm Box"):
+            case ("5.56x45 mm Box"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: "5.56x45 mm Box", color: SColor.SILVER,
                         itemComponent: new Item(useFunction: ItemFunctions.rifleAmmoBox)
                 )
                 break
-            case("9mm hp Box"):
+            case ("9mm hp Box"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: "9mm hp Box", color: SColor.GRAY,
                         itemComponent: new Item(useFunction: ItemFunctions.pistolAmmoBox)
                 )
                 break
-            case("12 Gauge Box"):
+            case ("12 Gauge Box"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: "12 Gauge Box", color: SColor.YELLOW,
                         itemComponent: new Item(useFunction: ItemFunctions.shotgunAmmoBox)
                 )
                 break
-            case("Ski Goggles"):
+            case ("Ski Goggles"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'g', name: "Ski Goggles", color: SColor.WHITE,
                         equipment: new Equipment(slot: Slot.head, bonusMaxInfection: 1)

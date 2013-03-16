@@ -52,7 +52,7 @@ class Equipment {
             return
         } else {
             isEquiped = false
-            MessageLog.send("Dequipped ${owner.name} from ${slot.name}",SColor.WHITE, [holder])
+            MessageLog.send("Dequipped ${owner.name} from ${slot.name}", SColor.WHITE, [holder])
         }
 
     }

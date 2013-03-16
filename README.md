@@ -33,7 +33,9 @@ To compile from source you will need Java 7 and to install groovy and gradle.  I
 Once you are set up, it will be something like:
 
 git clone git://github.com/stewsters/zomgRL.git
-cd zomgRL.git
+
+cd zomgRL
+
 gradle run
 
 

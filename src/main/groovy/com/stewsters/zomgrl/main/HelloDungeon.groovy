@@ -129,19 +129,19 @@ public class HelloDungeon {
         StatusBar.render(display, 24, (2 * RenderConfig.windowRadiusY) + 2, 10, 'inf', player?.fighter?.infection ?: 0, player?.fighter?.maxInfection ?: 1, SColor.GREEN)
 
         int numPeople = levelMap.objects.count { it.fighter && it.faction }
-        int humans =  levelMap.objects.count({ it.faction == Faction.human }) ?: 0
+        int humans = levelMap.objects.count({ it.faction == Faction.human }) ?: 0
         int zombies = levelMap.objects.count({ it.faction == Faction.zombie }) ?: 0
-        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans',humans, numPeople ?: 0)
+        StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 4, 'Humans', humans, numPeople ?: 0)
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', zombies, numPeople ?: 0)
 
 
-        int maxAmmo =player?.inventory?.maxAmmo
-        [AmmoType.pistol, AmmoType.rifle, AmmoType.shotgun].eachWithIndex{ AmmoType ammoType, int i ->
-            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4+i, ammoType.technicalName ,player?.inventory?.getAmmoCount(ammoType),maxAmmo)
+        int maxAmmo = player?.inventory?.maxAmmo
+        [AmmoType.pistol, AmmoType.rifle, AmmoType.shotgun].eachWithIndex { AmmoType ammoType, int i ->
+            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4 + i, ammoType.technicalName, player?.inventory?.getAmmoCount(ammoType), maxAmmo)
         }
 
 
-        MessageLog.render(display,player)
+        MessageLog.render(display, player)
 
         //render inventory
         if (player.inventory)
@@ -156,20 +156,20 @@ public class HelloDungeon {
                 display.clearCell(x + RenderConfig.surroundingX, y + RenderConfig.surroundingY)
             }
         }
-        def names = (levelMap.getEntitiesAtLocation(player.x,player.y)-player).sort{Entity entity->entity.priority}.name
+        def names = (levelMap.getEntitiesAtLocation(player.x, player.y) - player).sort { Entity entity -> entity.priority }.name
 
-        names.eachWithIndex{String name, int i ->
-            if(i<RenderConfig.surroundingHeight){
-                display.placeHorizontalString(RenderConfig.surroundingX,RenderConfig.surroundingY + i,name)
+        names.eachWithIndex { String name, int i ->
+            if (i < RenderConfig.surroundingHeight) {
+                display.placeHorizontalString(RenderConfig.surroundingX, RenderConfig.surroundingY + i, name)
             }
         }
 
 
 
-        if (zombies==0){
+        if (zombies == 0) {
 
             Game.state = GameState.win
-            MessageBox.render(display, "All the zombies are dead. You Win!",new Rect(15,15,20,3))
+            MessageBox.render(display, "All the zombies are dead. You Win!", new Rect(15, 15, 20, 3))
         }
 
         //done rendering this frame
@@ -188,6 +188,9 @@ public class HelloDungeon {
 
     public void stepSim() {
         //Run sim
+        levelMap.noiseMap.spread()
+        levelMap.noiseMap.fade()
+        levelMap.noiseMap.regenerateDirection()
 
         //This is not an efficient way to do this..
         levelMap.objects.toArray().each { Entity entity ->
@@ -204,8 +207,7 @@ public class HelloDungeon {
     public void move(Direction dir, boolean shift = false) {
         if (Game.state == GameState.playing) {
 
-            if (shift && player.fighter.stamina)
-            {
+            if (shift && player.fighter.stamina) {
                 player.fighter.stamina--
                 int x = player.x + dir.deltaX
                 int y = player.y + dir.deltaY
@@ -241,11 +243,11 @@ public class HelloDungeon {
                     weapon.owner.itemComponent.useHeldItem(player)
                     stepSim()
                 } else {
-                    MessageLog.send("Find a weapon first.",SColor.RED,[player])
+                    MessageLog.send("Find a weapon first.", SColor.RED, [player])
                     render()
                 }
             } else {
-                MessageLog.send("You can't use weapons.",SColor.RED,[player])
+                MessageLog.send("You can't use weapons.", SColor.RED, [player])
                 render()
             }
             // shoot at it

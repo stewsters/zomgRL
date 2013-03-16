@@ -43,14 +43,14 @@ class CityMapGenerator implements MapGenerator {
         playerStartY = height / 2
 
 
-        (width / BLOCKSIZE).times {int x ->
-            (height / BLOCKSIZE).times {int y ->
+        (width / BLOCKSIZE).times { int x ->
+            (height / BLOCKSIZE).times { int y ->
 
 //            int intersectionX = MathUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
 //            int intersectionY = MathUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
 
-                int intersectionX = BLOCKSIZE *x
-                int intersectionY = BLOCKSIZE *y
+                int intersectionX = BLOCKSIZE * x
+                int intersectionY = BLOCKSIZE * y
 
                 //city blocks
 //                intersectionX -= (intersectionX % BLOCKSIZE)
@@ -62,8 +62,8 @@ class CityMapGenerator implements MapGenerator {
 //                }
 
 //                if (!collisions) {
-                    Intersection intersection = new Intersection(material, intersectionX, intersectionY)
-                    intersections.add(intersection)
+                Intersection intersection = new Intersection(material, intersectionX, intersectionY)
+                intersections.add(intersection)
 
 //                    if (intersections)
 //                        intersection.linkWithRoads(material, MathUtils.rand(intersections))

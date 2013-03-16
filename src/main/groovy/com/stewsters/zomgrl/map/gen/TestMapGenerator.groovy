@@ -34,7 +34,7 @@ class TestMapGenerator implements MapGenerator {
         playerStartX = map.xSize / 2 - 1
         playerStartY = map.ySize / 2 - 1
 
-        new Entity(map: map, x:playerStartX + 10, y: playerStartY + 10,
+        new Entity(map: map, x: playerStartX + 10, y: playerStartY + 10,
                 ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
                 priority: 120, faction: Faction.zombie,
                 ai: new BasicZombie(),
@@ -49,8 +49,8 @@ class TestMapGenerator implements MapGenerator {
          * Items
          */
 
-        RandomItemGen.spawnChance.keySet().eachWithIndex{String name, int i ->
-            RandomItemGen.createFromName(map,2,2+i,name)
+        RandomItemGen.spawnChance.keySet().eachWithIndex { String name, int i ->
+            RandomItemGen.createFromName(map, 2, 2 + i, name)
         }
 
         return map

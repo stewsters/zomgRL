@@ -2,6 +2,7 @@ package com.stewsters.zomgrl.ai
 
 import com.stewsters.util.MathUtils
 import com.stewsters.zomgrl.entity.Entity
+import squidpony.squidgrid.util.Direction
 
 class BasicZombie extends BaseAi implements Ai {
 
@@ -21,8 +22,16 @@ class BasicZombie extends BaseAi implements Ai {
             if (enemy) {
                 owner.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
-                if (MathUtils.boolean)
+
+                if (MathUtils.boolean) {
                     owner.move(MathUtils.getIntInRange(-1, 1), MathUtils.getIntInRange(-1, 1))
+                } else {
+                    Direction d = owner.levelMap.noiseMap.getNoiseDir(owner.x, owner.y)
+                    owner.move(d.deltaX, d.deltaY)
+                }
+//
+
+
             }
         }
     }

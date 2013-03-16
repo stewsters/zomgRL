@@ -10,7 +10,8 @@ public enum Slot {
     head("head");
 
     public String name
-    public Slot(String name){
+
+    public Slot(String name) {
         this.name = name
     }
 

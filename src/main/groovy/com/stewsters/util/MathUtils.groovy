@@ -41,7 +41,7 @@ class MathUtils {
     }
 
 
-    public static double getGauss( double  stdDeviation=1){
+    public static double getGauss(double stdDeviation = 1) {
         if (!random) init()
         random.nextGaussian() * stdDeviation
     }

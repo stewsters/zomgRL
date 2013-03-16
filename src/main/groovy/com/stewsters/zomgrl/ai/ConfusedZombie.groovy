@@ -23,7 +23,7 @@ class ConfusedZombie extends BaseAi implements Ai {
             numTurns--
         } else {
             owner.ai = oldAI
-            MessageLog.send("The ${owner.name} is no longer confused!", SColor.RED,[owner,castor])
+            MessageLog.send("The ${owner.name} is no longer confused!", SColor.RED, [owner, castor])
         }
 
     }

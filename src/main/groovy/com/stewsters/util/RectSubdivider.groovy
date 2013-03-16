@@ -36,8 +36,8 @@ public class RectSubdivider {
             def x1 = rect.x1
             def w = rect.x2 - rect.x1
 
-            def child1 = new Rect(x1, rect.y1,  w + 1,   y -rect.y1 + 1)
-            def child2 = new Rect(x1, y,        w + 1,  rect.y2 - y + 1)
+            def child1 = new Rect(x1, rect.y1, w + 1, y - rect.y1 + 1)
+            def child2 = new Rect(x1, y, w + 1, rect.y2 - y + 1)
 
             return divide(child1, rules) + divide(child2, rules)
         }
