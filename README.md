@@ -25,17 +25,34 @@ https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-0.9.jar?raw=tr
 
 and run
 
+```bash
 java -jar zomgRL-0.9.jar
+```
 
 (or double click on it in Windows)
 
 To compile from source you will need Java 7 and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
 Once you are set up, it will be something like:
 
+```bash
 git clone git://github.com/stewsters/zomgRL.git
 
 cd zomgRL
 
 gradle run
+```
 
+Controls
+========
 
+movement: numpad, vi keys, or arrow keys(if you don't like diagonal movement)
+
+g: Pick up
+
+f: fire gun (you will need to find one first)
+
+d: drop the last item you picked up
+
+1-8 : use/equip item
+
+Hold shift and move to sprint or get an additional attack.  It uses stamina.

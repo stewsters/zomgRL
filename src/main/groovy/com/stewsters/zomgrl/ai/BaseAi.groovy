@@ -94,16 +94,17 @@ abstract class BaseAi {
     }
 
     public Entity findClosestVisibleItem(Map params) {
-        int maxDistance = params?.maxRange ?: sightRange
+
         calculateSight()
 
-        int lowX = owner.x - maxDistance
-        int highX = owner.x + maxDistance
-        int lowY = owner.y - maxDistance
-        int highY = owner.y + maxDistance
+        int lowX = owner.x - sightRange
+        int highX = owner.x + sightRange
+        int lowY = owner.y - sightRange
+        int highY = owner.y + sightRange
 
         Entity item = null
-        int distance = maxDistance
+
+        int distance = params?.maxRange ?: sightRange
 
         for (Entity entity : owner.levelMap.objects) {
 

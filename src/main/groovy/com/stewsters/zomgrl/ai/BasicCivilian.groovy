@@ -31,7 +31,7 @@ class BasicCivilian extends BaseAi implements Ai {
 
                 //if we are standing on it, pickUp
                 if (item) {
-                    if (item.x == owner.x) {
+                    if (item.x == owner.x && item.y == owner.y) {
                         owner.inventory.pickUp(item)
                     } else {
                         owner.moveTowardsAndAttack(item.x, item.y)

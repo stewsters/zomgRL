@@ -169,7 +169,7 @@ public class HelloDungeon {
         if (zombies == 0) {
 
             Game.state = GameState.win
-            MessageBox.render(display, "All the zombies are dead. You Win!", new Rect(15, 15, 20, 3))
+            MessageBox.render(display, "All the zombies are dead. You Win!", new Rect(6, 15, 20, 3))
         }
 
         //done rendering this frame

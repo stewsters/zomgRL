@@ -135,7 +135,7 @@ class CityMapGenerator implements MapGenerator {
 //        assumeBuildings(map, intersections)
         growTrees(map)
         populate(map, 100)
-        infest(map, 30)
+        infest(map, 50)
         return map
     }
 

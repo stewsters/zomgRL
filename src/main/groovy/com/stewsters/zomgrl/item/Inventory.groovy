@@ -34,7 +34,7 @@ public class Inventory {
     }
 
     public boolean isFull() {
-        return capacity >= items.size() - 1
+        return capacity <= items.size() - 1
     }
 
     public dump() {
