@@ -1,17 +1,17 @@
 zomgRL
 ======
 
-Zombie Game Rogue Like
+Zombie Groovy Rogue Like
 
 
 I'm starting a zombie based roguelike.  You will start in a small city and have to exterminate the zombie hordes.
- This is my first roguelike, and is being done for the 7DRL Challenge 2013.
+This is my first roguelike, and is being done for the 7DRL Challenge 2013.
 
 My initial plans include:
-+ a randomly generated city
-+ common weapons and items for salvage
-+ zombies that wander around the town, and can hear noise over a distance
-+ the world starts off with civilians in it, which quickly get eaten.
++ A randomly generated city
++ Weapons and items that can be collected and used
++ Zombies that wander around the town, and can hear noise over a distance
++ The world starts off with civilians in it, which quickly get eaten.
 
 My tools:
 + Java7
@@ -19,8 +19,10 @@ My tools:
 + SquidLib 1.95 ( https://github.com/SquidPony/SquidLib)
 + Intellij
 
+Download
+========
+You can get the final app here:
 
-If you want to test the non-complete version, download it here:
 https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-1.0.jar?raw=true
 
 and run
@@ -31,16 +33,6 @@ java -jar zomgRL-1.0.jar
 
 (or double click on it in Windows)
 
-To compile from source you will need Java 7 and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
-Once you are set up, it will be something like:
-
-```bash
-git clone git://github.com/stewsters/zomgRL.git
-
-cd zomgRL
-
-gradle run
-```
 
 Controls
 ========
@@ -56,3 +48,17 @@ d: drop the last item you picked up
 1-8 : use/equip item
 
 Hold shift and move to sprint or get an additional attack.  It uses stamina.
+
+
+Compile
+=======
+To compile from source you will need Java 7 and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
+Once you are set up, it will be something like:
+
+```bash
+git clone git://github.com/stewsters/zomgRL.git
+
+cd zomgRL
+
+gradle run
+```
