@@ -1,6 +1,7 @@
 package com.stewsters.zomgrl.map.gen
 
 import com.stewsters.util.MathUtils
+import com.stewsters.util.NameGen
 import com.stewsters.util.Rect
 import com.stewsters.util.Simplex2d
 import com.stewsters.zomgrl.ai.BasicCivilian
@@ -255,7 +256,7 @@ class CityMapGenerator implements MapGenerator {
                 int d100 = MathUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                            ch: 'h', name: 'Human', color: SColor.WHITE_TEA_DYE, blocks: true,
+                            ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
                             inventory: new Inventory(),
@@ -270,7 +271,7 @@ class CityMapGenerator implements MapGenerator {
                 } else if (d100 < 95) {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'H', name: 'Human', color: SColor.WHITE_MOUSE, blocks: true,
+                            ch: 'H', name: NameGen.gener(), color: SColor.WHITE_MOUSE, blocks: true,
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
                             inventory: new Inventory(),
@@ -284,7 +285,7 @@ class CityMapGenerator implements MapGenerator {
                 } else {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'P', name: 'Police', color: SColor.WHITE, blocks: true,
+                            ch: 'H', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
                             priority: 120, faction: Faction.human,
                             ai: new BasicCivilian(),
                             inventory: new Inventory(),
@@ -396,16 +397,11 @@ class CityMapGenerator implements MapGenerator {
                     }
                     size--
 
-                    if (xMod == -1 && yMod == -1) {
-                        println "test"
-                    }
                     if (size >= MIN_BUILDING_SIZE) {
 
 
                         Rect rect = new Rect(Math.min(offsetX, offsetX + (size * xMod)), Math.min(offsetY, offsetY + (size * yMod)), size, size)
                         lots.add rect
-
-                        println rect.toString()
                     }
                 }
             }

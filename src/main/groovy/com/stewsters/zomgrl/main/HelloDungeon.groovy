@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.main
 
+import com.stewsters.util.NameGen
 import com.stewsters.util.Rect
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.ai.LocalPlayer
@@ -19,7 +20,6 @@ import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
-import com.stewsters.zomgrl.map.gen.TestMapGenerator
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory
@@ -68,7 +68,7 @@ public class HelloDungeon {
         levelMap = mapGen.reGenerate()
 
         player = new Entity(map: levelMap, x: mapGen.playerStartX, y: mapGen.playerStartY,
-                ch: '@', name: 'Sir Jack', color: SColor.WHITE, blocks: true,
+                ch: '@', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
                 priority: 130, faction: Faction.human,
                 ai: new LocalPlayer(),
                 inventory: new Inventory(),
@@ -135,9 +135,9 @@ public class HelloDungeon {
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', zombies, numPeople ?: 0)
 
 
-        int maxAmmo = player?.inventory?.maxAmmo
+        int maxAmmo = player?.inventory?.maxAmmo?:1
         [AmmoType.pistol, AmmoType.rifle, AmmoType.shotgun].eachWithIndex { AmmoType ammoType, int i ->
-            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4 + i, ammoType.technicalName, player?.inventory?.getAmmoCount(ammoType), maxAmmo)
+            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4 + i, ammoType.technicalName, player?.inventory?.getAmmoCount(ammoType)?:0, maxAmmo)
         }
 
 

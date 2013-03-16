@@ -53,10 +53,12 @@ public class CityStaticAssets {
             case '=':
                 color = SColor.BLUE
                 resistance = 0.25f
-                c = '='
+                blocks = true
+                c = '#'
                 break
             case '~':
                 color = SColor.BLUE;
+                blocks = true
                 break;
             case '+'://door
                 color = SColor.NEW_BRIDGE;
