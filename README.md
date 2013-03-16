@@ -4,7 +4,7 @@ zomgRL
 Zombie Game Rogue Like
 
 
-I'm starting a zombie based roguelike.  You will start in a small city and have to fight through the zombie hordes to reach an extraction point.
+I'm starting a zombie based roguelike.  You will start in a small city and have to exterminate the zombie hordes.
  This is my first roguelike, and is being done for the 7DRL Challenge 2013.
 
 My initial plans include:
@@ -21,12 +21,12 @@ My tools:
 
 
 If you want to test the non-complete version, download it here:
-https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-0.9.jar?raw=true
+https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-1.0.jar?raw=true
 
 and run
 
 ```bash
-java -jar zomgRL-0.9.jar
+java -jar zomgRL-1.0.jar
 ```
 
 (or double click on it in Windows)

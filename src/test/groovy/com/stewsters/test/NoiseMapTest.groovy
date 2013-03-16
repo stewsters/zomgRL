@@ -1,3 +1,5 @@
+package com.stewsters.test
+
 import com.stewsters.zomgrl.map.NoiseMap
 import squidpony.squidgrid.util.Direction
 
@@ -11,9 +13,9 @@ class NoiseMapTest extends GroovyTestCase {
 
         NoiseMap noiseMap = new NoiseMap(xSize, ySize)
 
-        noiseMap.makeNoise(5 as int, 50 as int, 1000)
+        noiseMap.makeNoise(50 as int, 50 as int, 1000)
 
-        20.times {
+        10.times {
             noiseMap.spread()
             noiseMap.fade()
         }
@@ -21,7 +23,8 @@ class NoiseMapTest extends GroovyTestCase {
         noiseMap.regenerateDirection()
         noiseMap.printDir()
 
-        assert Direction.DOWN_RIGHT == noiseMap.getNoiseDir(1, 1)
+        assert Direction.DOWN_RIGHT == noiseMap.getNoiseDir(35, 35)
+        assert Direction.UP_LEFT == noiseMap.getNoiseDir(65, 65)
     }
 
 }
