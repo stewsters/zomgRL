@@ -24,9 +24,9 @@ class RandomItemGen {
             'Leather Jacket': 10,
             'Hockey Mask': 10,
             'Tennis Shoes': 10,
-            "5.56x45 mm Box": 20,
-            "9mm hp Box": 20,
-            "12 Gauge Box": 20,
+            "5.56x45 mm Box": 30,
+            "9mm hp Box": 30,
+            "12 Gauge Box": 30,
             "Ski Goggles": 5
 
 

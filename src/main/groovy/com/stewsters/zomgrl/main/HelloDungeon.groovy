@@ -97,6 +97,7 @@ public class HelloDungeon {
         frame.setLocationRelativeTo(null)
         frame.repaint()
 
+        frame.requestFocusInWindow()
 
         CharacterInputListener dil = new CharacterInputListener(this, player)
 

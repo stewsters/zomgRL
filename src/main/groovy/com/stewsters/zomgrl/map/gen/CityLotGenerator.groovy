@@ -138,10 +138,11 @@ class CityLotGenerator {
     }
 
 
-    private static int MAX_ROOM_ITEMS = 10 //this can depend on room type
+    private static int MIN_ROOM_ITEMS = 10
+    private static int MAX_ROOM_ITEMS = 20 //this can depend on room type
     private static void addItems(LevelMap map, Rect room) {
 
-        int numItems = MathUtils.getIntInRange(1, MAX_ROOM_ITEMS)
+        int numItems = MathUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
         numItems.times {
 
             int x = MathUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
