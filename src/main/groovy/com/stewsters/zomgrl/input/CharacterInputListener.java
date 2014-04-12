@@ -75,8 +75,16 @@ public class CharacterInputListener implements MouseInputListener, KeyListener {
     }
 
     private void handleKey(KeyEvent e) {
+
         int code = e.getExtendedKeyCode();
+
+        // if ExtendedKeyCode is VK_UNDEFINED (0) use normal keycode
+        if (code==VK_UNDEFINED){
+            code = e.getKeyCode();
+        }
+
         boolean shift = e.isShiftDown();
+
         switch (code) {
             //movement
             case VK_H:
