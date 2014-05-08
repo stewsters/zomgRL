@@ -60,6 +60,9 @@ Once you are set up, it will be something like:
 ```bash
 git clone git://github.com/stewsters/zomgRL.git
 
+git submodule init
+git submodule update
+
 cd zomgRL
 
 gradle run

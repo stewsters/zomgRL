@@ -3,7 +3,7 @@ package com.stewsters.zomgrl.map.gen
 import com.stewsters.util.MathUtils
 import com.stewsters.util.NameGen
 import com.stewsters.util.Rect
-import com.stewsters.util.Simplex2d
+import com.stewsters.util.noise.Simplex2d
 import com.stewsters.zomgrl.ai.BasicCivilian
 import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction

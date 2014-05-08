@@ -1,0 +1,3 @@
+[submodule "stewsters-util"]
+	path = stewsters-util
+	url = git@github.com:stewsters/stewsters-util.git
