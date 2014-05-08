@@ -1,10 +1,11 @@
 apply plugin: 'groovy'
 apply plugin: 'application'
+
 mainClassName='com.stewsters.zomgrl.main.HelloDungeon'
 version = 1.1
 
-sourceCompatibility=1.7
-targetCompatibility=1.7
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories{
     mavenCentral()
@@ -13,9 +14,9 @@ repositories{
 dependencies{
     compile 'org.codehaus.groovy:groovy-all:2.3.0'
     compile 'org.apache.commons:commons-lang3:3.1'
-    testCompile 'junit:junit:4.11'
     compile "com.squidpony:squidlib:1.95.1"
 
+    testCompile 'junit:junit:4.11'
 }
 
 jar{
