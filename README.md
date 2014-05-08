@@ -15,17 +15,17 @@ My initial plans include:
 
 My tools:
 + Java7
-+ Groovy 2.1.1
++ Groovy 2.3.0
 + SquidLib 1.95 ( https://github.com/SquidPony/SquidLib)
 + Intellij
 
 Download
 ========
-You can get the final app here:
+You can get the app at end of the 7drl here:
 
 https://github.com/stewsters/zomgRL/blob/master/build/libs/zomgRL-1.0.jar?raw=true
 
-and run
+You will need to have a java 7 jre installed and run
 
 ```bash
 java -jar zomgRL-1.0.jar
@@ -47,13 +47,13 @@ f: fire gun (you will need to find one first)
 
 d: drop the last item you picked up
 
-1-8: use/equip item in that slot
+1-8: use/equip item in that slot (use ammo to add them to your stockpile)
 
 shift: move to sprint or get an additional attack.  It consumes stamina.
 ```
 
-Compile
-=======
+Compile + Run
+=============
 To compile from source you will need Java 7 and to install groovy and gradle.  I recommend using http://gvmtool.net/ for that.
 Once you are set up, it will be something like:
 
