@@ -189,9 +189,9 @@ public class HelloDungeon {
 
     public void stepSim() {
         //Run sim
-        levelMap.noiseMap.spread()
-        levelMap.noiseMap.fade()
-        levelMap.noiseMap.regenerateDirection()
+//        levelMap.noiseMap.spread()
+//        levelMap.noiseMap.fade()
+//        levelMap.noiseMap.regenerateDirection()
 
         //This is not an efficient way to do this..
         levelMap.objects.toArray().each { Entity entity ->

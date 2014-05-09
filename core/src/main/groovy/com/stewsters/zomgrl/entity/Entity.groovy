@@ -45,7 +45,7 @@ public class Entity {
 
         levelMap = params.map
         if (levelMap)
-            levelMap.objects.add(this)
+            levelMap.add(this)
 
         x = params.x ?: 0
         y = params.y ?: 0
@@ -98,7 +98,9 @@ public class Entity {
         if (!(levelMap.isBlocked(newX, newY))) {
             x = newX
             y = newY
+            levelMap.update(this);
         }
+
     }
 
     public void moveOrAttack(int dx, int dy) {
@@ -110,8 +112,8 @@ public class Entity {
         }
         if (fighter) {
             Entity target = null
-            levelMap.objects.each { Entity entity ->
-                if (entity.fighter && faction?.hates(entity?.faction) && entity.x == newX && entity.y == newY) {
+            levelMap.getEntitiesAtLocation(newX,newY).each { Entity entity ->
+                if (entity.fighter && faction?.hates(entity?.faction) ) {
                     target = entity
                 }
             }
@@ -175,7 +177,7 @@ public class Entity {
             item.y = y
             if (item.equipment?.isEquiped)
                 item.equipment.dequip(this)
-            levelMap.objects.add(item)
+            levelMap.add(item)
         } else {
             MessageLog.send("${name} has nothing to drop.", SColor.WHITE, [this])
         }

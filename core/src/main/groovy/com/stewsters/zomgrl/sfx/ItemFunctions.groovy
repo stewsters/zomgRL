@@ -129,7 +129,7 @@ class ItemFunctions {
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.pistol)) {
                 message = "${user.name} fires a round at ${enemy.name}."
-                user.levelMap.noiseMap.makeNoise(user.x, user.y, 1000)
+                user.levelMap.makeNoise(user.x, user.y, 1000)
 
                 if (damage > 0) {
                     message += " and the damage is ${damage} hit points."
@@ -162,7 +162,7 @@ class ItemFunctions {
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.rifle)) {
                 message = "${user.name} fires a round at ${enemy.name}"
-                user.levelMap.noiseMap.makeNoise(user.x, user.y, 1000)
+                user.levelMap.makeNoise(user.x, user.y, 1000)
 
                 if (damage > 0) {
                     message += " and the damage is ${damage} hit points."
@@ -197,7 +197,7 @@ class ItemFunctions {
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.shotgun)) {
                 message = "${user.name} fires a round at ${enemy.name}"
-                user.levelMap.noiseMap.makeNoise(user.x, user.y, 1000)
+                user.levelMap.makeNoise(user.x, user.y, 1000)
 
                 if (damage > 0) {
                     message += " and the damage is ${damage} hit points."

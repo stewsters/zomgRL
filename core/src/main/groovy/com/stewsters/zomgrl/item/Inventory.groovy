@@ -22,7 +22,7 @@ public class Inventory {
             MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
         } else {
             items.add item
-            item.levelMap.objects.remove(item)
+            item.levelMap.remove(item)
             MessageLog.send("${owner.name} picked up ${item.name}", SColor.GREEN, [owner])
 
             if (item.equipment) {
@@ -52,7 +52,7 @@ public class Inventory {
             }
             if (item.equipment?.isEquiped)
                 item.equipment.dequip(owner)
-            owner.levelMap.objects.add(item)
+            owner.levelMap.add(item)
         }
         owner.inventory.items.clear()
     }

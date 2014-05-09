@@ -26,8 +26,10 @@ class BasicZombie extends BaseAi implements Ai {
                 if (MatUtils.boolean) {
                     owner.move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
                 } else {
-                    Direction d = owner.levelMap.noiseMap.getNoiseDir(owner.x, owner.y)
-                    owner.move(d.deltaX, d.deltaY)
+//                    Direction d = owner.levelMap.noiseMap.getNoiseDir(owner.x, owner.y)
+                    //TODO: if we hear something, go there
+
+//                    owner.move(d.deltaX, d.deltaY)
                 }
 //
 

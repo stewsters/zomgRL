@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.map
 
+import com.stewsters.util.spatial.IntervalKDTree2d
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.graphic.RenderConfig
@@ -13,17 +14,44 @@ class LevelMap {
     public int ySize
 
     public Tile[][] ground
-    public ArrayList<Entity> objects
-    public NoiseMap noiseMap
-
+    private ArrayList<Entity> objects
+//    public NoiseMap noiseMap
+    private IntervalKDTree2d<Entity> spatialHash
+    private HashSet<Entity> entityTemp;
 
     public LevelMap(int x, int y) {
         xSize = x
         ySize = y
 
         ground = new Tile[x][y]
-        noiseMap = new NoiseMap(xSize, ySize)
+//        noiseMap = new NoiseMap(xSize, ySize)
         objects = new ArrayList<Entity>()
+        spatialHash = new IntervalKDTree2d<>(Math.max(x, y), 10)
+        entityTemp = new HashSet<>();
+    }
+
+    public void add(Entity e) {
+        objects.add(e)
+        spatialHash.put(e.x - 0.1, e.y - 0.1, e.x + 0.1, e.y + 0.1, e)
+    }
+
+    public void remove(Entity e) {
+        objects.remove(e)
+        spatialHash.remove(e)
+    }
+
+
+    void update(Entity e) {
+        spatialHash.remove(e)
+        spatialHash.put(e.x - 0.1, e.y - 0.1, e.x + 0.1, e.y + 0.1, e)
+    }
+
+    public HashSet<Entity> getEntitiesAtLocation(int x, int y) {
+        return spatialHash.getValues(x - 0.1, y - 0.1, x + 0.1, y + 0.1, entityTemp)
+    }
+
+    public HashSet<Entity> getEntitiesBetween(int lowX, int lowY, int highX, int highY) {
+        return spatialHash.getValues(lowX, lowY, highX, highY, entityTemp)
     }
 
     public boolean isBlocked(int x, int y) {
@@ -36,16 +64,12 @@ class LevelMap {
             return true
         }
 
-        for (Entity entity : objects) {
-            if (entity.x == x && entity.y == y && entity.blocks)
+        for (Entity entity : getEntitiesAtLocation(x, y)) {
+            if (entity.blocks)
                 return true
         }
 
         return false
-    }
-
-    public List<Entity> getEntitiesAtLocation(int x, int y) {
-        return objects.findAll { it.x == x && it.y == y }
     }
 
     /**
@@ -150,5 +174,10 @@ class LevelMap {
         return (float) (0f + RenderConfig.lightTintPercentage * radius);//adjust tint based on distance
     }
 
+    def makeNoise(int x, int y, int noise) {
+
+        //TODO: find all entities in range, notify them of the noise
+
+    }
 
 }
