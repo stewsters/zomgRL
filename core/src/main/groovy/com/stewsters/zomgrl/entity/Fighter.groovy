@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.entity
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.sfx.DeathFunctions
@@ -54,9 +54,9 @@ class Fighter {
             }
             for (int i = 0; i < damage; i++) {
                 int range = Math.min((int) (damage / 2), 5)
-                int xPos = MathUtils.getIntInRange(-range, range) + owner.x
-                int yPos = MathUtils.getIntInRange(-range, range) + owner.y
-                owner.levelMap.ground[MathUtils.limit(xPos, 0, owner.levelMap.xSize - 1)][MathUtils.limit(yPos, 0, owner.levelMap.ySize - 1)].gore = true
+                int xPos = MatUtils.getIntInRange(-range, range) + owner.x
+                int yPos = MatUtils.getIntInRange(-range, range) + owner.y
+                owner.levelMap.ground[MatUtils.limit(xPos, 0, owner.levelMap.xSize - 1)][MatUtils.limit(yPos, 0, owner.levelMap.ySize - 1)].gore = true
             }
 
         }
@@ -78,7 +78,7 @@ class Fighter {
     }
 
     public attack(Entity target) {
-        int damage = MathUtils.getIntInRange(0, power) - MathUtils.getIntInRange(0, target.fighter.defense)
+        int damage = MatUtils.getIntInRange(0, power) - MatUtils.getIntInRange(0, target.fighter.defense)
 
         if (damage > 0) {
             MessageLog.send "${owner.name} attacks ${target.name} for ${damage} hit points.", SColor.WHITE, [owner, target]

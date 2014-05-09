@@ -97,7 +97,7 @@ class LevelMap {
 
                     SColor objectLight = SColorFactory.blend(
                             ground[originalX][originalY].gore ? SColor.RED :
-                                ground[originalX][originalY].color,
+                                    ground[originalX][originalY].color,
                             cellLight, getTint(radius));
                     display.placeCharacter(x, y, ground[originalX][originalY].representation, objectLight);
                     ground[originalX][originalY].isExplored = true

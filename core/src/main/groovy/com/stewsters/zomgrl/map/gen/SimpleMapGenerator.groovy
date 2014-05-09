@@ -1,8 +1,9 @@
 package com.stewsters.zomgrl.map.gen
 
 
-import com.stewsters.util.MathUtils
-import com.stewsters.util.Rect
+import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.Point2i
+import com.stewsters.util.math.geom.Rect
 import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
@@ -51,11 +52,11 @@ class SimpleMapGenerator implements MapGenerator {
 
         MAX_ROOMS.times { roomNo ->
 
-            int w = MathUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
-            int h = MathUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
+            int w = MatUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
+            int h = MatUtils.getIntInRange(ROOM_MIN_SIZE, ROOM_MAX_SIZE)
 
-            int roomX = MathUtils.getIntInRange(0, (map.xSize - w) - 1)
-            int roomY = MathUtils.getIntInRange(0, (map.ySize - h) - 1)
+            int roomX = MatUtils.getIntInRange(0, (map.xSize - w) - 1)
+            int roomY = MatUtils.getIntInRange(0, (map.ySize - h) - 1)
 
             Rect new_room = new Rect(roomX, roomY, w, h)
             boolean failed = false
@@ -68,10 +69,10 @@ class SimpleMapGenerator implements MapGenerator {
 
                 createRoom(map, new_room)
 
-                def center = new_room.center()
+                Point2i center = new_room.center()
 
-                int newX = center[0]
-                int newY = center[1]
+                int newX = center.x
+                int newY = center.y
 
                 if (num_rooms == 0) {
                     //set player start
@@ -81,11 +82,11 @@ class SimpleMapGenerator implements MapGenerator {
                 } else {
                     placeObjects(map, new_room)
 
-                    def lastCenter = rooms[(num_rooms - 1)].center()
-                    def prevX = lastCenter[0]
-                    def prevY = lastCenter[1]
+                    Point2i lastCenter = rooms[(num_rooms - 1)].center()
+                    Point2i prevX = lastCenter.x
+                    Point2i prevY = lastCenter.y
 
-                    if (MathUtils.getBoolean()) {
+                    if (MatUtils.getBoolean()) {
                         createHTunnel(map, prevX, newX, prevY)
                         createVTunnel(map, prevY, newY, newX)
                     } else {
@@ -138,15 +139,15 @@ class SimpleMapGenerator implements MapGenerator {
 
     private void placeObjects(LevelMap map, Rect room) {
 
-        int numMonsters = MathUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
+        int numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
 
         numMonsters.times {
-            int x = MathUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MathUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
 
             if (!map.isBlocked(x, y)) {
 
-                int d100 = MathUtils.getIntInRange(0, 100)
+                int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
@@ -175,13 +176,13 @@ class SimpleMapGenerator implements MapGenerator {
         }
 
         //now items
-        int numItems = MathUtils.getIntInRange(0, MAX_ROOM_ITEMS)
+        int numItems = MatUtils.getIntInRange(0, MAX_ROOM_ITEMS)
         numItems.times {
-            int x = MathUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MathUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
             if (!map.isBlocked(x, y)) {
 
-                int d100 = MathUtils.getIntInRange(0, 100)
+                int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 40) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'p', name: 'Healing Potion', color: SColor.AZURE,

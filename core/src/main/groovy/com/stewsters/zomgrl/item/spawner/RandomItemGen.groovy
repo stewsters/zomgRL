@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.item.spawner
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.item.Equipment
 import com.stewsters.zomgrl.item.Item
@@ -11,29 +11,29 @@ import squidpony.squidcolor.SColor
 
 class RandomItemGen {
 
-    public static def spawnChance = ['AntiViral': 10,
-            'Bandages': 20,
-            'Beef Jerkey': 10,
+    public static def spawnChance = ['AntiViral'     : 10,
+                                     'Bandages'      : 20,
+                                     'Beef Jerkey'   : 10,
 //            "24pk Monster": 10,
-            "Pump Shotgun": 10,
-            "AR-15": 10,
-            "Beretta 9mm": 10,
-            'Baseball Bat': 20,
-            "Machete": 10,
-            "Winter Coat": 10,
-            'Leather Jacket': 10,
-            'Hockey Mask': 10,
-            'Tennis Shoes': 10,
-            "5.56x45 mm Box": 30,
-            "9mm hp Box": 30,
-            "12 Gauge Box": 30,
-            "Ski Goggles": 5
+                                     "Pump Shotgun"  : 10,
+                                     "AR-15"         : 10,
+                                     "Beretta 9mm"   : 10,
+                                     'Baseball Bat'  : 20,
+                                     "Machete"       : 10,
+                                     "Winter Coat"   : 10,
+                                     'Leather Jacket': 10,
+                                     'Hockey Mask'   : 10,
+                                     'Tennis Shoes'  : 10,
+                                     "5.56x45 mm Box": 30,
+                                     "9mm hp Box"    : 30,
+                                     "12 Gauge Box"  : 30,
+                                     "Ski Goggles"   : 5
 
 
     ]
 
     public static Entity getRandomItem(LevelMap map, int x, int y) {
-        createFromName(map, x, y, MathUtils.getChoice(spawnChance))
+        createFromName(map, x, y, MatUtils.getChoice(spawnChance))
     }
 
     public static void createFromName(LevelMap map, int x, int y, String name) {

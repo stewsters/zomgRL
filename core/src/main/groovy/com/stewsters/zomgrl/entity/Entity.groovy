@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.entity
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.ai.Ai
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
@@ -25,7 +25,7 @@ public class Entity {
     public int x
     public int y
     public char ch
-    public def color
+    public SColor color
 
     public Fighter fighter
     public Ai ai
@@ -130,7 +130,7 @@ public class Entity {
     void moveTowardsAndAttack(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
-        float distance = Math.sqrt(dx ** 2 + dy ** 2)
+        float distance = Math.sqrt(dx**2 + dy**2)
 
         dx = (int) Math.round(dx / distance)
         dy = (int) Math.round(dy / distance)
@@ -141,8 +141,8 @@ public class Entity {
         int dx = targetX - x
         int dy = targetY - y
 
-        dx = MathUtils.limit(dx, -1, 1)
-        dy = MathUtils.limit(dy, -1, 1)
+        dx = MatUtils.limit(dx, -1, 1)
+        dy = MatUtils.limit(dy, -1, 1)
         move(-dx, -dy)
     }
 
@@ -183,6 +183,6 @@ public class Entity {
     }
 
     public void randomMovement() {
-        move(MathUtils.getIntInRange(-1, 1), MathUtils.getIntInRange(-1, 1))
+        move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
     }
 }

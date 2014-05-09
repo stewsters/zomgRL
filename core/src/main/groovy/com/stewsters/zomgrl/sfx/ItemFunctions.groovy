@@ -1,6 +1,7 @@
 package com.stewsters.zomgrl.sfx
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
+import com.stewsters.zomgrl.ai.Ai
 import com.stewsters.zomgrl.ai.ConfusedZombie
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
@@ -62,7 +63,7 @@ class ItemFunctions {
             MessageLog.send('No enemy is close enough to confused.', SColor.RED, [user, enemy])
             return false
         } else {
-            def oldID = enemy.ai
+            Ai oldID = enemy.ai
             enemy.ai = new ConfusedZombie(oldAI: oldID, castor: user, numTurns: CONFUSE_NUM_TURNS)
             enemy.ai.owner = enemy
             MessageLog.send("${enemy.name} becomes confused.", SColor.LIGHT_BLUE)
@@ -123,7 +124,7 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.BERRETA_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.BERRETA_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.pistol)) {
@@ -156,7 +157,7 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + AR15_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + AR15_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.rifle)) {
@@ -180,8 +181,6 @@ class ItemFunctions {
     }
 
 
-
-
     private static final int PUMP_GUN_BONUS = 10
     private static final int PUMP_MAX_RANGE = 4
     public static Closure gunPumpShotGun = { Entity user ->
@@ -193,7 +192,7 @@ class ItemFunctions {
         } else {
             //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MathUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.PUMP_GUN_BONUS) - MathUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.PUMP_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.shotgun)) {
@@ -216,7 +215,7 @@ class ItemFunctions {
     }
 
     public static Closure rifleAmmoBox = { Entity user ->
-        int quantity = MathUtils.getIntInRange(12, 20)
+        int quantity = MatUtils.getIntInRange(12, 20)
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.rifle, quantity)
             MessageLog.send("${user.name} picked up ${quantity} rounds.")
@@ -227,7 +226,7 @@ class ItemFunctions {
         }
     }
     public static Closure pistolAmmoBox = { Entity user ->
-        int quantity = MathUtils.getIntInRange(12, 20)
+        int quantity = MatUtils.getIntInRange(12, 20)
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.pistol, quantity)
             MessageLog.send("${user.name} picked up ${quantity} rounds.")
@@ -238,7 +237,7 @@ class ItemFunctions {
         }
     }
     public static Closure shotgunAmmoBox = { Entity user ->
-        int quantity = MathUtils.getIntInRange(8, 18)
+        int quantity = MatUtils.getIntInRange(8, 18)
         if (user.inventory) {
             user.inventory.addAmmo(AmmoType.shotgun, quantity)
             MessageLog.send("${user.name} picked up ${quantity} shells.")

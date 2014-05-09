@@ -1,8 +1,8 @@
 package com.stewsters.zomgrl.map.gen
 
 
-import com.stewsters.util.MathUtils
-import com.stewsters.util.Rect
+import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.geom.Rect
 import com.stewsters.zomgrl.ai.BasicZombie
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
@@ -71,8 +71,8 @@ class TestMapGenerator implements MapGenerator {
             }
         }
 
-        int x = MathUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-        int y = MathUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+        int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+        int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
 
         map.ground[x][y].isBlocked = true
         map.ground[x][y].representation = '|' as char

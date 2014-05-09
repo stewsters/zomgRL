@@ -1,8 +1,8 @@
 package com.stewsters.zomgrl.map.gen
 
-import com.stewsters.util.MathUtils
-import com.stewsters.util.NameGen
-import com.stewsters.util.Rect
+import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.geom.Rect
+import com.stewsters.util.name.NameGen
 import com.stewsters.util.noise.Simplex2d
 import com.stewsters.zomgrl.ai.BasicCivilian
 import com.stewsters.zomgrl.ai.BasicZombie
@@ -14,7 +14,6 @@ import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
-
 
 class CityMapGenerator implements MapGenerator {
 
@@ -47,8 +46,8 @@ class CityMapGenerator implements MapGenerator {
         (width / BLOCKSIZE).times { int x ->
             (height / BLOCKSIZE).times { int y ->
 
-//            int intersectionX = MathUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
-//            int intersectionY = MathUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
+//            int intersectionX = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
+//            int intersectionY = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
 
                 int intersectionX = BLOCKSIZE * x
                 int intersectionY = BLOCKSIZE * y
@@ -67,7 +66,7 @@ class CityMapGenerator implements MapGenerator {
                 intersections.add(intersection)
 
 //                    if (intersections)
-//                        intersection.linkWithRoads(material, MathUtils.rand(intersections))
+//                        intersection.linkWithRoads(material, MatUtils.rand(intersections))
 
 //                }
             }
@@ -108,8 +107,8 @@ class CityMapGenerator implements MapGenerator {
         intersections.add new Intersection(material, playerStartX, playerStartY)
 
         maxAttempts.times {
-            int intersectionX = MathUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
-            int intersectionY = MathUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
+            int intersectionX = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
+            int intersectionY = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
 
             //city blocks
             intersectionX -= (intersectionX % BLOCKSIZE)
@@ -123,7 +122,7 @@ class CityMapGenerator implements MapGenerator {
             if (!collisions) {
                 Intersection intersection = new Intersection(material, intersectionX, intersectionY)
 
-                intersection.linkWithRoads(material, MathUtils.rand(intersections))
+                intersection.linkWithRoads(material, MatUtils.rand(intersections))
                 intersections.add(intersection)
             }
         }
@@ -144,24 +143,24 @@ class CityMapGenerator implements MapGenerator {
 
     Map alleyBit = [
             pattern: [[4, 4, 4, 4, 4, 4, 4],
-                    [4, 3, 3, 3, 3, 3, 4],
-                    [4, 3, 1, 1, 1, 3, 4],
-                    [4, 3, 1, 1, 1, 3, 4],
-                    [4, 3, 1, 1, 1, 3, 4],
-                    [4, 3, 3, 3, 3, 3, 4],
-                    [4, 4, 4, 4, 4, 4, 4]],
+                      [4, 3, 3, 3, 3, 3, 4],
+                      [4, 3, 1, 1, 1, 3, 4],
+                      [4, 3, 1, 1, 1, 3, 4],
+                      [4, 3, 1, 1, 1, 3, 4],
+                      [4, 3, 3, 3, 3, 3, 4],
+                      [4, 4, 4, 4, 4, 4, 4]],
             offsetX: 4,
             offsetY: 4
     ]
 
     Map residential = [
             pattern: [[3, 3, 3, 3, 3, 3, 3],
-                    [3, 5, 5, 5, 5, 5, 3],
-                    [3, 5, 1, 1, 1, 5, 3],
-                    [3, 5, 1, 1, 1, 5, 3],
-                    [3, 5, 1, 1, 1, 5, 3],
-                    [3, 5, 5, 5, 5, 5, 3],
-                    [3, 3, 3, 3, 3, 3, 3]],
+                      [3, 5, 5, 5, 5, 5, 3],
+                      [3, 5, 1, 1, 1, 5, 3],
+                      [3, 5, 1, 1, 1, 5, 3],
+                      [3, 5, 1, 1, 1, 5, 3],
+                      [3, 5, 5, 5, 5, 5, 3],
+                      [3, 3, 3, 3, 3, 3, 3]],
             offsetX: 4,
             offsetY: 4
     ]
@@ -249,11 +248,11 @@ class CityMapGenerator implements MapGenerator {
 
     private void populate(LevelMap map, int maximum) {
         maximum.times {
-            int x = MathUtils.getIntInRange(1, map.xSize - 2)
-            int y = MathUtils.getIntInRange(1, map.ySize - 2)
+            int x = MatUtils.getIntInRange(1, map.xSize - 2)
+            int y = MatUtils.getIntInRange(1, map.ySize - 2)
 
             if (!map.isBlocked(x, y)) {
-                int d100 = MathUtils.getIntInRange(0, 100)
+                int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
@@ -307,11 +306,11 @@ class CityMapGenerator implements MapGenerator {
     private void infest(LevelMap map, int maximum) {
         //fill in zombies
         maximum.times {
-            int x = MathUtils.getIntInRange(1, map.xSize - 2)
-            int y = MathUtils.getIntInRange(1, map.ySize - 2)
+            int x = MatUtils.getIntInRange(1, map.xSize - 2)
+            int y = MatUtils.getIntInRange(1, map.ySize - 2)
 
             if (!map.isBlocked(x, y)) {
-                int d100 = MathUtils.getIntInRange(0, 100)
+                int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
@@ -472,7 +471,7 @@ class CityMapGenerator implements MapGenerator {
 
         void linkWithRoads(int[][] material, Intersection other) {
 
-            if (MathUtils.getBoolean()) {
+            if (MatUtils.getBoolean()) {
                 createHRoad(material, other.centerX, centerX, other.centerY)
                 createVRoad(material, other.centerY, centerY, centerX)
             } else {

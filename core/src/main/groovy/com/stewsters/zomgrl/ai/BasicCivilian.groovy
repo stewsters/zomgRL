@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.ai
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.entity.Entity
 
 
@@ -41,7 +41,7 @@ class BasicCivilian extends BaseAi implements Ai {
                 }
 
             }
-        } else if (MathUtils.boolean) {
+        } else if (MatUtils.boolean) {
             owner.randomMovement();
         }
 

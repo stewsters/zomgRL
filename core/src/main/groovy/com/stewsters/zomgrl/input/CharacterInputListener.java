@@ -79,7 +79,7 @@ public class CharacterInputListener implements MouseInputListener, KeyListener {
         int code = e.getExtendedKeyCode();
 
         // if ExtendedKeyCode is VK_UNDEFINED (0) use normal keycode
-        if (code==VK_UNDEFINED){
+        if (code == VK_UNDEFINED) {
             code = e.getKeyCode();
         }
 

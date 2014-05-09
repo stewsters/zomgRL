@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.ai
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
 import squidpony.squidcolor.SColor
@@ -19,7 +19,7 @@ class ConfusedZombie extends BaseAi implements Ai {
     public void takeTurn() {
 
         if (numTurns > 0) {
-            owner.move(MathUtils.getIntInRange(-1, 1), MathUtils.getIntInRange(-1, 1))
+            owner.move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
             numTurns--
         } else {
             owner.ai = oldAI

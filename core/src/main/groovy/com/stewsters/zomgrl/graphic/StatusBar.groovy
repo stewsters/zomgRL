@@ -20,7 +20,9 @@ class StatusBar {
  * @param barColor
  * @param backColor
  */
-    public static void render(SwingPane display, int x, int y, int totalWidth, String name, int value, int maximum, SColor barColor) {//, SColor backColor
+    public
+    static void render(SwingPane display, int x, int y, int totalWidth, String name, int value, int maximum, SColor barColor) {
+//, SColor backColor
 
         double ratio = (double) value / (double) maximum
         int barWidth = (int) Math.ceil(ratio * (double) totalWidth)

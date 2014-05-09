@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.map.gen
 
-import com.stewsters.util.Rect
+import com.stewsters.util.math.geom.Rect
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import squidpony.squidcolor.SColor
@@ -9,8 +9,8 @@ public class CityStaticAssets {
 
     public static boolean populate(LevelMap map, Rect rect) {
 
-        int rectWidth = rect.getX2() - rect.getX1();
-        int rectHeight = rect.getY2() - rect.getY1();
+        int rectWidth = rect.x2 - rect.x1;
+        int rectHeight = rect.y2 - rect.y1;
 
         def lots = StaticLots.manifest.findAll {
             it.x <= rectWidth && it.y <= rectHeight
@@ -23,7 +23,7 @@ public class CityStaticAssets {
             for (int x = 0; x < lot.x; x++) {
                 for (int y = 0; y < lot.y; y++) {
                     char c = lot.map[y].charAt(x);
-                    map.ground[rect.getX1() + x][rect.getY1() + y] = buildCell(c);
+                    map.ground[rect.x1 + x][rect.y1 + y] = buildCell(c);
                 }
             }
             return true;

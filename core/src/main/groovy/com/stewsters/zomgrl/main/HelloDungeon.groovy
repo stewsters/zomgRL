@@ -1,7 +1,7 @@
 package com.stewsters.zomgrl.main
 
-import com.stewsters.util.NameGen
-import com.stewsters.util.Rect
+import com.stewsters.util.math.geom.Rect
+import com.stewsters.util.name.NameGen
 import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.ai.LocalPlayer
 import com.stewsters.zomgrl.entity.Entity
@@ -136,9 +136,9 @@ public class HelloDungeon {
         StatusBar.renderTextOnly(display, 0, (2 * RenderConfig.windowRadiusY) + 5, 'Zombies', zombies, numPeople ?: 0)
 
 
-        int maxAmmo = player?.inventory?.maxAmmo?:1
+        int maxAmmo = player?.inventory?.maxAmmo ?: 1
         [AmmoType.pistol, AmmoType.rifle, AmmoType.shotgun].eachWithIndex { AmmoType ammoType, int i ->
-            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4 + i, ammoType.technicalName, player?.inventory?.getAmmoCount(ammoType)?:0, maxAmmo)
+            StatusBar.renderTextOnly(display, 20, (2 * RenderConfig.windowRadiusY) + 4 + i, ammoType.technicalName, player?.inventory?.getAmmoCount(ammoType) ?: 0, maxAmmo)
         }
 
 
@@ -287,7 +287,7 @@ public class HelloDungeon {
         }
     }
 
-    private def oldState
+    private GameState oldState
 
     public void inspect() {
 

@@ -1,8 +1,9 @@
 package com.stewsters.zomgrl.map.gen
 
-import com.stewsters.util.MathUtils
-import com.stewsters.util.Rect
-import com.stewsters.util.RectSubdivider
+import com.stewsters.util.math.MatUtils
+import com.stewsters.util.math.Point2i
+import com.stewsters.util.math.geom.Rect
+import com.stewsters.util.math.geom.RectSubdivider
 import com.stewsters.zomgrl.item.spawner.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
 import squidpony.squidcolor.SColor
@@ -18,33 +19,33 @@ class CityLotGenerator {
 
     public static void generate(LevelMap map, Rect lot) {
 
-        if (MathUtils.boolean) {
+        if (MatUtils.boolean) {
             CityStaticAssets.populate(map, lot)
         } else {
-            List<Rect> lots = RectSubdivider.divide(lot, [min: 4])
+            List<Rect> lots = RectSubdivider.divide(lot,  4)
 
             lots.each { Rect thisLot ->
                 proceduralGen(map, thisLot)
             }
 
-            def center = lot.center()
-            int x = MathUtils.limit(center[0] + (MathUtils.boolean ? 20 : -20), 1, map.xSize - 1)
-            int y = MathUtils.limit(center[0] + (MathUtils.boolean ? 20 : -20), 1, map.xSize - 1)
+            Point2i center = lot.center()
+            int x = MatUtils.limit(center.x + (MatUtils.boolean ? 20 : -20), 1, map.xSize - 1)
+            int y = MatUtils.limit(center.y + (MatUtils.boolean ? 20 : -20), 1, map.ySize - 1)
 
             Rect last = new Rect(x, y, 1, 1)
 
             lots.each { Rect rect ->
 
                 if (last) {
-                    def lastCenter = last.center()
-                    int prevX = lastCenter[0]
-                    int prevY = lastCenter[1]
+                    Point2i lastCenter = last.center()
+                    int prevX = lastCenter.x
+                    int prevY = lastCenter.y
 
-                    def thisCenter = rect.center()
-                    int newX = thisCenter[0]
-                    int newY = thisCenter[1]
+                    Point2i thisCenter = rect.center()
+                    int newX = thisCenter.x
+                    int newY = thisCenter.y
 
-                    if (MathUtils.getBoolean()) {
+                    if (MatUtils.getBoolean()) {
                         createHDoorTunnel(map, lot, prevX, newX, prevY)
                         createVDoorTunnel(map, lot, prevY, newY, newX)
                     } else {
@@ -101,8 +102,8 @@ class CityLotGenerator {
             }
         }
 
-        MathUtils.getIntInRange(MIN_ROOM_WINDOWS, MAX_ROOM_WINDOWS).times {
-            switch (MathUtils.getIntInRange(0, 3)) {
+        MatUtils.getIntInRange(MIN_ROOM_WINDOWS, MAX_ROOM_WINDOWS).times {
+            switch (MatUtils.getIntInRange(0, 3)) {
                 case (0): //top
                     cutWindowInHorizontalWall(map, lot.x1, lot.x2, lot.y1)
                     break;
@@ -119,8 +120,8 @@ class CityLotGenerator {
         }
 
 //
-//        MathUtils.getIntInRange(MIN_ROOM_DOORS, MAX_ROOM_DOORS).times {
-//            switch (MathUtils.getIntInRange(0, 3)) {
+//        MatUtils.getIntInRange(MIN_ROOM_DOORS, MAX_ROOM_DOORS).times {
+//            switch (MatUtils.getIntInRange(0, 3)) {
 //                case (0): //top
 //                    cutDoorInHorizontalWall(map, lot.x1, lot.x2, lot.y1)
 //                    break;
@@ -142,11 +143,11 @@ class CityLotGenerator {
     private static int MAX_ROOM_ITEMS = 20 //this can depend on room type
     private static void addItems(LevelMap map, Rect room) {
 
-        int numItems = MathUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
+        int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
         numItems.times {
 
-            int x = MathUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MathUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
             if (!map.isBlocked(x, y)) {
                 RandomItemGen.getRandomItem(map, x, y)
             }
@@ -158,7 +159,7 @@ class CityLotGenerator {
     private static void cutWindowInHorizontalWall(LevelMap map, int x1, int x2, int y) {
 
         if (x2 - 1 >= x1 + 1) {
-            int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
+            int x = MatUtils.getIntInRange(x1 + 1, x2 - 1)
             map.ground[x][y].opacity = 0.25f
             map.ground[x][y].color = SColor.BLUE
             map.ground[x][y].isBlocked = true
@@ -168,7 +169,7 @@ class CityLotGenerator {
 
     private static void cutWindowInVerticalWall(LevelMap map, int x, int y1, int y2) {
         if (y2 - 1 >= y1 + 1) {
-            int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
+            int y = MatUtils.getIntInRange(y1 + 1, y2 - 1)
             map.ground[x][y].opacity = 0.25f
             map.ground[x][y].color = SColor.BLUE
             map.ground[x][y].isBlocked = true
@@ -179,7 +180,7 @@ class CityLotGenerator {
 
     private static void cutDoorInHorizontalWall(LevelMap map, int x1, int x2, int y) {
         if (x2 - 1 >= x1 + 1) {
-            int x = MathUtils.getIntInRange(x1 + 1, x2 - 1)
+            int x = MatUtils.getIntInRange(x1 + 1, x2 - 1)
             map.ground[x][y].opacity = 0f
             map.ground[x][y].color = SColor.NEW_BRIDGE
             map.ground[x][y].isBlocked = false
@@ -190,7 +191,7 @@ class CityLotGenerator {
     private static void cutDoorInVerticalWall(LevelMap map, int x, int y1, int y2) {
         if (y2 - 1 >= y1 + 1) {
 
-            int y = MathUtils.getIntInRange(y1 + 1, y2 - 1)
+            int y = MatUtils.getIntInRange(y1 + 1, y2 - 1)
             map.ground[x][y].opacity = 0f
             map.ground[x][y].color = SColor.NEW_BRIDGE
             map.ground[x][y].isBlocked = false

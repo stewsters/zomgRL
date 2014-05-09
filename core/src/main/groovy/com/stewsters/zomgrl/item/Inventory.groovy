@@ -1,6 +1,6 @@
 package com.stewsters.zomgrl.item
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.graphic.RenderConfig
@@ -10,7 +10,7 @@ import squidpony.squidgrid.gui.swing.SwingPane
 public class Inventory {
 
     List<Entity> items = []
-    def capacity = 8
+    int capacity = 8
     Entity owner
 
     //this if for counter items.
@@ -41,8 +41,8 @@ public class Inventory {
 
         for (Entity item : owner.inventory.items) {
 
-            int xPos = MathUtils.getIntInRange(-1, 1) + owner.x
-            int yPos = MathUtils.getIntInRange(-1, 1) + owner.y
+            int xPos = MatUtils.getIntInRange(-1, 1) + owner.x
+            int yPos = MatUtils.getIntInRange(-1, 1) + owner.y
             if (!owner.levelMap.isBlocked(xPos, yPos)) {
                 item.x = xPos
                 item.y = yPos
@@ -105,7 +105,7 @@ public class Inventory {
     }
 
     public addAmmo(AmmoType ammoType, int quantity) {
-        pouch[ammoType] = MathUtils.limit((pouch[ammoType] ?: 0) + quantity, 0, maxAmmo)
+        pouch[ammoType] = MatUtils.limit((pouch[ammoType] ?: 0) + quantity, 0, maxAmmo)
     }
 
     public boolean useAmmo(AmmoType ammoType) {
