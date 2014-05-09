@@ -24,7 +24,7 @@ abstract class BaseAi {
         int lowY = owner.x - maxDistance
         int highY = owner.x + maxDistance
 
-        return owner.levelMap.getEntitiesBetween(lowX,lowY,highX,highY).findAll { Entity entity ->
+        return owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY).findAll { Entity entity ->
             entity.x > lowX && entity.x < highX &&
                     entity.y > lowY && entity.y < highY &&
                     entity.fighter && owner.owner.faction.hates(entity.faction) &&
@@ -75,13 +75,13 @@ abstract class BaseAi {
 //        if (owner.faction==Faction.human)
 //            println "zomg"
 
-        for (Entity entity : owner.levelMap.getEntitiesBetween(lowX,lowY,highX,highY)) {
+        for (Entity entity : owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
             if (entity.fighter && entity.faction && owner.faction.hates(entity.faction)) {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
 
                 //TODO: this goes out of bounds.  Use advanced lighting?
-                if ( light[lightX][lightY] > 0f) {
+                if (lightX >= 0 && lightX < light.length && lightY >= 0 && lightY < light[0].length && light[lightX][lightY] > 0f) {
 
                     int tempDist = owner.distanceTo(entity)
                     if (tempDist <= distance) {
@@ -108,7 +108,7 @@ abstract class BaseAi {
 
         int distance = params?.maxRange ?: sightRange
 
-        for (Entity entity : owner.levelMap.getEntitiesBetween(lowX,lowY,highX,highY)) {
+        for (Entity entity : owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
 
             if (entity.x > lowX && entity.x < highX &&
                     entity.y > lowY && entity.y < highY &&

@@ -47,10 +47,12 @@ class LevelMap {
     }
 
     public HashSet<Entity> getEntitiesAtLocation(int x, int y) {
+        entityTemp.clear()
         return spatialHash.getValues(x - 0.1, y - 0.1, x + 0.1, y + 0.1, entityTemp)
     }
 
     public HashSet<Entity> getEntitiesBetween(int lowX, int lowY, int highX, int highY) {
+        entityTemp.clear()
         return spatialHash.getValues(lowX, lowY, highX, highY, entityTemp)
     }
 
@@ -95,7 +97,8 @@ class LevelMap {
         int xRange = worldHighX - worldLowX + 1 // this is the total size of the box
         int yRange = worldHighY - worldLowY + 1
 
-        player.ai.calculateSight()
+        if(player.ai)
+            player.ai.calculateSight()
 
         //repaint the level with new light map -- Note that in normal use you'd limit this to just elements that changed
         for (int x = 0; x < xRange; x++) {
