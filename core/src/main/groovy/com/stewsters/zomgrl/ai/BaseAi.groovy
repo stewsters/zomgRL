@@ -25,8 +25,6 @@ abstract class BaseAi {
         int highY = owner.x + maxDistance
 
         return owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY).findAll { Entity entity ->
-            entity.x > lowX && entity.x < highX &&
-                    entity.y > lowY && entity.y < highY &&
                     entity.fighter && owner.owner.faction.hates(entity.faction) &&
                     owner.owner.distanceTo(entity) < maxDistance
         }

@@ -26,13 +26,13 @@ class LevelMap {
         ground = new Tile[x][y]
 //        noiseMap = new NoiseMap(xSize, ySize)
         objects = new ArrayList<Entity>()
-        spatialHash = new IntervalKDTree2d<>(Math.max(x, y), 10)
+        spatialHash = new IntervalKDTree2d<>(Math.max(x, y), 4)
         entityTemp = new HashSet<>();
     }
 
     public void add(Entity e) {
         objects.add(e)
-        spatialHash.put(e.x - 0.1, e.y - 0.1, e.x + 0.1, e.y + 0.1, e)
+        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + 0.25, e.y + 0.25, e)
     }
 
     public void remove(Entity e) {
@@ -43,17 +43,29 @@ class LevelMap {
 
     void update(Entity e) {
         spatialHash.remove(e)
-        spatialHash.put(e.x - 0.1, e.y - 0.1, e.x + 0.1, e.y + 0.1, e)
+        spatialHash.put(e.x - 0.25, e.y - 0.25, e.x + 0.25, e.y + 0.25, e)
     }
 
     public HashSet<Entity> getEntitiesAtLocation(int x, int y) {
         entityTemp.clear()
-        return spatialHash.getValues(x - 0.1, y - 0.1, x + 0.1, y + 0.1, entityTemp)
+
+        spatialHash.getValues(x - 0.5, y - 0.5, x + 0.5, y + 0.5, entityTemp)
+
+        //entityTemp.each {
+        //   println it.name + " $x $y"
+        //}
+        return entityTemp
     }
 
     public HashSet<Entity> getEntitiesBetween(int lowX, int lowY, int highX, int highY) {
         entityTemp.clear()
-        return spatialHash.getValues(lowX, lowY, highX, highY, entityTemp)
+        return spatialHash.getValues(lowX - 0.5, lowY - 0.5, highX + 0.5, highY + 0.5, entityTemp)
+    }
+
+    public void makeNoise(int x, int y, int noise) {
+
+        //TODO: find all entities in range, notify them of the noise
+
     }
 
     public boolean isBlocked(int x, int y) {
@@ -97,7 +109,7 @@ class LevelMap {
         int xRange = worldHighX - worldLowX + 1 // this is the total size of the box
         int yRange = worldHighY - worldLowY + 1
 
-        if(player.ai)
+        if (player.ai)
             player.ai.calculateSight()
 
         //repaint the level with new light map -- Note that in normal use you'd limit this to just elements that changed
@@ -173,14 +185,9 @@ class LevelMap {
      * @param radius
      * @return
      */
-    private float getTint(double radius) {
+    private static float getTint(double radius) {
         return (float) (0f + RenderConfig.lightTintPercentage * radius);//adjust tint based on distance
     }
 
-    def makeNoise(int x, int y, int noise) {
-
-        //TODO: find all entities in range, notify them of the noise
-
-    }
 
 }

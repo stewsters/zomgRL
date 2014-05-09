@@ -43,9 +43,6 @@ public class Entity {
 
     public Entity(params) {
 
-        levelMap = params.map
-        if (levelMap)
-            levelMap.add(this)
 
         x = params.x ?: 0
         y = params.y ?: 0
@@ -89,6 +86,11 @@ public class Entity {
                 itemComponent.owner = this
             }
         }
+
+        //This is last, because it needs to add the locations to the index
+        levelMap = params.map
+        if (levelMap)
+            levelMap.add(this)
     }
 
     public void move(int xDif, int yDif) {
