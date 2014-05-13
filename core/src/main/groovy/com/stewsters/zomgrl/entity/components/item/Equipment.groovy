@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.item
+package com.stewsters.zomgrl.entity.components.item
 
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
@@ -48,9 +48,7 @@ class Equipment {
     }
 
     void dequip(Entity holder) {
-        if (!isEquiped) {
-            return
-        } else {
+        if (isEquiped) {
             isEquiped = false
             MessageLog.send("Dequipped ${owner.name} from ${slot.name}", SColor.WHITE, [holder])
         }

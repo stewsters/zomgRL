@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.ai
+package com.stewsters.zomgrl.entity.components.ai
 
 public class LocalPlayer extends BaseAi implements Ai {
 

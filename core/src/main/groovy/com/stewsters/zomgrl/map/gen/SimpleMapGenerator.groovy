@@ -1,15 +1,14 @@
 package com.stewsters.zomgrl.map.gen
 
-
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
-import com.stewsters.zomgrl.ai.BasicZombie
-import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
-import com.stewsters.zomgrl.entity.Fighter
+import com.stewsters.zomgrl.entity.components.Fighter
+import com.stewsters.zomgrl.entity.components.ai.BasicZombie
+import com.stewsters.zomgrl.entity.components.ai.Faction
+import com.stewsters.zomgrl.entity.components.item.Item
 import com.stewsters.zomgrl.graphic.MessageLog
-import com.stewsters.zomgrl.item.Item
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import com.stewsters.zomgrl.sfx.DeathFunctions
@@ -71,27 +70,23 @@ class SimpleMapGenerator implements MapGenerator {
 
                 Point2i center = new_room.center()
 
-                int newX = center.x
-                int newY = center.y
-
                 if (num_rooms == 0) {
                     //set player start
-                    playerStartX = newX
-                    playerStartY = newY
+                    playerStartX = center.x
+                    playerStartY = center.y
 
                 } else {
                     placeObjects(map, new_room)
 
                     Point2i lastCenter = rooms[(num_rooms - 1)].center()
-                    Point2i prevX = lastCenter.x
-                    Point2i prevY = lastCenter.y
+                    Point2i prev = new Point2i(lastCenter.x, lastCenter.y)
 
                     if (MatUtils.getBoolean()) {
-                        createHTunnel(map, prevX, newX, prevY)
-                        createVTunnel(map, prevY, newY, newX)
+                        createHTunnel(map, prev.x, center.x, prev.y)
+                        createVTunnel(map, prev.y, center.y, center.x)
                     } else {
-                        createVTunnel(map, prevY, newY, prevX)
-                        createHTunnel(map, prevX, newX, newY)
+                        createVTunnel(map, prev.y, center.y, prev.x)
+                        createHTunnel(map, prev.x, center.x, center.y)
                     }
                 }
                 rooms.add(new_room)
@@ -107,7 +102,7 @@ class SimpleMapGenerator implements MapGenerator {
      * Paint a room onto the map's tiles
      * @return
      */
-    private void createRoom(LevelMap map, Rect room) {
+    private static void createRoom(LevelMap map, Rect room) {
 
         ((room.x1 + 1)..(room.x2 - 1)).each { int x ->
             ((room.y1 + 1)..(room.y2 - 1)).each { int y ->
@@ -119,7 +114,7 @@ class SimpleMapGenerator implements MapGenerator {
         }
     }
 
-    private void createHTunnel(LevelMap map, int x1, int x2, int y) {
+    private static void createHTunnel(LevelMap map, int x1, int x2, int y) {
         (Math.min(x1, x2)..Math.max(x1, x2)).each { int x ->
             map.ground[x][y].isBlocked = false
             map.ground[x][y].representation = '.' as char
@@ -128,7 +123,7 @@ class SimpleMapGenerator implements MapGenerator {
         }
     }
 
-    private void createVTunnel(LevelMap map, int y1, int y2, int x) {
+    private static void createVTunnel(LevelMap map, int y1, int y2, int x) {
         (Math.min(y1, y2)..Math.max(y1, y2)).each { int y ->
             map.ground[x][y].isBlocked = false
             map.ground[x][y].representation = '.' as char
@@ -137,7 +132,7 @@ class SimpleMapGenerator implements MapGenerator {
         }
     }
 
-    private void placeObjects(LevelMap map, Rect room) {
+    private static void placeObjects(LevelMap map, Rect room) {
 
         int numMonsters = MatUtils.getIntInRange(0, MAX_ROOM_MONSTERS)
 
@@ -151,7 +146,7 @@ class SimpleMapGenerator implements MapGenerator {
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
                             ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
-                            fighter: new Fighter(hp: 4, defense: 0, power: 1, stamina: 4, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(hp: 4, defense: 0, power: 1, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
                             ai: new BasicZombie(),
                             priority: 120, faction: Faction.zombie
                     )
@@ -160,7 +155,7 @@ class SimpleMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'o', name: 'Orc', color: SColor.LAWN_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(hp: 10, defense: 0, power: 2, stamina: 4, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(hp: 10, defense: 0, power: 2, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
                             ai: new BasicZombie()
                     )
                 } else {
@@ -168,7 +163,7 @@ class SimpleMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
                             priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(hp: 16, defense: 1, power: 3, stamina: 4, DeathFunctions.zombieDeath),
+                            fighter: new Fighter(hp: 16, defense: 1, power: 3, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
                             ai: new BasicZombie()
                     )
                 }
@@ -211,7 +206,7 @@ class SimpleMapGenerator implements MapGenerator {
                 } else {
                     new Entity(map: map, x: x, y: y,
                             ch: 's', name: 'Sword', color: SColor.GOLD,
-                            itemComponent: new Item())
+                            itemComponent: new Item([:]))
                 }
             }
         }

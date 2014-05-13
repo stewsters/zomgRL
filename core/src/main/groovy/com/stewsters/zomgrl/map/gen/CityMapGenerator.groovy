@@ -4,12 +4,12 @@ import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.geom.Rect
 import com.stewsters.util.name.NameGen
 import com.stewsters.util.noise.Simplex2d
-import com.stewsters.zomgrl.ai.BasicCivilian
-import com.stewsters.zomgrl.ai.BasicZombie
-import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
-import com.stewsters.zomgrl.entity.Fighter
-import com.stewsters.zomgrl.item.Inventory
+import com.stewsters.zomgrl.entity.components.Fighter
+import com.stewsters.zomgrl.entity.components.ai.BasicCivilian
+import com.stewsters.zomgrl.entity.components.ai.BasicZombie
+import com.stewsters.zomgrl.entity.components.ai.Faction
+import com.stewsters.zomgrl.entity.components.item.Inventory
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
 import com.stewsters.zomgrl.sfx.DeathFunctions
@@ -165,7 +165,7 @@ class CityMapGenerator implements MapGenerator {
             offsetY: 4
     ]
 
-    def carveRoad(int[][] material, def bit, centerX, centerY) {
+    def static carveRoad(int[][] material, def bit, centerX, centerY) {
 
         //find bit center
 
@@ -183,7 +183,7 @@ class CityMapGenerator implements MapGenerator {
 
     }
 
-    def LevelMap convert(int[][] material) {
+    private static LevelMap convert(int[][] material) {
         LevelMap map = new LevelMap(material.length, material[0].length);
         map.xSize.times { iX ->
             map.ySize.times { iY ->
@@ -220,7 +220,7 @@ class CityMapGenerator implements MapGenerator {
         return map
     }
 
-    private void growTrees(LevelMap map) {
+    private static void growTrees(LevelMap map) {
         //Randomly place trees on grass squares
 
         (0..map.xSize - 1).each { int x ->
@@ -246,7 +246,7 @@ class CityMapGenerator implements MapGenerator {
 
     }
 
-    private void populate(LevelMap map, int maximum) {
+    private static void populate(LevelMap map, int maximum) {
         maximum.times {
             int x = MatUtils.getIntInRange(1, map.xSize - 2)
             int y = MatUtils.getIntInRange(1, map.ySize - 2)
@@ -303,7 +303,7 @@ class CityMapGenerator implements MapGenerator {
     }
 
 
-    private void infest(LevelMap map, int maximum) {
+    private static void infest(LevelMap map, int maximum) {
         //fill in zombies
         maximum.times {
             int x = MatUtils.getIntInRange(1, map.xSize - 2)
@@ -357,7 +357,7 @@ class CityMapGenerator implements MapGenerator {
 
     private def constructBuildings(LevelMap map, List<Intersection> intersections) {
 
-        def lots = []
+        List<Rect> lots = []
         for (Intersection inter : intersections) {
 
             for (int xMod : [-1, 1]) {

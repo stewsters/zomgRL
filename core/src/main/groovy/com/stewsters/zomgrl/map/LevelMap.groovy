@@ -14,7 +14,7 @@ class LevelMap {
     public int ySize
 
     public Tile[][] ground
-    private ArrayList<Entity> objects
+    public ArrayList<Entity> objects // need to cut down this visibility
 //    public NoiseMap noiseMap
     private IntervalKDTree2d<Entity> spatialHash
     private HashSet<Entity> entityTemp;

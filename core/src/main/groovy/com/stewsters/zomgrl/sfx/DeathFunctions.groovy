@@ -1,8 +1,8 @@
 package com.stewsters.zomgrl.sfx
 
-import com.stewsters.zomgrl.ai.BasicZombie
-import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
+import com.stewsters.zomgrl.entity.components.ai.BasicZombie
+import com.stewsters.zomgrl.entity.components.ai.Faction
 import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.game.GameState
 import com.stewsters.zomgrl.graphic.MessageLog

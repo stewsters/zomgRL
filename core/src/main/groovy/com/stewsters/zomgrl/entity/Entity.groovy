@@ -1,12 +1,13 @@
 package com.stewsters.zomgrl.entity
 
 import com.stewsters.util.math.MatUtils
-import com.stewsters.zomgrl.ai.Ai
-import com.stewsters.zomgrl.ai.Faction
+import com.stewsters.zomgrl.entity.components.Fighter
+import com.stewsters.zomgrl.entity.components.ai.Ai
+import com.stewsters.zomgrl.entity.components.ai.Faction
+import com.stewsters.zomgrl.entity.components.item.Equipment
+import com.stewsters.zomgrl.entity.components.item.Inventory
+import com.stewsters.zomgrl.entity.components.item.Item
 import com.stewsters.zomgrl.graphic.MessageLog
-import com.stewsters.zomgrl.item.Equipment
-import com.stewsters.zomgrl.item.Inventory
-import com.stewsters.zomgrl.item.Item
 import com.stewsters.zomgrl.map.LevelMap
 import squidpony.squidcolor.SColor
 
@@ -82,7 +83,7 @@ public class Entity {
             equipment = params.equipment
             equipment.owner = this
             if (!itemComponent) {
-                itemComponent = new Item()
+                itemComponent = new Item([:])
                 itemComponent.owner = this
             }
         }
@@ -114,8 +115,8 @@ public class Entity {
         }
         if (fighter) {
             Entity target = null
-            levelMap.getEntitiesAtLocation(newX,newY).each { Entity entity ->
-                if (entity.fighter && faction?.hates(entity?.faction) ) {
+            levelMap.getEntitiesAtLocation(newX, newY).each { Entity entity ->
+                if (entity.fighter && faction?.hates(entity?.faction)) {
                     target = entity
                 }
             }

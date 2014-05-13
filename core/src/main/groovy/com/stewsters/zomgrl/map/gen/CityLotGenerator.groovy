@@ -4,8 +4,8 @@ import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
 import com.stewsters.util.math.geom.RectSubdivider
-import com.stewsters.zomgrl.item.spawner.RandomItemGen
 import com.stewsters.zomgrl.map.LevelMap
+import com.stewsters.zomgrl.map.gen.spawner.RandomItemGen
 import squidpony.squidcolor.SColor
 
 class CityLotGenerator {
@@ -22,7 +22,7 @@ class CityLotGenerator {
         if (MatUtils.boolean) {
             CityStaticAssets.populate(map, lot)
         } else {
-            List<Rect> lots = RectSubdivider.divide(lot,  4)
+            List<Rect> lots = RectSubdivider.divide(lot, 4)
 
             lots.each { Rect thisLot ->
                 proceduralGen(map, thisLot)
@@ -149,7 +149,7 @@ class CityLotGenerator {
             int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
             int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
             if (!map.isBlocked(x, y)) {
-                RandomItemGen.getRandomItem(map, x, y)
+                RandomItemGen.placeRandomItem(map, x, y)
             }
         }
 

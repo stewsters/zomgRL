@@ -2,10 +2,14 @@ package com.stewsters.zomgrl.main
 
 import com.stewsters.util.math.geom.Rect
 import com.stewsters.util.name.NameGen
-import com.stewsters.zomgrl.ai.Faction
-import com.stewsters.zomgrl.ai.LocalPlayer
 import com.stewsters.zomgrl.entity.Entity
-import com.stewsters.zomgrl.entity.Fighter
+import com.stewsters.zomgrl.entity.components.Fighter
+import com.stewsters.zomgrl.entity.components.ai.Faction
+import com.stewsters.zomgrl.entity.components.ai.LocalPlayer
+import com.stewsters.zomgrl.entity.components.item.AmmoType
+import com.stewsters.zomgrl.entity.components.item.Equipment
+import com.stewsters.zomgrl.entity.components.item.Inventory
+import com.stewsters.zomgrl.entity.components.item.Slot
 import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.game.GameState
 import com.stewsters.zomgrl.graphic.MessageBox
@@ -13,14 +17,9 @@ import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.graphic.RenderConfig
 import com.stewsters.zomgrl.graphic.StatusBar
 import com.stewsters.zomgrl.input.CharacterInputListener
-import com.stewsters.zomgrl.item.AmmoType
-import com.stewsters.zomgrl.item.Equipment
-import com.stewsters.zomgrl.item.Inventory
-import com.stewsters.zomgrl.item.Slot
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.gen.CityMapGenerator
 import com.stewsters.zomgrl.map.gen.MapGenerator
-import com.stewsters.zomgrl.map.gen.TestMapGenerator
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 import squidpony.squidcolor.SColorFactory

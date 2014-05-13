@@ -1,15 +1,14 @@
 package com.stewsters.zomgrl.map.gen
 
-
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.geom.Rect
-import com.stewsters.zomgrl.ai.BasicZombie
-import com.stewsters.zomgrl.ai.Faction
 import com.stewsters.zomgrl.entity.Entity
-import com.stewsters.zomgrl.entity.Fighter
-import com.stewsters.zomgrl.item.spawner.RandomItemGen
+import com.stewsters.zomgrl.entity.components.Fighter
+import com.stewsters.zomgrl.entity.components.ai.BasicZombie
+import com.stewsters.zomgrl.entity.components.ai.Faction
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
+import com.stewsters.zomgrl.map.gen.spawner.RandomItemGen
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 
@@ -49,7 +48,7 @@ class TestMapGenerator implements MapGenerator {
          * Items
          */
 
-        RandomItemGen.spawnChance.keySet().eachWithIndex { String name, int i ->
+        RandomItemGen.spawnChance.keySet().eachWithIndex { String name, Integer i ->
             RandomItemGen.createFromName(map, 2, 2 + i, name)
         }
 
@@ -60,7 +59,7 @@ class TestMapGenerator implements MapGenerator {
      * Paint a room onto the map's tiles
      * @return
      */
-    private void createRoom(LevelMap map, Rect room) {
+    private static void createRoom(LevelMap map, Rect room) {
 
         ((room.x1 + 1)..(room.x2 - 1)).each { int x ->
             ((room.y1 + 1)..(room.y2 - 1)).each { int y ->

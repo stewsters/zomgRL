@@ -1,11 +1,11 @@
 package com.stewsters.zomgrl.sfx
 
 import com.stewsters.util.math.MatUtils
-import com.stewsters.zomgrl.ai.Ai
-import com.stewsters.zomgrl.ai.ConfusedZombie
 import com.stewsters.zomgrl.entity.Entity
+import com.stewsters.zomgrl.entity.components.ai.Ai
+import com.stewsters.zomgrl.entity.components.ai.ConfusedZombie
+import com.stewsters.zomgrl.entity.components.item.AmmoType
 import com.stewsters.zomgrl.graphic.MessageLog
-import com.stewsters.zomgrl.item.AmmoType
 import squidpony.squidcolor.SColor
 
 class ItemFunctions {

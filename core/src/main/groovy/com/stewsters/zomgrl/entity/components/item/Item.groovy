@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.item
+package com.stewsters.zomgrl.entity.components.item
 
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.graphic.MessageLog
@@ -20,6 +20,7 @@ class Item {
 
         if (owner.equipment) {
             owner.equipment.toggleEquip(user)
+            return false
         } else if (useFunction) {
             return useFunction(user)
         } else {

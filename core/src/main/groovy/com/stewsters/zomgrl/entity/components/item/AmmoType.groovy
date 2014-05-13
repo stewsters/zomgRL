@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.item
+package com.stewsters.zomgrl.entity.components.item
 
 public enum AmmoType {
     rifle("5.56x45 mm"),

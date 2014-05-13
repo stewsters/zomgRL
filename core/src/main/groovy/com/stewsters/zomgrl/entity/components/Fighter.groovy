@@ -1,11 +1,11 @@
-package com.stewsters.zomgrl.entity
+package com.stewsters.zomgrl.entity.components
 
 import com.stewsters.util.math.MatUtils
-import com.stewsters.zomgrl.ai.Faction
+import com.stewsters.zomgrl.entity.Entity
+import com.stewsters.zomgrl.entity.components.ai.Faction
 import com.stewsters.zomgrl.graphic.MessageLog
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
-
 
 class Fighter {
     public Entity owner

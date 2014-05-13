@@ -1,16 +1,14 @@
 apply plugin: 'groovy'
 apply plugin: 'application'
 
-mainClassName='com.stewsters.zomgrl.main.HelloDungeon'
+mainClassName = 'com.stewsters.zomgrl.main.HelloDungeon'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
 
-repositories{
+repositories {
     mavenCentral()
 }
 
-dependencies{
+dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.0'
     compile 'org.apache.commons:commons-lang3:3.1'
     compile "com.squidpony:squidlib:1.95.1"
@@ -18,15 +16,15 @@ dependencies{
     testCompile 'junit:junit:4.11'
 }
 
-jar{
+jar {
     from files(sourceSets.main.output.classesDir)
-    from (configurations.runtime.asFileTree.files.collect{zipTree(it)}){
+    from(configurations.runtime.asFileTree.files.collect { zipTree(it) }) {
         exclude "META-INF/*.SF"
         exclude "META-INF/*.DSA"
         exclude "META-INF/*.RSA"
     }
 
-    manifest{
-        attributes 'Main-Class':'com.stewsters.zomgrl.main.HelloDungeon'
+    manifest {
+        attributes 'Main-Class': 'com.stewsters.zomgrl.main.HelloDungeon'
     }
 }

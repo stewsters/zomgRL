@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.ai;
+package com.stewsters.zomgrl.entity.components.ai;
 
 /**
  * To be honest I have no Idea where this is going.  Ideally some kind of generic faction thing

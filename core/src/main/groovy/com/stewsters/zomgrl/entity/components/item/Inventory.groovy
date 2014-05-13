@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.item
+package com.stewsters.zomgrl.entity.components.item
 
 import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.entity.Entity
@@ -68,7 +68,7 @@ public class Inventory {
     public render(SwingPane display) {
         clear(display)
 
-        items.eachWithIndex { Entity item, int i ->
+        items.eachWithIndex { Entity item, Integer i ->
             display.placeHorizontalString(RenderConfig.inventoryX, i + RenderConfig.inventoryY,
                     "${i + 1}:${item.equipment?.isEquiped ? "e" : ' '} ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
         }

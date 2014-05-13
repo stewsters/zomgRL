@@ -1,4 +1,4 @@
-package com.stewsters.zomgrl.ai
+package com.stewsters.zomgrl.entity.components.ai
 
 import com.stewsters.zomgrl.entity.Entity
 
