@@ -2,7 +2,8 @@ package com.stewsters.zomgrl.entity.components.ai
 
 import com.stewsters.util.math.MatUtils
 import com.stewsters.zomgrl.entity.Entity
-
+import com.stewsters.zomgrl.entity.components.item.Equipment
+import com.stewsters.zomgrl.entity.components.item.Slot
 
 class BasicCivilian extends BaseAi implements Ai {
 
@@ -18,6 +19,16 @@ class BasicCivilian extends BaseAi implements Ai {
             if (owner.distanceTo(enemy) < 2) {
                 owner.moveTowardsAndAttack(enemy.x, enemy.y)
             } else {
+//                if(owner.)
+                if (owner.inventory) {
+                    Equipment weapon = owner.inventory.getEquippedInSlot(Slot.rightHand)
+                    if (weapon) {
+                        weapon.owner.itemComponent.useHeldItem(owner)
+
+                    } else {
+                        owner.moveAway(enemy.x, enemy.y)
+                    }
+                }
                 owner.moveAway(enemy.x, enemy.y)
             }
         } else if (owner.inventory) {

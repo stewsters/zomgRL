@@ -17,9 +17,10 @@ public class Inventory {
     public int maxAmmo = 100
     Map<AmmoType, Integer> pouch = [:]
 
-    public pickUp(Entity item) {
+    public boolean pickUp(Entity item) {
         if (items.size() >= capacity) {
             MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
+
         } else {
             items.add item
             item.levelMap.remove(item)
@@ -30,7 +31,9 @@ public class Inventory {
                 if (!oldEquipment)
                     item.equipment.equip(owner)
             }
+            return true
         }
+        return false
     }
 
     public boolean isFull() {

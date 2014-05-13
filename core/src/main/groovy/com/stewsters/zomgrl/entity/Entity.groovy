@@ -94,7 +94,13 @@ public class Entity {
             levelMap.add(this)
     }
 
-    public void move(int xDif, int yDif) {
+    public int distanceTo(Entity other) {
+        int dx = other.x - this.x
+        int dy = other.y - this.y
+        return (int) Math.round(Math.sqrt(dx * dx + dy * dy))
+    }
+
+    public boolean move(int xDif, int yDif) {
         int newX = xDif + x
         int newY = yDif + y
 
@@ -102,16 +108,17 @@ public class Entity {
             x = newX
             y = newY
             levelMap.update(this);
+            return true
         }
-
+        return false
     }
 
-    public void moveOrAttack(int dx, int dy) {
+    public boolean moveOrAttack(int dx, int dy) {
         int newX = dx + x
         int newY = dy + y
 
         if (x < 0 || x >= levelMap.xSize || y < 0 || y >= levelMap.ySize) {
-            return;
+            return false;
         }
         if (fighter) {
             Entity target = null
@@ -123,42 +130,37 @@ public class Entity {
 
             if (target) {
                 fighter.attack(target)
+                return true
             } else {
-                move(dx, dy)
+                return move(dx, dy)
             }
         } else {
-            move(dx, dy)
+            return move(dx, dy)
         }
     }
 
 
-    void moveTowardsAndAttack(int targetX, int targetY) {
+    public boolean moveTowardsAndAttack(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
         float distance = Math.sqrt(dx**2 + dy**2)
 
         dx = (int) Math.round(dx / distance)
         dy = (int) Math.round(dy / distance)
-        moveOrAttack(dx, dy)
+        return moveOrAttack(dx, dy)
     }
 
-    void moveAway(int targetX, int targetY) {
+    public boolean moveAway(int targetX, int targetY) {
         int dx = targetX - x
         int dy = targetY - y
 
         dx = MatUtils.limit(dx, -1, 1)
         dy = MatUtils.limit(dy, -1, 1)
-        move(-dx, -dy)
+        return move(-dx, -dy)
     }
 
 
-    public int distanceTo(Entity other) {
-        int dx = other.x - this.x
-        int dy = other.y - this.y
-        return (int) Math.round(Math.sqrt(dx * dx + dy * dy))
-    }
-
-    public void grab() {
+    public boolean grab() {
         if (!inventory) {
             MessageLog.send("${name} can't hold items.", SColor.WHITE, [this])
             return
@@ -167,11 +169,11 @@ public class Entity {
         Entity topItem = levelMap.getEntitiesAtLocation(x, y).sort { it.priority }.find { it.itemComponent }
 
         if (topItem) {
-            inventory.pickUp(topItem)
+            return inventory.pickUp(topItem)
         }
     }
 
-    public void drop() {
+    public boolean drop() {
         //take held item and put it on the ground where you stand
 
         if (inventory.items.size()) {
@@ -181,13 +183,15 @@ public class Entity {
             if (item.equipment?.isEquiped)
                 item.equipment.dequip(this)
             levelMap.add(item)
+            return true
         } else {
             MessageLog.send("${name} has nothing to drop.", SColor.WHITE, [this])
+            return false
         }
 
     }
 
-    public void randomMovement() {
-        move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
+    public boolean randomMovement() {
+        return move(MatUtils.getIntInRange(-1, 1), MatUtils.getIntInRange(-1, 1))
     }
 }

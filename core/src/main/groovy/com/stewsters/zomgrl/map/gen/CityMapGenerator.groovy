@@ -22,68 +22,6 @@ class CityMapGenerator implements MapGenerator {
 
     public static final int BLOCKSIZE = 25
 
-
-    public LevelMap preGenerate() {
-
-        int width = 200
-        int height = 200
-
-
-        int[][] material = new int[width][height]
-        width.times { int iX ->
-            height.times { int iY ->
-                material[iX][iY] = 5
-            }
-        }
-
-        def intersections = []
-
-
-        playerStartX = width / 2
-        playerStartY = height / 2
-
-
-        (width / BLOCKSIZE).times { int x ->
-            (height / BLOCKSIZE).times { int y ->
-
-//            int intersectionX = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
-//            int intersectionY = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
-
-                int intersectionX = BLOCKSIZE * x
-                int intersectionY = BLOCKSIZE * y
-
-                //city blocks
-//                intersectionX -= (intersectionX % BLOCKSIZE)
-//                intersectionY -= (intersectionY % BLOCKSIZE)
-
-//                def collisions = intersections.find { Intersection e ->
-//                    Math.abs(e.centerX - intersectionX) < BLOCKSIZE &&
-//                            Math.abs(e.centerY - intersectionY) < BLOCKSIZE
-//                }
-
-//                if (!collisions) {
-                Intersection intersection = new Intersection(material, intersectionX, intersectionY)
-                intersections.add(intersection)
-
-//                    if (intersections)
-//                        intersection.linkWithRoads(material, MatUtils.rand(intersections))
-
-//                }
-            }
-        }
-        LevelMap map = convert(material)
-
-//        constructBuildings(map, intersections)
-        assumeBuildings(map, intersections)
-//        growTrees(map)
-
-//        populate(map, 100)
-//        infest(map, 100)
-        return map
-
-    }
-
-
     @Override
     public LevelMap reGenerate() {
 
@@ -132,7 +70,6 @@ class CityMapGenerator implements MapGenerator {
         LevelMap map = convert(material)
 
         constructBuildings(map, intersections)
-//        assumeBuildings(map, intersections)
         growTrees(map)
         populate(map, 100)
         infest(map, 50)
@@ -165,7 +102,7 @@ class CityMapGenerator implements MapGenerator {
             offsetY: 4
     ]
 
-    def static carveRoad(int[][] material, def bit, centerX, centerY) {
+    def static carveRoad(int[][] material, Map bit, centerX, centerY) {
 
         //find bit center
 
@@ -196,7 +133,7 @@ class CityMapGenerator implements MapGenerator {
 
                     switch (material[iX][iY]) {
                         case 1: //asphalt road
-                            tile = new Tile(false, 0f, '.' as char, SColor.SLATE_GRAY)
+                            tile = new Tile(false, 0f, '.' as char, SColor.DARK_SLATE_GRAY)
                             break;
                         case 2: //parking lane
                             tile = new Tile(false, 0f, '.' as char, SColor.SLATE_GRAY)
@@ -408,44 +345,6 @@ class CityMapGenerator implements MapGenerator {
 
         //on each lot, construct a house
         lots = lots.unique({ Rect a, Rect b ->
-            if (a.intersect(b))
-                return 0
-            else return 1
-        })
-        lots.each { Rect lot ->
-            CityLotGenerator.generate(map, lot)
-        }
-
-    }
-
-
-    private def assumeBuildings(LevelMap map, List<Intersection> intersections) {
-
-        def lots = []
-
-        for (Intersection inter : intersections) {
-
-            for (int xMod : [-1, 1]) {
-                for (int yMod : [-1, 1]) {
-                    int offsetX = (inter.centerX + xMod * (residential.offsetX - (xMod > 0 ? 1 : 0)))
-                    int offsetY = (inter.centerX + yMod * (residential.offsetY - (yMod > 0 ? 1 : 0)))
-                    int size = 19;
-
-                    int lowX = Math.min(offsetX, offsetX + (size * xMod))
-                    int lowY = Math.min(offsetY, offsetY + (size * yMod))
-
-                    int highX = Math.max(offsetX, offsetX + (size * xMod)) //-
-                    int highY = Math.max(offsetY, offsetY + (size * yMod))
-
-                    Rect rect = new Rect(lowX, lowY, highX - lowX, highY - lowY)
-                    lots.add rect
-
-                }
-            }
-        }
-
-        //on each lot, construct a house
-        lots.unique({ Rect a, Rect b ->
             if (a.intersect(b))
                 return 0
             else return 1
