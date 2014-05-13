@@ -48,13 +48,7 @@ class LevelMap {
 
     public HashSet<Entity> getEntitiesAtLocation(int x, int y) {
         entityTemp.clear()
-
-        spatialHash.getValues(x - 0.5, y - 0.5, x + 0.5, y + 0.5, entityTemp)
-
-        //entityTemp.each {
-        //   println it.name + " $x $y"
-        //}
-        return entityTemp
+        return spatialHash.getValues(x - 0.5, y - 0.5, x + 0.5, y + 0.5, entityTemp)
     }
 
     public HashSet<Entity> getEntitiesBetween(int lowX, int lowY, int highX, int highY) {
@@ -64,7 +58,14 @@ class LevelMap {
 
     public void makeNoise(int x, int y, int noise) {
 
+        int noiseSquare = noise * noise
+
         //TODO: find all entities in range, notify them of the noise
+        getEntitiesBetween(x - noise, y - noise, x + noise, y + noise).each {
+            if (it.ai && ((it.x - x) * (it.x - x)) + ((it.y - y) * (it.y - y)) < noiseSquare) {
+                it.ai.hearNoise(x, y)
+            }
+        }
 
     }
 
@@ -157,7 +158,6 @@ class LevelMap {
         }
         display.placeCharacter(xRange, yRange, '+' as char, SColor.DARK_GRAY)
 
-//
         objects.each { Entity entity ->
 
             int screenPositionX = entity.x - worldLowX

@@ -4,8 +4,8 @@ zomgRL
 Zombie Groovy Rogue Like
 
 
-I'm starting a zombie based roguelike.  You will start in a small city and have to exterminate the zombie hordes.
-This is my first roguelike, and is being done for the 7DRL Challenge 2013.
+This is my first roguelike, and was being done for the 7DRL Challenge 2013.  You will start in a small city and have
+to exterminate the zombie hordes.
 
 My initial plans include:
 + A randomly generated city
@@ -67,3 +67,15 @@ cd zomgRL
 
 gradle run
 ```
+
+
+Jar for Distribution
+====================
+It is unlikely anyone will play this if they have to install all sorts of dependencies.  So to distribute, we jar it all up
+into a nice package.
+
+```bash
+gradle distZip
+```
+
+Will create a file at core/build/libs/core-${version}.jar

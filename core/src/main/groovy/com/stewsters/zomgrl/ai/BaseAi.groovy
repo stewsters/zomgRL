@@ -1,5 +1,6 @@
 package com.stewsters.zomgrl.ai
 
+import com.stewsters.util.math.Point2i
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.game.Game
 import com.stewsters.zomgrl.graphic.RenderConfig
@@ -15,6 +16,7 @@ abstract class BaseAi {
     int lightLastCalculated = 0
     int sightRange = 20
 
+    Point2i lastNoise;
 
     public ArrayList<Entity> findAllVisibleEnemies(Map params) {
         int maxDistance = params?.maxRange ?: sightRange
@@ -25,37 +27,37 @@ abstract class BaseAi {
         int highY = owner.x + maxDistance
 
         return owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY).findAll { Entity entity ->
-                    entity.fighter && owner.owner.faction.hates(entity.faction) &&
+            entity.fighter && owner.owner.faction.hates(entity.faction) &&
                     owner.owner.distanceTo(entity) < maxDistance
         }
 
     }
 
-    /**
-     * Irrespective of distance
-     * @param params
-     * @return
-     */
-    public Entity findClosestEnemy(Map params) {
-        int distance = params?.maxRange ?: Integer.MAX_VALUE
-        Entity enemy = null
-
-        calculateSight()
-
-        for (Entity other : owner.levelMap.objects) {
-            if (other.fighter && other.fighter.hp > 0 &&
-                    other.faction && owner.faction?.hates(other?.faction)) {
-
-                int thisDistance = owner.distanceTo(other)
-                if (distance > thisDistance) {
-                    distance = thisDistance
-                    enemy = other
-                }
-
-            }
-        }
-        return enemy
-    }
+//    /**
+//     * Irrespective of distance
+//     * @param params
+//     * @return
+//     */
+//    public Entity findClosestEnemy(Map params) {
+//        int distance = params?.maxRange ?: Integer.MAX_VALUE
+//        Entity enemy = null
+//
+//        calculateSight()
+//
+//        for (Entity other : owner.levelMap.objects) {
+//            if (other.fighter && other.fighter.hp > 0 &&
+//                    other.faction && owner.faction?.hates(other?.faction)) {
+//
+//                int thisDistance = owner.distanceTo(other)
+//                if (distance > thisDistance) {
+//                    distance = thisDistance
+//                    enemy = other
+//                }
+//
+//            }
+//        }
+//        return enemy
+//    }
 
     public Entity findClosestVisibleEnemy(Map params) {
         if (!owner.faction) return null
@@ -155,6 +157,17 @@ abstract class BaseAi {
         //manually set the radius to equal the force
         light = RenderConfig.fov.calculateFOV(resistances, RenderConfig.windowRadiusX, RenderConfig.windowRadiusY, 1f, (1f / RenderConfig.lightForce) as float, RenderConfig.strat);
         lightLastCalculated = Game.gameTurn
+    }
+
+
+    public void hearNoise(int x, int y) {
+        if (lastNoise) {
+            println "heard noise"
+            lastNoise.x = x;
+            lastNoise.y = y;
+        } else {
+            lastNoise = new Point2i(x, y)
+        }
     }
 
 }

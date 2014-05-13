@@ -19,7 +19,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("Your wounds seal up.", SColor.LIGHT_VIOLET)
-            user.fighter.heal(ItemFunctions.HEAL_AMOUNT)
+            user.fighter.heal(HEAL_AMOUNT)
             return true
         }
     }
@@ -29,20 +29,20 @@ class ItemFunctions {
 
     public static Closure castLightning = { Entity user ->
 
-        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.LIGHTNING_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: LIGHTNING_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to strike.', SColor.RED, [user])
             return false
         } else {
-            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder! The damage is ${ItemFunctions.LIGHTNING_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
-            enemy.fighter.takeDamage(ItemFunctions.LIGHTNING_DAMAGE)
+            MessageLog.send("A lightning bolt strikes the ${enemy.name} with a loud thunder! The damage is ${LIGHTNING_DAMAGE} hit points.", SColor.LIGHT_BLUE, [user, enemy])
+            enemy.fighter.takeDamage(LIGHTNING_DAMAGE)
             return true
         }
     }
 
     public static final int DOMINATION_RANGE = 3
     public static Closure castDomination = { Entity user ->
-        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.DOMINATION_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: DOMINATION_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to dominate.', SColor.RED)
             return false
@@ -58,7 +58,7 @@ class ItemFunctions {
     public static final int CONFUSE_NUM_TURNS = 10
 
     public static Closure castConfuse = { Entity user ->
-        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.CONFUSE_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: CONFUSE_RANGE)
         if (!enemy) {
             MessageLog.send('No enemy is close enough to confused.', SColor.RED, [user, enemy])
             return false
@@ -78,6 +78,7 @@ class ItemFunctions {
         //removes infection from the system.
         user.fighter.infection = 0
         MessageLog.send("${user.name} self medicates.", [user])
+        return true
     }
 
     public static final int BANDAGE_HEAL_AMOUNT = 6
@@ -87,7 +88,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("${user.name}'s wounds seal up.", SColor.LIGHT_VIOLET, [user])
-            user.fighter.heal(ItemFunctions.BANDAGE_HEAL_AMOUNT)
+            user.fighter.heal(BANDAGE_HEAL_AMOUNT)
             return true
         }
     }
@@ -107,7 +108,7 @@ class ItemFunctions {
             return false
         } else {
             MessageLog.send("${user.name} feasts on beef jerkey.", SColor.LIGHT_VIOLET, [user])
-            user.fighter.raiseStamina(ItemFunctions.BANDAGE_HEAL_AMOUNT)
+            user.fighter.raiseStamina(BANDAGE_HEAL_AMOUNT)
             return true
         }
     }
@@ -117,14 +118,14 @@ class ItemFunctions {
     private static final int BERRETA_MAX_RANGE = 10
     public static Closure gunBerreta = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.BERRETA_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: BERRETA_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED, [user])
             return false
         } else {
             //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.BERRETA_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + BERRETA_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.pistol)) {
@@ -150,7 +151,7 @@ class ItemFunctions {
     private static final int AR15_MAX_RANGE = 15
     public static Closure gunAR15 = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.AR15_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: AR15_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED, [user])
             return false
@@ -185,14 +186,14 @@ class ItemFunctions {
     private static final int PUMP_MAX_RANGE = 4
     public static Closure gunPumpShotGun = { Entity user ->
         //find closest target
-        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: ItemFunctions.PUMP_MAX_RANGE)
+        Entity enemy = user.ai.findClosestVisibleEnemy(maxRange: PUMP_MAX_RANGE)
         if (!enemy) {
             MessageLog.send("${user.name} doesn't see a target.", SColor.RED, [user])
             return false
         } else {
             //enemy defense and range vs your baseMarksman and gun bonus
             int range = user.distanceTo(enemy)
-            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + ItemFunctions.PUMP_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
+            int damage = MatUtils.getIntInRange(0, user.fighter.marksman + PUMP_GUN_BONUS) - MatUtils.getIntInRange(0, enemy.fighter.defense + range)
 
             String message
             if (user.inventory && user.inventory.useAmmo(AmmoType.shotgun)) {
