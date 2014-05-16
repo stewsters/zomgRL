@@ -5,13 +5,12 @@ import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.components.item.Equipment
 import com.stewsters.zomgrl.entity.components.item.Slot
 
-class BasicCivilian extends BaseAi implements Ai {
+public class AdvancedStats extends BaseAi implements Ai {
 
     public void takeTurn() {
 
         //nearest opponent
         Entity enemy = findClosestVisibleEnemy()
-
 
         if (enemy) {
             //if we have a gun, and they are getting too close, shoot them

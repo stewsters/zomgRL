@@ -1,8 +1,8 @@
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-
 subprojects {
     apply plugin: 'java'
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
     group = 'com.stewsters'
     version = 1.2
 
