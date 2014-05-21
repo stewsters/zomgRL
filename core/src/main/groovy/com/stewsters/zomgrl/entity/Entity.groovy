@@ -144,9 +144,13 @@ public class Entity {
         int dx = targetX - x
         int dy = targetY - y
         float distance = Math.sqrt(dx**2 + dy**2)
-
         dx = (int) Math.round(dx / distance)
         dy = (int) Math.round(dy / distance)
+
+        //TODO: this may be faster, but may be too predictable.  Perhaps random choice?
+//        dx = MatUtils.limit(dx, -1, 1)
+//        dy = MatUtils.limit(dy, -1, 1)
+//
         return moveOrAttack(dx, dy)
     }
 

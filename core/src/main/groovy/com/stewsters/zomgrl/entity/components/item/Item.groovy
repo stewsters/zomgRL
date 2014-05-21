@@ -8,8 +8,14 @@ class Item {
     public Entity owner
     Closure useFunction
 
+    int minRange
+    int maxRange
+
     public Item(params) {
         useFunction = params?.useFunction
+
+        minRange = params?.minRange ?: 1
+        maxRange = params?.minRange ?: 1
     }
 
     /**

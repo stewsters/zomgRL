@@ -6,7 +6,7 @@ import com.stewsters.util.name.NameGen
 import com.stewsters.util.noise.Simplex2d
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.components.Fighter
-import com.stewsters.zomgrl.entity.components.ai.BasicCivilian
+import com.stewsters.zomgrl.entity.components.ai.AdvancedStats
 import com.stewsters.zomgrl.entity.components.ai.BasicZombie
 import com.stewsters.zomgrl.entity.components.ai.Faction
 import com.stewsters.zomgrl.entity.components.item.Inventory
@@ -194,7 +194,7 @@ class CityMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            ai: new BasicCivilian(),
+                            ai: new AdvancedStats(),
                             inventory: new Inventory(),
                             fighter: new Fighter(hp: 4, defense: 1,
                                     marksman: 1, power: 1,
@@ -209,7 +209,7 @@ class CityMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'H', name: NameGen.gener(), color: SColor.WHITE_MOUSE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            ai: new BasicCivilian(),
+                            ai: new AdvancedStats(),
                             inventory: new Inventory(),
                             fighter: new Fighter(hp: 6, defense: 1,
                                     marksman: 1, power: 2,
@@ -223,7 +223,7 @@ class CityMapGenerator implements MapGenerator {
                     new Entity(map: map, x: x, y: y,
                             ch: 'H', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
                             priority: 120, faction: Faction.human,
-                            ai: new BasicCivilian(),
+                            ai: new AdvancedStats(),
                             inventory: new Inventory(),
                             fighter: new Fighter(hp: 6, defense: 1,
                                     marksman: 3, power: 2,
