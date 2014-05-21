@@ -34,17 +34,12 @@ public class AdvancedStats extends BaseAi implements Ai {
             Equipment weapon
             Item item
 
-            int minRange = 1
-            int maxRange = 1
-
             if (owner.inventory) {
                 weapon = owner.inventory.getEquippedInSlot(Slot.rightHand)
                 if (weapon) {
                     item = weapon.owner.itemComponent
                     if (item) {
-                        minRange = item.minRange
-                        maxRange = item.maxRange
-                        optimalRange = (minRange + maxRange) / 2
+                        optimalRange = (item.minRange + item.maxRange) / 2
                     }
                 }
             }
@@ -55,22 +50,22 @@ public class AdvancedStats extends BaseAi implements Ai {
                 if (!owner.moveAway(enemy.x, enemy.y)) {
                     owner.moveTowardsAndAttack(enemy.x, enemy.y)
                 }
-            } else if (enemyDistance > optimalRange && canAttack(enemyDistance, minRange, maxRange) && canMoveToward(enemy)) {
+            } else if (enemyDistance > optimalRange && canAttack(enemyDistance, item) && canMoveToward(enemy)) {
 
                 if (MatUtils.getFloatInRange(0, 1) < chargeProbability) {
                     owner.moveTowardsAndAttack(enemy.x, enemy.y)
                 } else {
-                    attackTarget(enemy, item)
+                    attackTarget(enemy, item, enemyDistance)
                 }
-            } else if (enemyDistance < optimalRange && canAttack(enemyDistance, minRange, maxRange) && canMoveAway(enemy)) {
+            } else if (enemyDistance < optimalRange && canAttack(enemyDistance, item) && canMoveAway(enemy)) {
                 // to close
                 if (MatUtils.getFloatInRange(0, 1) < retreatProbability) {
                     owner.moveAway(enemy.x, enemy.y)
                 } else {
-                    attackTarget(enemy, item)
+                    attackTarget(enemy, item, enemyDistance)
                 }
-            } else if (canAttack(enemyDistance, minRange, maxRange)) {
-                attackTarget(enemy, item)
+            } else if (canAttack(enemyDistance, item)) {
+                attackTarget(enemy, item, enemyDistance)
 
             } else if (enemyDistance > optimalRange && canMoveToward(enemy)) {
                 owner.moveTowardsAndAttack(enemy.x, enemy.y)
@@ -131,12 +126,17 @@ public class AdvancedStats extends BaseAi implements Ai {
         return owner.levelMap.isBlocked(owner.x + dx, owner.y + dy)
     }
 
-    boolean canAttack(int targetRange, int minRange, int maxRange) {
+    boolean canAttack(int targetRange, Item item) {
         //todo: los?  we select based on view, so it may not matter
-        return minRange >= targetRange && maxRange <= targetRange
+
+        if (item && item.minRange >= targetRange && item.maxRange <= targetRange) {
+            return true
+        }
+        return targetRange <= 1 //melee
     }
 
-    void attackTarget(Entity entity, Item item) {
+    void attackTarget(Entity entity, Item item, int distance) {
+
         if (item && item.useFunction != null) {
             item.useHeldItem(owner)
             println "Bang!"
