@@ -139,7 +139,7 @@ public class AdvancedStats extends BaseAi implements Ai {
 
         if (item && item.useFunction != null) {
             item.useHeldItem(owner)
-            println "Bang!"
+            println "AI Bang!"
         } else {
             owner.moveTowardsAndAttack(entity.x, entity.y)
         }
