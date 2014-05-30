@@ -13,6 +13,12 @@ public class AdvancedStats extends BaseAi implements Ai {
     private float retreatProbability
 
 
+    public AdvancedStats() {
+        morale = 0.5f
+        chargeProbability = 0.5f
+        retreatProbability = 0.5f
+    }
+
     public AdvancedStats(Map params) {
         morale = params?.morale ?: 0.5f
         chargeProbability = params?.chargeProbability ?: 0.5f

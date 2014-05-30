@@ -12,6 +12,7 @@ import com.stewsters.zomgrl.entity.components.ai.Faction
 import com.stewsters.zomgrl.entity.components.item.Inventory
 import com.stewsters.zomgrl.map.LevelMap
 import com.stewsters.zomgrl.map.Tile
+import com.stewsters.zomgrl.map.gen.spawner.RandomItemGen
 import com.stewsters.zomgrl.sfx.DeathFunctions
 import squidpony.squidcolor.SColor
 
@@ -37,7 +38,7 @@ class CityMapGenerator implements MapGenerator {
         }
 
         int maxAttempts = 100
-        def intersections = []
+        List<Intersection> intersections = []
 
 
         playerStartX = width / 2
@@ -69,10 +70,14 @@ class CityMapGenerator implements MapGenerator {
 
         LevelMap map = convert(material)
 
-        constructBuildings(map, intersections)
+        def lots = constructBuildings(map, intersections)
         growTrees(map)
         populate(map, 100)
         infest(map, 50)
+
+        for (Rect lot : lots) {
+            addItems(map, lot)
+        }
         return map
     }
 
@@ -292,7 +297,7 @@ class CityMapGenerator implements MapGenerator {
 
     public static final int MIN_BUILDING_SIZE = 5
 
-    private def constructBuildings(LevelMap map, List<Intersection> intersections) {
+    private List<Rect> constructBuildings(LevelMap map, List<Intersection> intersections) {
 
         List<Rect> lots = []
         for (Intersection inter : intersections) {
@@ -352,9 +357,25 @@ class CityMapGenerator implements MapGenerator {
         lots.each { Rect lot ->
             CityLotGenerator.generate(map, lot)
         }
-
+        return lots
     }
 
+
+    private static int MIN_ROOM_ITEMS = 10
+    private static int MAX_ROOM_ITEMS = 20 //this can depend on room type
+    private static void addItems(LevelMap map, Rect room) {
+
+        int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
+        numItems.times {
+
+            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+            if (!map.isBlocked(x, y)) {
+                RandomItemGen.placeRandomItem(map, x, y)
+            }
+        }
+
+    }
 
     private class Intersection {
 

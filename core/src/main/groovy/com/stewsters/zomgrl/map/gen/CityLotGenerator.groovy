@@ -5,7 +5,6 @@ import com.stewsters.util.math.Point2i
 import com.stewsters.util.math.geom.Rect
 import com.stewsters.util.math.geom.RectSubdivider
 import com.stewsters.zomgrl.map.LevelMap
-import com.stewsters.zomgrl.map.gen.spawner.RandomItemGen
 import squidpony.squidcolor.SColor
 
 class CityLotGenerator {
@@ -58,7 +57,6 @@ class CityLotGenerator {
 
         }
 
-        addItems(map, lot)
     }
 
 
@@ -136,23 +134,6 @@ class CityLotGenerator {
 //                    break;
 //            }
 //        }
-    }
-
-
-    private static int MIN_ROOM_ITEMS = 10
-    private static int MAX_ROOM_ITEMS = 20 //this can depend on room type
-    private static void addItems(LevelMap map, Rect room) {
-
-        int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
-        numItems.times {
-
-            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
-            if (!map.isBlocked(x, y)) {
-                RandomItemGen.placeRandomItem(map, x, y)
-            }
-        }
-
     }
 
 
