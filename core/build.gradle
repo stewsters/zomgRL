@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.0'
+    compile 'org.codehaus.groovy:groovy-all:2.3.3'
     compile 'org.apache.commons:commons-lang3:3.1'
     compile "com.squidpony:squidlib:1.95.1"
     compile project(':stewsters-util')

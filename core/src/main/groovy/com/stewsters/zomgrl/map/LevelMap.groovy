@@ -123,7 +123,7 @@ class LevelMap {
                 if (originalX < 0 || originalX >= ground.length || originalY < 0 || originalY >= ground[0].length) {
                     display.clearCell(x, y); //off the map
 
-                } else if (lightX > 0 && lightX < player.ai.light.length
+                } else if (player.ai && lightX > 0 && lightX < player.ai.light.length
                         && lightY > 0 && lightY < player.ai.light[0].length
                         && player.ai.light[lightX][lightY] > 0f) {
 

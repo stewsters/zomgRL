@@ -15,8 +15,8 @@ My initial plans include:
 
 My tools:
 + Java7
-+ Groovy 2.3.0
-+ SquidLib 1.95 ( https://github.com/SquidPony/SquidLib)
++ Groovy 2.3.3
++ SquidLib 1.95.1 ( https://github.com/SquidPony/SquidLib)
 + Intellij
 
 Download
