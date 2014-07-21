@@ -162,7 +162,7 @@ class LevelMap {
             int screenPositionY = entity.y - worldLowY
 
             if (screenPositionX >= 0 && screenPositionX < xRange && screenPositionY >= 0 && screenPositionY < yRange) {
-                if (player.ai.light[screenPositionX][screenPositionY] > 0f) {
+                if (player?.ai?.light[screenPositionX][screenPositionY] > 0f) {
                     //put the player at the origin of the FOV
                     float bright = 1 - player.ai.light[screenPositionX][screenPositionY];
                     SColor cellLight = SColorFactory.fromPallet("light", bright);
