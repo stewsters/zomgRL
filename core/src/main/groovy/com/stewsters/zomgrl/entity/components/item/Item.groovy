@@ -6,13 +6,16 @@ import squidpony.squidcolor.SColor
 
 class Item {
     public Entity owner
+
     Closure useFunction
+    boolean useOnPickup
 
     int minRange
     int maxRange
 
     public Item(params) {
         useFunction = params?.useFunction
+        useOnPickup = params?.useOnPickup
 
         minRange = params?.minRange ?: 1
         maxRange = params?.minRange ?: 1

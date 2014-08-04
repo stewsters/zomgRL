@@ -123,19 +123,19 @@ class RandomItemGen {
             case ("5.56x45 mm Box"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: "5.56x45 mm Box", color: SColor.SILVER,
-                        itemComponent: new Item(useFunction: ItemFunctions.rifleAmmoBox)
+                        itemComponent: new Item(useFunction: ItemFunctions.rifleAmmoBox, useOnPickup: true)
                 )
                 break
             case ("9mm hp Box"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: "9mm hp Box", color: SColor.GRAY,
-                        itemComponent: new Item(useFunction: ItemFunctions.pistolAmmoBox)
+                        itemComponent: new Item(useFunction: ItemFunctions.pistolAmmoBox, useOnPickup: true)
                 )
                 break
             case ("12 Gauge Box"):
                 new Entity(map: map, x: x, y: y,
                         ch: 'r', name: "12 Gauge Box", color: SColor.YELLOW,
-                        itemComponent: new Item(useFunction: ItemFunctions.shotgunAmmoBox)
+                        itemComponent: new Item(useFunction: ItemFunctions.shotgunAmmoBox, useOnPickup: true)
                 )
                 break
             case ("Ski Goggles"):

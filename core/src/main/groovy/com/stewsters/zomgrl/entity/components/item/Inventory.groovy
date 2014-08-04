@@ -18,19 +18,28 @@ public class Inventory {
     Map<AmmoType, Integer> pouch = [:]
 
     public boolean pickUp(Entity item) {
+
         if (items.size() >= capacity) {
             MessageLog.send("Inventory full, cannot pick up ${item.name}", SColor.RED, [owner])
 
         } else {
-            items.add item
+
+            // use item on pickup
+            if (item.itemComponent.useOnPickup) {
+                item.itemComponent.useFunction(owner);
+            } else {
+                items.add item
+
+                if (item.equipment) {
+                    Equipment oldEquipment = owner.inventory.getEquippedInSlot(item.equipment.slot)
+                    if (!oldEquipment)
+                        item.equipment.equip(owner)
+                }
+            }
+
             item.levelMap.remove(item)
             MessageLog.send("${owner.name} picked up ${item.name}", SColor.GREEN, [owner])
 
-            if (item.equipment) {
-                Equipment oldEquipment = owner.inventory.getEquippedInSlot(item.equipment.slot)
-                if (!oldEquipment)
-                    item.equipment.equip(owner)
-            }
             return true
         }
         return false

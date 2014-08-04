@@ -169,7 +169,7 @@ public class Entity {
             MessageLog.send("${name} can't hold items.", SColor.WHITE, [this])
             return
         }
-        //if holding item, message you cant
+
         Entity topItem = levelMap.getEntitiesAtLocation(x, y).sort { it.priority }.find { it.itemComponent }
 
         if (topItem) {
