@@ -14,12 +14,7 @@ subprojects {
     }
 }
 
-project(':stewsters-util') {
-
-}
 
 project(":core"){
-    dependencies{
-        compile project(':stewsters-util')
-    }
+
 }
