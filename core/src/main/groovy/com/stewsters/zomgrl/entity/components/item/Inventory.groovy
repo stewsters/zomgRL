@@ -82,7 +82,7 @@ public class Inventory {
 
         items.eachWithIndex { Entity item, Integer i ->
             display.placeHorizontalString(RenderConfig.inventoryX, i + RenderConfig.inventoryY,
-                    "${i + 1}:${item.equipment?.isEquiped ? "e" : ' '} ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
+                "${i + 1}:${item.equipment?.isEquiped ? "e" : ' '} ${item.name.substring(0, Math.min(RenderConfig.inventoryWidth - 2, item.name.length()))}")
         }
     }
 

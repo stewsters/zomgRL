@@ -34,14 +34,14 @@ class TestMapGenerator implements MapGenerator {
         playerStartY = map.ySize / 2 - 1
 
         new Entity(map: map, x: playerStartX + 10, y: playerStartY + 10,
-                ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
-                priority: 120, faction: Faction.zombie,
-                ai: new BasicZombie(),
-                fighter: new Fighter(hp: 10, defense: 1,
-                        marksman: 0, power: 3,
-                        maxInfection: 3,
-                        infection: 3,
-                        deathFunction: DeathFunctions.zombieDeath)
+            ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
+            priority: 120, faction: Faction.zombie,
+            ai: new BasicZombie(),
+            fighter: new Fighter(hp: 10, defense: 1,
+                marksman: 0, power: 3,
+                maxInfection: 3,
+                infection: 3,
+                deathFunction: DeathFunctions.zombieDeath)
         )
 
         /**

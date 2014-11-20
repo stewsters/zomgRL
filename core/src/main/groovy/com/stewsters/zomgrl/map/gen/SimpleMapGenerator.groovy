@@ -145,26 +145,26 @@ class SimpleMapGenerator implements MapGenerator {
                 int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                            ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
-                            fighter: new Fighter(hp: 4, defense: 0, power: 1, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
-                            ai: new BasicZombie(),
-                            priority: 120, faction: Faction.zombie
+                        ch: 'g', name: 'Goblin', color: SColor.SEA_GREEN, blocks: true,
+                        fighter: new Fighter(hp: 4, defense: 0, power: 1, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
+                        ai: new BasicZombie(),
+                        priority: 120, faction: Faction.zombie
                     )
                 } else if (d100 < 90) {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'o', name: 'Orc', color: SColor.LAWN_GREEN, blocks: true,
-                            priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(hp: 10, defense: 0, power: 2, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
-                            ai: new BasicZombie()
+                        ch: 'o', name: 'Orc', color: SColor.LAWN_GREEN, blocks: true,
+                        priority: 120, faction: Faction.zombie,
+                        fighter: new Fighter(hp: 10, defense: 0, power: 2, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
+                        ai: new BasicZombie()
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
-                            priority: 120, faction: Faction.zombie,
-                            fighter: new Fighter(hp: 16, defense: 1, power: 3, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
-                            ai: new BasicZombie()
+                        ch: 'T', name: 'Troll', color: SColor.DARK_PASTEL_GREEN, blocks: true,
+                        priority: 120, faction: Faction.zombie,
+                        fighter: new Fighter(hp: 16, defense: 1, power: 3, stamina: 4, deathFunction: DeathFunctions.zombieDeath),
+                        ai: new BasicZombie()
                     )
                 }
             }
@@ -180,33 +180,33 @@ class SimpleMapGenerator implements MapGenerator {
                 int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 40) {
                     new Entity(map: map, x: x, y: y,
-                            ch: 'p', name: 'Healing Potion', color: SColor.AZURE,
-                            itemComponent: new Item(useFunction: ItemFunctions.castHeal)
+                        ch: 'p', name: 'Healing Potion', color: SColor.AZURE,
+                        itemComponent: new Item(useFunction: ItemFunctions.castHeal)
                     )
                 } else if (d100 < 60) {
                     new Entity(map: map, x: x, y: y,
-                            ch: '?', name: "Scroll Of Fireball", color: SColor.RED,
-                            itemComponent: new Item(useFunction: ItemFunctions.castFireball)
+                        ch: '?', name: "Scroll Of Fireball", color: SColor.RED,
+                        itemComponent: new Item(useFunction: ItemFunctions.castFireball)
                     )
                 } else if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                            ch: '?', name: "Scroll Of Lightning", color: SColor.ORANGE,
-                            itemComponent: new Item(useFunction: ItemFunctions.castLightning)
+                        ch: '?', name: "Scroll Of Lightning", color: SColor.ORANGE,
+                        itemComponent: new Item(useFunction: ItemFunctions.castLightning)
                     )
                 } else if (d100 < 80) {
                     new Entity(map: map, x: x, y: y,
-                            ch: '?', name: "Scroll Of Domination", color: SColor.AMBER,
-                            itemComponent: new Item(useFunction: ItemFunctions.castDomination)
+                        ch: '?', name: "Scroll Of Domination", color: SColor.AMBER,
+                        itemComponent: new Item(useFunction: ItemFunctions.castDomination)
                     )
                 } else if (d100 < 90) {
                     new Entity(map: map, x: x, y: y,
-                            ch: '?', name: "Scroll Of Confustion", color: SColor.AMARANTH,
-                            itemComponent: new Item(useFunction: ItemFunctions.castConfuse)
+                        ch: '?', name: "Scroll Of Confustion", color: SColor.AMARANTH,
+                        itemComponent: new Item(useFunction: ItemFunctions.castConfuse)
                     )
                 } else {
                     new Entity(map: map, x: x, y: y,
-                            ch: 's', name: 'Sword', color: SColor.GOLD,
-                            itemComponent: new Item([:]))
+                        ch: 's', name: 'Sword', color: SColor.GOLD,
+                        itemComponent: new Item([:]))
                 }
             }
         }

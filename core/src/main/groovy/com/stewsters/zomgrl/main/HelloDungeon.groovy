@@ -68,15 +68,15 @@ public class HelloDungeon {
         levelMap = mapGen.reGenerate()
 
         player = new Entity(map: levelMap, x: mapGen.playerStartX, y: mapGen.playerStartY,
-                ch: '@', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
-                priority: 130, faction: Faction.human,
-                ai: new LocalPlayer(),
-                inventory: new Inventory(),
-                fighter: new Fighter(hp: 10, defense: 1,
-                        marksman: 2, power: 2,
-                        maxInfection: 10,
-                        stamina: 10,
-                        deathFunction: DeathFunctions.playerDeath)
+            ch: '@', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
+            priority: 130, faction: Faction.human,
+            ai: new LocalPlayer(),
+            inventory: new Inventory(),
+            fighter: new Fighter(hp: 10, defense: 1,
+                marksman: 2, power: 2,
+                maxInfection: 10,
+                stamina: 10,
+                deathFunction: DeathFunctions.playerDeath)
 
         )
         player.ai.owner = player

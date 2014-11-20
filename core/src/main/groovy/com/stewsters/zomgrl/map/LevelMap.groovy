@@ -124,8 +124,8 @@ class LevelMap {
                     display.clearCell(x, y); //off the map
 
                 } else if (player.ai && lightX > 0 && lightX < player.ai.light.length
-                        && lightY > 0 && lightY < player.ai.light[0].length
-                        && player.ai.light[lightX][lightY] > 0f) {
+                    && lightY > 0 && lightY < player.ai.light[0].length
+                    && player.ai.light[lightX][lightY] > 0f) {
 
                     double radius = Math.sqrt((originalX - player.x) * (originalX - player.x) + (originalY - player.y) * (originalY - player.y));
                     float bright = 1 - player.ai.light[lightX][lightY];
@@ -134,9 +134,9 @@ class LevelMap {
 
 
                     SColor objectLight = SColorFactory.blend(
-                            ground[originalX][originalY].gore ? SColor.RED :
-                                    ground[originalX][originalY].color,
-                            cellLight, getTint(radius));
+                        ground[originalX][originalY].gore ? SColor.RED :
+                            ground[originalX][originalY].color,
+                        cellLight, getTint(radius));
                     display.placeCharacter(x, y, ground[originalX][originalY].representation, objectLight);
                     ground[originalX][originalY].isExplored = true
 
