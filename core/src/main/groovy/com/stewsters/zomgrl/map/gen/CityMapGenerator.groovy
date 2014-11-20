@@ -3,7 +3,7 @@ package com.stewsters.zomgrl.map.gen
 import com.stewsters.util.math.MatUtils
 import com.stewsters.util.math.geom.Rect
 import com.stewsters.util.name.NameGen
-import com.stewsters.util.noise.Simplex2d
+import com.stewsters.util.noise.OpenSimplexNoise
 import com.stewsters.zomgrl.entity.Entity
 import com.stewsters.zomgrl.entity.components.Fighter
 import com.stewsters.zomgrl.entity.components.ai.AdvancedStats
@@ -37,14 +37,14 @@ class CityMapGenerator implements MapGenerator {
             }
         }
 
-        int maxAttempts = 100
-        List<Intersection> intersections = []
-
 
         playerStartX = width / 2
         playerStartY = height / 2
+
+        List<Intersection> intersections = []
         intersections.add new Intersection(material, playerStartX, playerStartY)
 
+        int maxAttempts = 100
         maxAttempts.times {
             int intersectionX = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), width - (int) (BLOCKSIZE / 2))
             int intersectionY = MatUtils.getIntInRange(0 + (int) (BLOCKSIZE / 2), height - (int) (BLOCKSIZE / 2))
@@ -55,7 +55,7 @@ class CityMapGenerator implements MapGenerator {
 
             def collisions = intersections.find { Intersection e ->
                 Math.abs(e.centerX - intersectionX) < BLOCKSIZE &&
-                        Math.abs(e.centerY - intersectionY) < BLOCKSIZE
+                    Math.abs(e.centerY - intersectionY) < BLOCKSIZE
             }
 
             if (!collisions) {
@@ -81,30 +81,16 @@ class CityMapGenerator implements MapGenerator {
         return map
     }
 
-    def mainStreetBit = [4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 2, 2, 3, 3, 4]
-
-    Map alleyBit = [
-            pattern: [[4, 4, 4, 4, 4, 4, 4],
-                      [4, 3, 3, 3, 3, 3, 4],
-                      [4, 3, 1, 1, 1, 3, 4],
-                      [4, 3, 1, 1, 1, 3, 4],
-                      [4, 3, 1, 1, 1, 3, 4],
-                      [4, 3, 3, 3, 3, 3, 4],
-                      [4, 4, 4, 4, 4, 4, 4]],
-            offsetX: 4,
-            offsetY: 4
-    ]
-
     Map residential = [
-            pattern: [[3, 3, 3, 3, 3, 3, 3],
-                      [3, 5, 5, 5, 5, 5, 3],
-                      [3, 5, 1, 1, 1, 5, 3],
-                      [3, 5, 1, 1, 1, 5, 3],
-                      [3, 5, 1, 1, 1, 5, 3],
-                      [3, 5, 5, 5, 5, 5, 3],
-                      [3, 3, 3, 3, 3, 3, 3]],
-            offsetX: 4,
-            offsetY: 4
+        pattern: [[3, 3, 3, 3, 3, 3, 3],
+                  [3, 5, 5, 5, 5, 5, 3],
+                  [3, 5, 1, 1, 1, 5, 3],
+                  [3, 5, 1, 1, 1, 5, 3],
+                  [3, 5, 1, 1, 1, 5, 3],
+                  [3, 5, 5, 5, 5, 5, 3],
+                  [3, 3, 3, 3, 3, 3, 3]],
+        offsetX: 4,
+        offsetY: 4
     ]
 
     def static carveRoad(int[][] material, Map bit, centerX, centerY) {
@@ -164,6 +150,7 @@ class CityMapGenerator implements MapGenerator {
 
     private static void growTrees(LevelMap map) {
         //Randomly place trees on grass squares
+        OpenSimplexNoise openSimplexNoise = new OpenSimplexNoise();
 
         (0..map.xSize - 1).each { int x ->
             (0..map.ySize - 1).each { int y ->
@@ -171,7 +158,7 @@ class CityMapGenerator implements MapGenerator {
                 //if grass
                 if (map.ground[x][y].color == SColor.GREEN) {
 
-                    if (Simplex2d.noise((double) x / 10.0, (double) y / 10.0) > 0.5) {
+                    if (openSimplexNoise.eval((double) x / 10.0, (double) y / 10.0) > 0.5) {
                         map.ground[x][y].color = SColor.FOREST_GREEN
                         map.ground[x][y].isBlocked = true
                         map.ground[x][y].opacity = 0.7f
@@ -185,9 +172,13 @@ class CityMapGenerator implements MapGenerator {
 
         }
 
-
     }
 
+    /**
+     * Fill the map with humans
+     * @param map
+     * @param maximum
+     */
     private static void populate(LevelMap map, int maximum) {
         maximum.times {
             int x = MatUtils.getIntInRange(1, map.xSize - 2)
@@ -197,44 +188,44 @@ class CityMapGenerator implements MapGenerator {
                 int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                            ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
-                            priority: 120, faction: Faction.human,
-                            ai: new AdvancedStats(),
-                            inventory: new Inventory(),
-                            fighter: new Fighter(hp: 4, defense: 1,
-                                    marksman: 1, power: 1,
-                                    maxInfection: 2,
-                                    stamina: 4,
-                                    deathFunction: DeathFunctions.zombieDeath)
+                        ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
+                        priority: 120, faction: Faction.human,
+                        ai: new AdvancedStats(),
+                        inventory: new Inventory(),
+                        fighter: new Fighter(hp: 4, defense: 1,
+                            marksman: 1, power: 1,
+                            maxInfection: 2,
+                            stamina: 4,
+                            deathFunction: DeathFunctions.zombieDeath)
 
 
                     )
                 } else if (d100 < 95) {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'H', name: NameGen.gener(), color: SColor.WHITE_MOUSE, blocks: true,
-                            priority: 120, faction: Faction.human,
-                            ai: new AdvancedStats(),
-                            inventory: new Inventory(),
-                            fighter: new Fighter(hp: 6, defense: 1,
-                                    marksman: 1, power: 2,
-                                    maxInfection: 2,
-                                    stamina: 6,
-                                    deathFunction: DeathFunctions.zombieDeath)
+                        ch: 'H', name: NameGen.gener(), color: SColor.WHITE_MOUSE, blocks: true,
+                        priority: 120, faction: Faction.human,
+                        ai: new AdvancedStats(),
+                        inventory: new Inventory(),
+                        fighter: new Fighter(hp: 6, defense: 1,
+                            marksman: 1, power: 2,
+                            maxInfection: 2,
+                            stamina: 6,
+                            deathFunction: DeathFunctions.zombieDeath)
 
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'H', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
-                            priority: 120, faction: Faction.human,
-                            ai: new AdvancedStats(),
-                            inventory: new Inventory(),
-                            fighter: new Fighter(hp: 6, defense: 1,
-                                    marksman: 3, power: 2,
-                                    maxInfection: 3,
-                                    stamina: 6,
-                                    deathFunction: DeathFunctions.zombieDeath)
+                        ch: 'H', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
+                        priority: 120, faction: Faction.human,
+                        ai: new AdvancedStats(),
+                        inventory: new Inventory(),
+                        fighter: new Fighter(hp: 6, defense: 1,
+                            marksman: 3, power: 2,
+                            maxInfection: 3,
+                            stamina: 6,
+                            deathFunction: DeathFunctions.zombieDeath)
 
 
                     )
@@ -244,7 +235,11 @@ class CityMapGenerator implements MapGenerator {
 
     }
 
-
+/**
+ * Fill the map with zombies
+ * @param map
+ * @param maximum
+ */
     private static void infest(LevelMap map, int maximum) {
         //fill in zombies
         maximum.times {
@@ -255,39 +250,39 @@ class CityMapGenerator implements MapGenerator {
                 int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                            ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
-                            priority: 120, faction: Faction.zombie,
-                            ai: new BasicZombie(),
-                            fighter: new Fighter(hp: 6, defense: 1,
-                                    marksman: 0, power: 2,
-                                    maxInfection: 3,
-                                    infection: 3,
-                                    deathFunction: DeathFunctions.zombieDeath)
+                        ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
+                        priority: 120, faction: Faction.zombie,
+                        ai: new BasicZombie(),
+                        fighter: new Fighter(hp: 6, defense: 1,
+                            marksman: 0, power: 2,
+                            maxInfection: 3,
+                            infection: 3,
+                            deathFunction: DeathFunctions.zombieDeath)
                     )
                 } else if (d100 < 90) {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
-                            priority: 120, faction: Faction.zombie,
-                            ai: new BasicZombie(),
-                            fighter: new Fighter(hp: 10, defense: 1,
-                                    marksman: 0, power: 3,
-                                    maxInfection: 3,
-                                    infection: 3,
-                                    deathFunction: DeathFunctions.zombieDeath)
+                        ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
+                        priority: 120, faction: Faction.zombie,
+                        ai: new BasicZombie(),
+                        fighter: new Fighter(hp: 10, defense: 1,
+                            marksman: 0, power: 3,
+                            maxInfection: 3,
+                            infection: 3,
+                            deathFunction: DeathFunctions.zombieDeath)
 
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
-                            ch: 'f', name: 'Fast Zombie', color: SColor.DARK_PASTEL_GREEN, blocks: true,
-                            priority: 120, faction: Faction.zombie,
-                            ai: new BasicZombie(),
-                            fighter: new Fighter(hp: 8, defense: 2,
-                                    marksman: 0, power: 3,
-                                    maxInfection: 3,
-                                    infection: 3,
-                                    deathFunction: DeathFunctions.zombieDeath),
+                        ch: 'f', name: 'Fast Zombie', color: SColor.DARK_PASTEL_GREEN, blocks: true,
+                        priority: 120, faction: Faction.zombie,
+                        ai: new BasicZombie(),
+                        fighter: new Fighter(hp: 8, defense: 2,
+                            marksman: 0, power: 3,
+                            maxInfection: 3,
+                            infection: 3,
+                            deathFunction: DeathFunctions.zombieDeath),
 
                     )
                 }
@@ -297,6 +292,12 @@ class CityMapGenerator implements MapGenerator {
 
     public static final int MIN_BUILDING_SIZE = 5
 
+    /**
+     * We construct a building lot
+     * @param map
+     * @param intersections
+     * @return
+     */
     private List<Rect> constructBuildings(LevelMap map, List<Intersection> intersections) {
 
         List<Rect> lots = []
@@ -341,7 +342,11 @@ class CityMapGenerator implements MapGenerator {
                     if (size >= MIN_BUILDING_SIZE) {
 
 
-                        Rect rect = new Rect(Math.min(offsetX, offsetX + (size * xMod)), Math.min(offsetY, offsetY + (size * yMod)), size, size)
+                        Rect rect = new Rect(
+                            Math.min(offsetX, offsetX + (size * xMod)),
+                            Math.min(offsetY, offsetY + (size * yMod)),
+                            Math.max(offsetX, offsetX + (size * xMod)),
+                            Math.max(offsetY, offsetY + (size * yMod)))
                         lots.add rect
                     }
                 }
@@ -349,11 +354,9 @@ class CityMapGenerator implements MapGenerator {
         }
 
         //on each lot, construct a house
-        lots = lots.unique({ Rect a, Rect b ->
-            if (a.intersect(b))
-                return 0
-            else return 1
-        })
+        lots = lots.unique { Rect a, Rect b ->
+            a.intersect(b) ? 0 : 1
+        }
         lots.each { Rect lot ->
             CityLotGenerator.generate(map, lot)
         }
@@ -365,15 +368,20 @@ class CityMapGenerator implements MapGenerator {
     private static int MAX_ROOM_ITEMS = 20 //this can depend on room type
     private static void addItems(LevelMap map, Rect room) {
 
-        int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
-        numItems.times {
+        try {
+            int numItems = MatUtils.getIntInRange(MIN_ROOM_ITEMS, MAX_ROOM_ITEMS)
+            numItems.times {
 
-            int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
-            int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
-            if (!map.isBlocked(x, y)) {
-                RandomItemGen.placeRandomItem(map, x, y)
+                int x = MatUtils.getIntInRange(room.x1 + 1, room.x2 - 1)
+                int y = MatUtils.getIntInRange(room.y1 + 1, room.y2 - 1)
+                if (!map.isBlocked(x, y)) {
+                    RandomItemGen.placeRandomItem(map, x, y)
+                }
             }
+        } catch (Exception e) {
+            println "d"
         }
+
 
     }
 
