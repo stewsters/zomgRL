@@ -55,7 +55,7 @@ class CityMapGenerator implements MapGenerator {
 
             def collisions = intersections.find { Intersection e ->
                 Math.abs(e.centerX - intersectionX) < BLOCKSIZE &&
-                    Math.abs(e.centerY - intersectionY) < BLOCKSIZE
+                        Math.abs(e.centerY - intersectionY) < BLOCKSIZE
             }
 
             if (!collisions) {
@@ -82,15 +82,15 @@ class CityMapGenerator implements MapGenerator {
     }
 
     Map residential = [
-        pattern: [[3, 3, 3, 3, 3, 3, 3],
-                  [3, 5, 5, 5, 5, 5, 3],
-                  [3, 5, 1, 1, 1, 5, 3],
-                  [3, 5, 1, 1, 1, 5, 3],
-                  [3, 5, 1, 1, 1, 5, 3],
-                  [3, 5, 5, 5, 5, 5, 3],
-                  [3, 3, 3, 3, 3, 3, 3]],
-        offsetX: 4,
-        offsetY: 4
+            pattern: [[3, 3, 3, 3, 3, 3, 3],
+                      [3, 5, 5, 5, 5, 5, 3],
+                      [3, 5, 1, 1, 1, 5, 3],
+                      [3, 5, 1, 1, 1, 5, 3],
+                      [3, 5, 1, 1, 1, 5, 3],
+                      [3, 5, 5, 5, 5, 5, 3],
+                      [3, 3, 3, 3, 3, 3, 3]],
+            offsetX: 4,
+            offsetY: 4
     ]
 
     def static carveRoad(int[][] material, Map bit, centerX, centerY) {
@@ -188,44 +188,44 @@ class CityMapGenerator implements MapGenerator {
                 int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                        ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
-                        priority: 120, faction: Faction.human,
-                        ai: new AdvancedStats(),
-                        inventory: new Inventory(),
-                        fighter: new Fighter(hp: 4, defense: 1,
-                            marksman: 1, power: 1,
-                            maxInfection: 2,
-                            stamina: 4,
-                            deathFunction: DeathFunctions.zombieDeath)
+                            ch: 'h', name: NameGen.gener(), color: SColor.WHITE_TEA_DYE, blocks: true,
+                            priority: 120, faction: Faction.human,
+                            ai: new AdvancedStats(),
+                            inventory: new Inventory(),
+                            fighter: new Fighter(hp: 4, defense: 1,
+                                    marksman: 1, power: 1,
+                                    maxInfection: 2,
+                                    stamina: 4,
+                                    deathFunction: DeathFunctions.zombieDeath)
 
 
                     )
                 } else if (d100 < 95) {
 
                     new Entity(map: map, x: x, y: y,
-                        ch: 'H', name: NameGen.gener(), color: SColor.WHITE_MOUSE, blocks: true,
-                        priority: 120, faction: Faction.human,
-                        ai: new AdvancedStats(),
-                        inventory: new Inventory(),
-                        fighter: new Fighter(hp: 6, defense: 1,
-                            marksman: 1, power: 2,
-                            maxInfection: 2,
-                            stamina: 6,
-                            deathFunction: DeathFunctions.zombieDeath)
+                            ch: 'H', name: NameGen.gener(), color: SColor.WHITE_MOUSE, blocks: true,
+                            priority: 120, faction: Faction.human,
+                            ai: new AdvancedStats(),
+                            inventory: new Inventory(),
+                            fighter: new Fighter(hp: 6, defense: 1,
+                                    marksman: 1, power: 2,
+                                    maxInfection: 2,
+                                    stamina: 6,
+                                    deathFunction: DeathFunctions.zombieDeath)
 
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
-                        ch: 'H', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
-                        priority: 120, faction: Faction.human,
-                        ai: new AdvancedStats(),
-                        inventory: new Inventory(),
-                        fighter: new Fighter(hp: 6, defense: 1,
-                            marksman: 3, power: 2,
-                            maxInfection: 3,
-                            stamina: 6,
-                            deathFunction: DeathFunctions.zombieDeath)
+                            ch: 'H', name: NameGen.gener(), color: SColor.WHITE, blocks: true,
+                            priority: 120, faction: Faction.human,
+                            ai: new AdvancedStats(),
+                            inventory: new Inventory(),
+                            fighter: new Fighter(hp: 6, defense: 1,
+                                    marksman: 3, power: 2,
+                                    maxInfection: 3,
+                                    stamina: 6,
+                                    deathFunction: DeathFunctions.zombieDeath)
 
 
                     )
@@ -250,39 +250,39 @@ class CityMapGenerator implements MapGenerator {
                 int d100 = MatUtils.getIntInRange(0, 100)
                 if (d100 < 70) {
                     new Entity(map: map, x: x, y: y,
-                        ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
-                        priority: 120, faction: Faction.zombie,
-                        ai: new BasicZombie(),
-                        fighter: new Fighter(hp: 6, defense: 1,
-                            marksman: 0, power: 2,
-                            maxInfection: 3,
-                            infection: 3,
-                            deathFunction: DeathFunctions.zombieDeath)
+                            ch: 'z', name: 'Zombie', color: SColor.SEA_GREEN, blocks: true,
+                            priority: 120, faction: Faction.zombie,
+                            ai: new BasicZombie(),
+                            fighter: new Fighter(hp: 6, defense: 1,
+                                    marksman: 0, power: 2,
+                                    maxInfection: 3,
+                                    infection: 3,
+                                    deathFunction: DeathFunctions.zombieDeath)
                     )
                 } else if (d100 < 90) {
 
                     new Entity(map: map, x: x, y: y,
-                        ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
-                        priority: 120, faction: Faction.zombie,
-                        ai: new BasicZombie(),
-                        fighter: new Fighter(hp: 10, defense: 1,
-                            marksman: 0, power: 3,
-                            maxInfection: 3,
-                            infection: 3,
-                            deathFunction: DeathFunctions.zombieDeath)
+                            ch: 'Z', name: 'Large Zombie', color: SColor.LAWN_GREEN, blocks: true,
+                            priority: 120, faction: Faction.zombie,
+                            ai: new BasicZombie(),
+                            fighter: new Fighter(hp: 10, defense: 1,
+                                    marksman: 0, power: 3,
+                                    maxInfection: 3,
+                                    infection: 3,
+                                    deathFunction: DeathFunctions.zombieDeath)
 
                     )
                 } else {
 
                     new Entity(map: map, x: x, y: y,
-                        ch: 'f', name: 'Fast Zombie', color: SColor.DARK_PASTEL_GREEN, blocks: true,
-                        priority: 120, faction: Faction.zombie,
-                        ai: new BasicZombie(),
-                        fighter: new Fighter(hp: 8, defense: 2,
-                            marksman: 0, power: 3,
-                            maxInfection: 3,
-                            infection: 3,
-                            deathFunction: DeathFunctions.zombieDeath),
+                            ch: 'f', name: 'Fast Zombie', color: SColor.DARK_PASTEL_GREEN, blocks: true,
+                            priority: 120, faction: Faction.zombie,
+                            ai: new BasicZombie(),
+                            fighter: new Fighter(hp: 8, defense: 2,
+                                    marksman: 0, power: 3,
+                                    maxInfection: 3,
+                                    infection: 3,
+                                    deathFunction: DeathFunctions.zombieDeath),
 
                     )
                 }
@@ -343,10 +343,10 @@ class CityMapGenerator implements MapGenerator {
 
 
                         Rect rect = new Rect(
-                            Math.min(offsetX, offsetX + (size * xMod)),
-                            Math.min(offsetY, offsetY + (size * yMod)),
-                            Math.max(offsetX, offsetX + (size * xMod)),
-                            Math.max(offsetY, offsetY + (size * yMod)))
+                                Math.min(offsetX, offsetX + (size * xMod)),
+                                Math.min(offsetY, offsetY + (size * yMod)),
+                                Math.max(offsetX, offsetX + (size * xMod)),
+                                Math.max(offsetY, offsetY + (size * yMod)))
                         lots.add rect
                     }
                 }

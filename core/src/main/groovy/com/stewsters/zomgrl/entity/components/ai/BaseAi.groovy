@@ -28,7 +28,7 @@ abstract class BaseAi {
 
         return owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY).findAll { Entity entity ->
             entity.fighter && owner.owner.faction.hates(entity.faction) &&
-                owner.owner.distanceTo(entity) < maxDistance
+                    owner.owner.distanceTo(entity) < maxDistance
         }
 
     }
@@ -111,8 +111,8 @@ abstract class BaseAi {
         for (Entity entity : owner.levelMap.getEntitiesBetween(lowX, lowY, highX, highY)) {
 
             if (entity.x > lowX && entity.x < highX &&
-                entity.y > lowY && entity.y < highY &&
-                entity.itemComponent) {
+                    entity.y > lowY && entity.y < highY &&
+                    entity.itemComponent) {
                 int lightX = entity.x - lowX
                 int lightY = entity.y - lowY
                 if (light[lightX][lightY] > 0f) {
@@ -146,7 +146,7 @@ abstract class BaseAi {
                 int originalY = y + worldLowY
 
                 if (originalX >= 0 && originalX < owner.levelMap.ground.length
-                    && originalY >= 0 && originalY < owner.levelMap.ground[0].length) {
+                        && originalY >= 0 && originalY < owner.levelMap.ground[0].length) {
                     resistances[x][y] = owner.levelMap.ground[originalX][originalY].opacity;
                 } else {
                     resistances[x][y] = 1f

@@ -1,6 +1,6 @@
 package com.stewsters.test
 
-import com.stewsters.util.MathUtils
+import com.stewsters.util.math.MatUtils
 
 class MathUtilsTest extends GroovyTestCase {
 
@@ -8,20 +8,16 @@ class MathUtilsTest extends GroovyTestCase {
     void testRandomNumbers() {
         def numbers = []
 
-        1000.times {
-            numbers.add MathUtils.getIntInRange(1, 3)
+        100.times {
+            numbers.add MatUtils.getIntInRange(1, 3)
         }
 
         assert 3 == numbers.max()
         assert 1 == numbers.min()
 
-
-        assert MathUtils.getIntInRange(1, 1) == 1
-
-
+        assert MatUtils.getIntInRange(1, 1) == 1
 
         println "Finished without asserting"
     }
-
 
 }
